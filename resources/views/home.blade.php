@@ -25,150 +25,38 @@
 <body class="bg-white text-[#151442]">
 
 
-<header
-    class="
-        sticky top-0 z-50
-        border-b border-gray-200
-        bg-white
-    "
->
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-4 lg:px-10">
 
-    <div
-        class="
-            mx-auto flex max-w-[1500px]
-            items-center
-            justify-between
-            px-6 py-5
-            lg:px-10
-        "
-    >
-
-        <!-- LOGO -->
-
-        <a
-            href="{{ route('home') }}"
-            class="flex items-center gap-3"
-        >
-
-            <div
-                class="
-                    flex h-12 w-12
-                    items-end justify-center
-                    gap-1
-                    rounded-full
-                    bg-[#151442]
-                    pb-2
-                "
-            >
-
-                <span
-                    class="h-4 w-1.5 rounded bg-white"
-                ></span>
-
-                <span
-                    class="h-7 w-1.5 rounded bg-white"
-                ></span>
-
-                <span
-                    class="h-5 w-1.5 rounded bg-white"
-                ></span>
-
-            </div>
-
-
-            <div
-                class="
-                    text-xl font-extrabold
-                    leading-[.8]
-                "
-            >
-
-                Nemu<br>
-                Kerja<span class="text-[#ef9d00]">!</span>
-
-            </div>
-
+        <!-- LOGO (logonya.png) -->
+        <a href="{{ route('home') }}" class="flex items-center">
+            <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
         </a>
 
-
         <!-- NAVIGATION -->
-
-        <nav
-            class="
-                hidden items-center
-                gap-12
-                lg:flex
-            "
-        >
-
-            <a
-                href="#"
-                class="font-bold"
-            >
-                Beranda
-            </a>
-
-            <a href="#lowongan">
-                Lowongan
-            </a>
-
-            <a href="#perusahaan">
-                Perusahaan
-            </a>
-
-            <a href="#tips">
-                Tips Karir
-            </a>
-
+        <nav class="hidden items-center gap-12 lg:flex">
+            <a href="#" class="font-bold text-[#151442]">Beranda</a>
+            <a href="#lowongan" class="text-gray-600 hover:text-[#151442]">Lowongan</a>
+            <a href="#perusahaan" class="text-gray-600 hover:text-[#151442]">Perusahaan</a>
+            <a href="#tips" class="text-gray-600 hover:text-[#151442]">Tips Karir</a>
         </nav>
 
-
-        <!-- BUTTON -->
-
-        <div
-            class="flex items-center gap-3"
-        >
-
-            <a
-                href="#"
-                class="
-                    rounded-full
-                    border border-[#151442]
-                    px-6 py-2
-                    text-sm font-semibold
-                "
-            >
+        <!-- BUTTONS & PANDA ICON -->
+        <div class="flex items-center gap-3">
+            <a href="#" class="rounded-full border border-[#151442] px-6 py-1.5 text-sm font-semibold text-[#151442]">
                 Masuk
             </a>
-
-
-            <a
-                href="#"
-                class="
-                    rounded-full
-                    bg-[#151442]
-                    px-6 py-2
-                    text-sm font-semibold
-                    text-white
-                "
-            >
+            <a href="#" class="rounded-full bg-[#151442] px-6 py-1.5 text-sm font-semibold text-white">
                 Daftar
             </a>
-
-
-            <button
-                class="
-                    hidden text-3xl
-                    lg:block
-                "
-            >
-                ◉ᴥ◉
-            </button>
-
+            
+            <!-- GAMBAR PANDA PALING KANAN -->
+            <a href="#" class="ml-1 flex items-center">
+                <img src="{{ asset('images/pandanya.png') }}" alt="Panda Profile" class="h-9 w-auto object-contain">
+            </a>
         </div>
 
     </div>
-
 </header>
 
 
@@ -374,40 +262,19 @@
                 >
 
                     @foreach($categories as $category)
-
-                        <button
-                            class="
-                                category-btn
-                                flex h-28
-                                flex-col
-                                items-center
-                                justify-center
-                                gap-3
-                                rounded-xl
-                                bg-white
-                                shadow-lg
-                                transition
-                                hover:-translate-y-1
-                            "
-
-                            data-category="{{ $category['name'] }}"
-                        >
-
-                            <span
-                                class="text-3xl"
-                            >
-                                {{ $category['icon'] }}
-                            </span>
-
-                            <span
-                                class="text-xs"
-                            >
-                                {{ $category['name'] }}
-                            </span>
-
-                        </button>
-
-                    @endforeach
+    <button
+        type="button"
+        class="category-btn flex h-28 flex-col items-center justify-center gap-3 rounded-xl bg-white shadow-lg transition hover:-translate-y-1"
+        data-category="{{ $category['name'] }}"
+    >
+        <img 
+            src="{{ asset('images/' . $category['icon']) }}" 
+            alt="{{ $category['name'] }}" 
+            class="h-10 w-10 object-contain"
+        >
+        <span class="text-xs">{{ $category['name'] }}</span>
+    </button>
+@endforeach
 
                 </div>
 
@@ -418,158 +285,13 @@
 
 
         <!-- RIGHT HERO -->
-
-        <div
-            class="
-                relative
-                hidden
-                h-[540px]
-                lg:block
-            "
-        >
-
-            <!-- DOCUMENT 1 -->
-
-            <div
-                class="
-                    absolute left-10 top-20
-                    h-60 w-44
-                    rotate-[-7deg]
-                    bg-[#19b8e8]
-                    p-5
-                    text-white
-                    shadow-xl
-                "
-            >
-
-                <p
-                    class="
-                        text-xl
-                        font-extrabold
-                    "
-                >
-                    Dokumentasi
-                </p>
-
-                <p
-                    class="
-                        text-xl
-                        font-extrabold
-                    "
-                >
-                    Webinar
-                </p>
-
-                <div
-                    class="
-                        mt-10
-                        h-20
-                        rounded
-                        bg-white/30
-                    "
-                ></div>
-
-            </div>
-
-
-            <!-- DOCUMENT 2 -->
-
-            <div
-                class="
-                    absolute right-0 top-24
-                    h-60 w-48
-                    rotate-[7deg]
-                    bg-[#216fe5]
-                    p-5
-                    text-white
-                    shadow-xl
-                "
-            >
-
-                <p
-                    class="
-                        text-lg
-                        font-extrabold
-                    "
-                >
-                    Webinar Navigation
-                </p>
-
-                <p
-                    class="mt-2 text-sm"
-                >
-                    Future Development
-                </p>
-
-            </div>
-
-
-            <!-- PERSON PLACEHOLDER -->
-
-            <div
-                class="
-                    absolute bottom-0 left-1/2
-                    h-[440px] w-[300px]
-                    -translate-x-1/2
-                "
-            >
-
-                <div
-                    class="
-                        absolute left-20 top-0
-                        h-24 w-40
-                        rounded-t-full
-                        bg-gray-100
-                        shadow-lg
-                    "
-                ></div>
-
-
-                <div
-                    class="
-                        absolute left-[90px] top-16
-                        h-36 w-28
-                        rounded-[50%]
-                        bg-[#b97850]
-                    "
-                ></div>
-
-
-                <div
-                    class="
-                        absolute left-10 top-48
-                        h-64 w-56
-                        rounded-t-[60px]
-                        bg-[#a94f25]
-                    "
-                ></div>
-
-
-                <div
-                    class="
-                        absolute left-7 top-60
-                        h-32 w-64
-                        rounded-lg
-                        border-8 border-gray-500
-                        bg-gray-300
-                        shadow-xl
-                    "
-                >
-
-                    <div
-                        class="
-                            absolute inset-3
-                            bg-gray-100
-                        "
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="relative hidden h-full w-full items-center justify-center lg:flex">
+    <img 
+        src="{{ asset('images/Group 163.png') }}" 
+        alt="Hero Image" 
+        class="h-auto max-h-[1000px] w-full max-w-[1000px] object-contain"
+    >
+</div>
 
 </section>
 
@@ -1009,234 +731,68 @@
      FOOTER
 ===================================================== -->
 
-<footer
-    id="perusahaan"
-    class="
-        relative
-        bg-[#151442]
-        text-white
-    "
->
+<!-- FOOTER -->
+<footer id="perusahaan" class="relative bg-[#151442] text-white">
 
-    <div
-        class="
-            mx-auto grid
-            max-w-[1300px]
-            grid-cols-1
-            gap-10
-            px-8
-            py-16
-            sm:grid-cols-2
-            lg:grid-cols-4
-        "
-    >
+    <!-- PANDA MASCOT (Paling Kanan Atas Footer) -->
+    <div class="absolute -top-13 right-4 lg:right-8 z-10">
+        <img 
+            src="{{ asset('images/Panda.png') }}" 
+            alt="Panda Mascot" 
+            class="h-14 w-auto object-contain lg:h-16"
+        >
+    </div>
 
-        <!-- BRAND -->
+    <!-- GRID 4 KOLOM -->
+    <div class="mx-auto grid max-w-[1300px] grid-cols-1 gap-10 px-8 py-16 sm:grid-cols-2 lg:grid-cols-4">
 
+        <!-- KOLOM 1: LOGO PUTIH & SLOGAN -->
         <div>
+    <a href="{{ route('home') }}" class="inline-block mt-3 lg:mt-4">
+        <img 
+            src="{{ asset('images/logo putih.png') }}" 
+            alt="Nemu Kerja!" 
+            class="h-16 w-auto object-contain lg:h-20"
+        >
+    </a>
+    <p class="mt-4 text-xs text-gray-300">
+        “Solusi cepat temukan pekerjaan paling tepat.”
+    </p>
+</div>
 
-            <h2
-                class="
-                    text-4xl
-                    font-black
-                    leading-[.8]
-                "
-            >
-                Nemu<br>
-                Kerja<span class="text-[#ef9d00]">!</span>
-            </h2>
-
-
-            <p
-                class="
-                    mt-8
-                    text-xs
-                    text-gray-300
-                "
-            >
-                “Solusi cepat temukan
-                pekerjaan paling tepat.”
-            </p>
-
+        <!-- KOLOM 2: NAVIGASI CEPAT -->
+        <div>
+            <h3 class="mb-5 font-bold">Navigasi Cepat</h3>
+            <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">Home</a>
+            <a href="#lowongan" class="mb-2 block text-sm text-gray-300 hover:text-white">Lowongan</a>
+            <a href="#perusahaan" class="mb-2 block text-sm text-gray-300 hover:text-white">Perusahaan</a>
+            <a href="#tips" class="mb-2 block text-sm text-gray-300 hover:text-white">Tips Karir</a>
         </div>
 
-
-        <!-- NAVIGATION -->
-
+        <!-- KOLOM 3: PERUSAHAAN -->
         <div>
-
-            <h3
-                class="
-                    mb-5
-                    font-bold
-                "
-            >
-                Navigasi Cepat
-            </h3>
-
-
-            <a
-                href="#"
-                class="mb-2 block text-sm"
-            >
-                Home
-            </a>
-
-            <a
-                href="#lowongan"
-                class="mb-2 block text-sm"
-            >
-                Lowongan
-            </a>
-
-            <a
-                href="#perusahaan"
-                class="mb-2 block text-sm"
-            >
-                Perusahaan
-            </a>
-
-            <a
-                href="#tips"
-                class="mb-2 block text-sm"
-            >
-                Tips Karir
-            </a>
-
+            <h3 class="mb-5 font-bold">Perusahaan</h3>
+            <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">NemuKerja</a>
+            <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">NemuKerja Digital</a>
         </div>
 
-
-        <!-- COMPANY -->
-
+        <!-- KOLOM 4: SOSIAL MEDIA -->
         <div>
-
-            <h3
-                class="
-                    mb-5
-                    font-bold
-                "
-            >
-                Perusahaan
-            </h3>
-
-
-            <a
-                href="#"
-                class="mb-2 block text-sm"
-            >
-                NemuKerja
-            </a>
-
-
-            <a
-                href="#"
-                class="mb-2 block text-sm"
-            >
-                NemuKerja Digital
-            </a>
-
-        </div>
-
-
-        <!-- SOCIAL -->
-
-        <div>
-
-            <h3
-                class="
-                    mb-5
-                    font-bold
-                "
-            >
-                Sosial Media
-            </h3>
-
-
+            <h3 class="mb-5 font-bold">Sosial Media</h3>
             <div class="flex gap-3">
-
-                <a
-                    href="#"
-                    class="
-                        flex h-8 w-8
-                        items-center
-                        justify-center
-                        rounded-lg
-                        border
-                        border-white
-                    "
-                >
-                    ◎
-                </a>
-
-
-                <a
-                    href="#"
-                    class="
-                        flex h-8 w-8
-                        items-center
-                        justify-center
-                        rounded-lg
-                        border
-                        border-white
-                    "
-                >
-                    f
-                </a>
-
-
-                <a
-                    href="#"
-                    class="
-                        flex h-8 w-8
-                        items-center
-                        justify-center
-                        rounded-lg
-                        border
-                        border-white
-                    "
-                >
-                    ◔
-                </a>
-
-
-                <a
-                    href="#"
-                    class="
-                        flex h-8 w-8
-                        items-center
-                        justify-center
-                        rounded-lg
-                        border
-                        border-white
-                    "
-                >
-                    @
-                </a>
-
+                <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">◎</a>
+                <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">f</a>
+                <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">◔</a>
+                <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">@</a>
             </div>
-
         </div>
 
     </div>
-
 
     <!-- COPYRIGHT -->
-
-    <div
-        class="
-            flex h-8
-            items-center
-            justify-center
-            bg-[#ef9d00]
-            text-[10px]
-        "
-    >
-
-        © {{ date('Y') }}
-        NemuKerja. All Rights Reserved.
-
+    <div class="flex h-8 items-center justify-center bg-[#ef9d00] text-[10px] font-semibold text-[#ffffff]">
+        © {{ date('Y') }} NemuKerja. All Rights Reserved.
     </div>
-
 </footer>
 
 </body>

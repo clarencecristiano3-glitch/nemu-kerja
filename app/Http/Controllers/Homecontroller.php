@@ -9,19 +9,19 @@ class HomeController extends Controller
         $categories = [
             [
                 'name' => 'Web Developer',
-                'icon' => '💻'
+                'icon' => 'web developer.png'
             ],
             [
                 'name' => 'Design UI/UX',
-                'icon' => '✒'
+                'icon' => 'Design.png'
             ],
             [
                 'name' => 'Data Analytic',
-                'icon' => '🗄'
+                'icon' => 'majesticons_data.png'
             ],
             [
                 'name' => 'Digital Marketing',
-                'icon' => '📊'
+                'icon' => 'icon-park-solid_stock-market.png'
             ],
         ];
 
@@ -37,7 +37,6 @@ class HomeController extends Controller
                 'logo' => 'ΣSIGMA',
                 'logoClass' => 'text-blue-900'
             ],
-
             [
                 'company' => "McDonald's Pontianak",
                 'position' => 'Kasir',
@@ -49,7 +48,6 @@ class HomeController extends Controller
                 'logo' => 'M',
                 'logoClass' => 'text-red-600'
             ],
-
             [
                 'company' => "Hotway's - Part time",
                 'position' => 'Pelayan',
@@ -61,7 +59,6 @@ class HomeController extends Controller
                 'logo' => "HOTWAY'S",
                 'logoClass' => 'text-white'
             ],
-
             [
                 'company' => 'Ayam Budi',
                 'position' => 'Koki',
@@ -73,7 +70,6 @@ class HomeController extends Controller
                 'logo' => 'AYAM BUDI',
                 'logoClass' => 'text-white'
             ],
-
             [
                 'company' => 'PT Papasari',
                 'position' => 'Staff Listrik',
@@ -85,7 +81,6 @@ class HomeController extends Controller
                 'logo' => 'PT PAPASARI',
                 'logoClass' => 'text-blue-800'
             ],
-
             [
                 'company' => 'Teazzi Ptk - Part time',
                 'position' => 'Barista',
@@ -97,7 +92,6 @@ class HomeController extends Controller
                 'logo' => 'teazzi',
                 'logoClass' => 'text-gray-900'
             ],
-
             [
                 'company' => 'Pertamina Sur Jaw',
                 'position' => 'Operator SPBU',
@@ -109,7 +103,6 @@ class HomeController extends Controller
                 'logo' => 'PERTAMINA',
                 'logoClass' => 'text-black'
             ],
-
             [
                 'company' => 'BCA Jakarta Pusat',
                 'position' => 'Data Analisis',
@@ -123,9 +116,6 @@ class HomeController extends Controller
             ],
         ];
 
-        return view(
-            'home',
-            compact('categories', 'jobs')
-        );
+        return view('home', compact('categories', 'jobs'));
     }
 }
