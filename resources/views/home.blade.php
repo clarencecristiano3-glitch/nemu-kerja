@@ -24,7 +24,6 @@
     {{-- NAVBAR --}}
     @include('component.navbar')
 
-
     <!-- =====================================================
          HERO
     ===================================================== -->
@@ -46,10 +45,7 @@
             lg:px-10
         ">
 
-            <!-- LEFT -->
-
             <div>
-
                 <p class="
                     mb-3
                     text-xs font-bold
@@ -68,7 +64,6 @@
                 ">
                     Stop Jobless.
                     <br>
-
                     Temukan Karir
                     <span class="text-[#ef9d00]">
                         Impianmu!
@@ -88,9 +83,6 @@
                     pahlawan super.
                 </p>
 
-
-                <!-- SEARCH -->
-
                 <form
                     id="searchForm"
                     class="
@@ -104,17 +96,12 @@
                         shadow-lg
                     "
                 >
-
                     <div class="
                         flex flex-1
                         items-center gap-2
                         px-3
                     ">
-
-                        <span class="text-gray-400">
-                            ⌕
-                        </span>
-
+                        <span class="text-gray-400">⌕</span>
                         <input
                             id="keyword"
                             type="text"
@@ -126,7 +113,6 @@
                                 outline-none
                             "
                         >
-
                     </div>
 
                     <div class="
@@ -140,11 +126,7 @@
                         items-center gap-2
                         px-3
                     ">
-
-                        <span class="text-gray-400">
-                            ⌖
-                        </span>
-
+                        <span class="text-gray-400">⌖</span>
                         <input
                             id="location"
                             type="text"
@@ -156,7 +138,6 @@
                                 outline-none
                             "
                         >
-
                     </div>
 
                     <button
@@ -172,14 +153,9 @@
                     >
                         Cari
                     </button>
-
                 </form>
 
-
-                <!-- CATEGORY -->
-
                 <div class="mt-12">
-
                     <h2 class="
                         mb-5
                         text-xl
@@ -194,10 +170,9 @@
                         gap-4
                         sm:grid-cols-4
                     ">
-
                         @foreach($categories as $category)
-
                             <button
+                                type="button"
                                 class="
                                     category-btn
                                     flex h-28
@@ -213,29 +188,17 @@
                                 "
                                 data-category="{{ $category['name'] }}"
                             >
-
                                 <img
-                                    src="{{ asset($category['icon']) }}"
+                                    src="{{ asset('images/' . $category['icon']) }}"
                                     alt="{{ $category['name'] }}"
                                     class="h-10 w-10 object-contain"
                                 >
-
-                                <span class="text-xs">
-                                    {{ $category['name'] }}
-                                </span>
-
+                                <span class="text-xs">{{ $category['name'] }}</span>
                             </button>
-
                         @endforeach
-
                     </div>
-
                 </div>
-
             </div>
-
-
-            <!-- RIGHT HERO -->
 
             <div class="
                 relative
@@ -243,9 +206,6 @@
                 h-[540px]
                 lg:block
             ">
-
-                <!-- DOCUMENT 1 -->
-
                 <div class="
                     absolute left-10 top-20
                     h-60 w-44
@@ -255,26 +215,15 @@
                     text-white
                     shadow-xl
                 ">
-
-                    <p class="text-xl font-extrabold">
-                        Dokumentasi
-                    </p>
-
-                    <p class="text-xl font-extrabold">
-                        Webinar
-                    </p>
-
+                    <p class="text-xl font-extrabold">Dokumentasi</p>
+                    <p class="text-xl font-extrabold">Webinar</p>
                     <div class="
                         mt-10
                         h-20
                         rounded
                         bg-white/30
                     "></div>
-
                 </div>
-
-
-                <!-- DOCUMENT 2 -->
 
                 <div class="
                     absolute right-0 top-24
@@ -285,26 +234,15 @@
                     text-white
                     shadow-xl
                 ">
-
-                    <p class="text-lg font-extrabold">
-                        Webinar Navigation
-                    </p>
-
-                    <p class="mt-2 text-sm">
-                        Future Development
-                    </p>
-
+                    <p class="text-lg font-extrabold">Webinar Navigation</p>
+                    <p class="mt-2 text-sm">Future Development</p>
                 </div>
-
-
-                <!-- PERSON PLACEHOLDER -->
 
                 <div class="
                     absolute bottom-0 left-1/2
                     h-[440px] w-[300px]
                     -translate-x-1/2
                 ">
-
                     <div class="
                         absolute left-20 top-0
                         h-24 w-40
@@ -312,21 +250,18 @@
                         bg-gray-100
                         shadow-lg
                     "></div>
-
                     <div class="
                         absolute left-[90px] top-16
                         h-36 w-28
                         rounded-[50%]
                         bg-[#b97850]
                     "></div>
-
                     <div class="
                         absolute left-10 top-48
                         h-64 w-56
                         rounded-t-[60px]
                         bg-[#a94f25]
                     "></div>
-
                     <div class="
                         absolute left-7 top-60
                         h-32 w-64
@@ -335,22 +270,17 @@
                         bg-gray-300
                         shadow-xl
                     ">
-
                         <div class="
                             absolute inset-3
                             bg-gray-100
                         "></div>
-
                     </div>
-
                 </div>
-
             </div>
 
         </div>
 
     </section>
-
 
     <!-- =====================================================
          JOBS
@@ -366,8 +296,6 @@
             lg:px-10
         "
     >
-
-        <!-- HEADER -->
 
         <div class="
             mb-8
@@ -401,9 +329,6 @@
 
         </div>
 
-
-        <!-- FILTER -->
-
         <div
             id="filterPanel"
             class="
@@ -412,7 +337,6 @@
                 gap-2
             "
         >
-
             <button
                 class="
                     filter-btn active
@@ -434,7 +358,6 @@
                 'Teknik',
                 'Operasional'
             ] as $filter)
-
                 <button
                     class="
                         filter-btn
@@ -447,13 +370,8 @@
                 >
                     {{ $filter }}
                 </button>
-
             @endforeach
-
         </div>
-
-
-        <!-- CARDS -->
 
         <div
             id="jobGrid"
@@ -465,9 +383,7 @@
                 lg:grid-cols-4
             "
         >
-
             @foreach($jobs as $job)
-
                 <article
                     class="
                         job-card
@@ -489,9 +405,6 @@
                         $job['education']
                     ) }}"
                 >
-
-                    <!-- LOGO -->
-
                     <div class="
                         flex h-48
                         items-center
@@ -499,9 +412,7 @@
                         bg-white
                         text-center
                     ">
-
                         @if($job['company'] === "Hotway's - Part time")
-
                             <div class="
                                 flex h-full w-full
                                 items-center
@@ -516,9 +427,7 @@
                                     HOTWAY'S
                                 </span>
                             </div>
-
                         @elseif($job['company'] === 'Ayam Budi')
-
                             <div class="
                                 flex h-full w-full
                                 items-center
@@ -533,14 +442,11 @@
                                     AYAM BUDI
                                 </span>
                             </div>
-
                         @elseif($job['company'] === "McDonald's Pontianak")
-
                             <div class="
                                 flex flex-col
                                 items-center
                             ">
-
                                 <div class="
                                     flex h-24 w-24
                                     items-center
@@ -556,7 +462,6 @@
                                         M
                                     </span>
                                 </div>
-
                                 <span class="
                                     mt-3
                                     text-xl
@@ -565,11 +470,8 @@
                                 ">
                                     McDonald's
                                 </span>
-
                             </div>
-
                         @elseif($job['company'] === 'BCA Jakarta Pusat')
-
                             <span class="
                                 text-6xl
                                 font-black
@@ -577,18 +479,14 @@
                             ">
                                 BCA
                             </span>
-
                         @elseif($job['company'] === 'Pertamina Sur Jaw')
-
                             <span class="
                                 text-3xl
                                 font-black
                             ">
                                 PERTAMINA
                             </span>
-
                         @elseif($job['company'] === 'Teazzi Ptk - Part time')
-
                             <span class="
                                 font-serif
                                 text-5xl
@@ -596,9 +494,7 @@
                             ">
                                 teazzi
                             </span>
-
                         @else
-
                             <span class="
                                 text-4xl
                                 font-black
@@ -606,16 +502,10 @@
                             ">
                                 {{ $job['logo'] }}
                             </span>
-
                         @endif
-
                     </div>
 
-
-                    <!-- CONTENT -->
-
                     <div class="p-4">
-
                         <h3 class="
                             mb-3
                             text-sm
@@ -648,17 +538,10 @@
                             {{ $job['needed'] }}
                             orang di butuhkan
                         </p>
-
                     </div>
-
                 </article>
-
             @endforeach
-
         </div>
-
-
-        <!-- EMPTY -->
 
         <div
             id="empty"
@@ -668,7 +551,6 @@
                 text-center
             "
         >
-
             <h3 class="
                 text-xl
                 font-bold
@@ -683,18 +565,13 @@
             ">
                 Coba kata kunci atau kategori lain.
             </p>
-
         </div>
-
-
-        <!-- SEE MORE -->
 
         <div class="
             mt-12
             flex items-center
             gap-5
         ">
-
             <div class="
                 h-px flex-1
                 bg-gray-300
@@ -711,15 +588,8 @@
                 h-px flex-1
                 bg-gray-300
             "></div>
-
         </div>
-
     </section>
-
-
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
 
     <footer
         id="perusahaan"
@@ -729,7 +599,6 @@
             text-white
         "
     >
-
         <div class="
             mx-auto grid
             max-w-[1300px]
@@ -740,11 +609,7 @@
             sm:grid-cols-2
             lg:grid-cols-4
         ">
-
-            <!-- BRAND -->
-
             <div>
-
                 <h2 class="
                     text-4xl
                     font-black
@@ -759,17 +624,11 @@
                     text-xs
                     text-gray-300
                 ">
-                    “Solusi cepat temukan
-                    pekerjaan paling tepat.”
+                    “Solusi cepat temukan pekerjaan paling tepat.”
                 </p>
-
             </div>
 
-
-            <!-- NAVIGATION -->
-
             <div>
-
                 <h3 class="
                     mb-5
                     font-bold
@@ -777,41 +636,21 @@
                     Navigasi Cepat
                 </h3>
 
-                <a
-                    href="{{ route('home') }}"
-                    class="mb-2 block text-sm"
-                >
+                <a href="{{ route('home') }}" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     Home
                 </a>
-
-                <a
-                    href="#lowongan"
-                    class="mb-2 block text-sm"
-                >
+                <a href="#lowongan" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     Lowongan
                 </a>
-
-                <a
-                    href="#perusahaan"
-                    class="mb-2 block text-sm"
-                >
+                <a href="#perusahaan" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     Perusahaan
                 </a>
-
-                <a
-                    href="#tips"
-                    class="mb-2 block text-sm"
-                >
+                <a href="#tips" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     Tips Karir
                 </a>
-
             </div>
 
-
-            <!-- COMPANY -->
-
             <div>
-
                 <h3 class="
                     mb-5
                     font-bold
@@ -819,27 +658,15 @@
                     Perusahaan
                 </h3>
 
-                <a
-                    href="#"
-                    class="mb-2 block text-sm"
-                >
+                <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     NemuKerja
                 </a>
-
-                <a
-                    href="#"
-                    class="mb-2 block text-sm"
-                >
+                <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">
                     NemuKerja Digital
                 </a>
-
             </div>
 
-
-            <!-- SOCIAL -->
-
             <div>
-
                 <h3 class="
                     mb-5
                     font-bold
@@ -848,71 +675,41 @@
                 </h3>
 
                 <div class="flex gap-3">
-
-                    <a
-                        href="#"
-                        class="
-                            flex h-8 w-8
-                            items-center
-                            justify-center
-                            rounded-lg
-                            border
-                            border-white
-                        "
-                    >
-                        ◎
-                    </a>
-
-                    <a
-                        href="#"
-                        class="
-                            flex h-8 w-8
-                            items-center
-                            justify-center
-                            rounded-lg
-                            border
-                            border-white
-                        "
-                    >
-                        f
-                    </a>
-
-                    <a
-                        href="#"
-                        class="
-                            flex h-8 w-8
-                            items-center
-                            justify-center
-                            rounded-lg
-                            border
-                            border-white
-                        "
-                    >
-                        ◔
-                    </a>
-
-                    <a
-                        href="#"
-                        class="
-                            flex h-8 w-8
-                            items-center
-                            justify-center
-                            rounded-lg
-                            border
-                            border-white
-                        "
-                    >
-                        @
-                    </a>
-
+                    <a href="#" class="
+                        flex h-8 w-8
+                        items-center
+                        justify-center
+                        rounded-lg
+                        border
+                        border-white
+                    ">◎</a>
+                    <a href="#" class="
+                        flex h-8 w-8
+                        items-center
+                        justify-center
+                        rounded-lg
+                        border
+                        border-white
+                    ">f</a>
+                    <a href="#" class="
+                        flex h-8 w-8
+                        items-center
+                        justify-center
+                        rounded-lg
+                        border
+                        border-white
+                    ">◔</a>
+                    <a href="#" class="
+                        flex h-8 w-8
+                        items-center
+                        justify-center
+                        rounded-lg
+                        border
+                        border-white
+                    ">@</a>
                 </div>
-
             </div>
-
         </div>
-
-
-        <!-- COPYRIGHT -->
 
         <div class="
             flex h-8
@@ -920,15 +717,12 @@
             justify-center
             bg-[#ef9d00]
             text-[10px]
+            font-semibold
+            text-white
         ">
-
-            © {{ date('Y') }}
-            NemuKerja. All Rights Reserved.
-
+            © {{ date('Y') }} NemuKerja. All Rights Reserved.
         </div>
-
     </footer>
-
 
 </body>
 
