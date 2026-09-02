@@ -22,7 +22,7 @@
 <body class="bg-white text-[#151442]">
 
     {{-- NAVBAR --}}
-    @include('components.navbar')
+    @include('component.navbar')
 
 
     <!-- =====================================================
