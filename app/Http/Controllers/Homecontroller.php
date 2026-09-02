@@ -6,24 +6,24 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = [
-            [
-                'name' => 'Web Developer',
-                'icon' => '💻'
-            ],
-            [
-                'name' => 'Design UI/UX',
-                'icon' => '✒'
-            ],
-            [
-                'name' => 'Data Analytic',
-                'icon' => '🗄'
-            ],
-            [
-                'name' => 'Digital Marketing',
-                'icon' => '📊'
-            ],
-        ];
+       $categories = [
+    [
+        'name' => 'Web Developer',
+        'icon' => 'IT.png'
+    ],
+    [
+        'name' => 'Design UI/UX',
+        'icon' => 'Design.png'
+    ],
+    [
+        'name' => 'Data Analytic',
+        'icon' => 'data.png'
+    ],
+    [
+        'name' => 'Digital Marketing',
+        'icon' => 'chart.png'
+    ],
+];
 
         $jobs = [
             [
