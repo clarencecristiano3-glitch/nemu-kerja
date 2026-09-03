@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', fn () => redirect()->route('companies.index'));
+Route::get('/perusahaan', [CompanyController::class, 'index'])->name('companies.index');
