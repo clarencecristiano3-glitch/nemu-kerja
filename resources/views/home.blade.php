@@ -43,7 +43,7 @@
 
         <!-- BUTTONS & PANDA ICON -->
         <div class="flex items-center gap-3">
-            <a href="#" class="rounded-full border border-[#151442] px-6 py-1.5 text-sm font-semibold text-[#151442]">
+            <a href="/login" class="rounded-full border border-[#151442] px-6 py-1.5 text-sm font-semibold text-[#151442]">
                 Masuk
             </a>
             <a href="#" class="rounded-full bg-[#151442] px-6 py-1.5 text-sm font-semibold text-white">
@@ -52,7 +52,7 @@
             
             <!-- GAMBAR PANDA PALING KANAN -->
             <a href="#" class="ml-1 flex items-center">
-                <img src="{{ asset('images/pandanya.png') }}" alt="Panda Profile" class="h-9 w-auto object-contain">
+                <img src="{{ asset('images/panda_blue.png') }}" alt="Panda Profile" class="h-9 w-auto object-contain">
             </a>
         </div>
 
@@ -66,52 +66,20 @@
 ===================================================== -->
 
 <section
-    class="
-        overflow-hidden
-        border-b border-gray-200
-    "
->
+    class="overflow-hidden border-b border-gray-200">
 
     <div
-        class="
-            mx-auto grid
-            max-w-[1500px]
-            grid-cols-1
-            items-center
-            gap-10
-            px-6
-            py-14
-            lg:grid-cols-2
-            lg:px-10
-        "
-    >
+        class="mx-auto grid max-w-[1500px] grid-cols-1 items-center gap-10 px-6 py-14 lg:grid-cols-2 lg:px-10">
 
         <!-- LEFT -->
 
         <div>
-
-            <p
-                class="
-                    mb-3
-                    text-xs font-bold
-                    tracking-[3px]
-                    text-gray-500
-                "
-            >
+            <p class="mb-3 text-xs font-bold tracking-[3px] text-gray-500">
                 TEMUKAN PEKERJAAN TERBAIK
             </p>
 
 
-            <h1
-                class="
-                    text-5xl
-                    font-extrabold
-                    leading-[1.05]
-                    tracking-tight
-                    lg:text-6xl
-                "
-            >
-
+            <h1 class=" text-5xl font-extrabold leading-[1.05] tracking-tight lg:text-6xl">
                 Stop Jobless.
                 <br>
 
@@ -287,7 +255,7 @@
         <!-- RIGHT HERO -->
 <div class="relative hidden h-full w-full items-center justify-center lg:flex">
     <img 
-        src="{{ asset('images/Group 163.png') }}" 
+        src="{{ asset('images/orang.png') }}" 
         alt="Hero Image" 
         class="h-auto max-h-[1000px] w-full max-w-[1000px] object-contain"
     >
@@ -750,7 +718,7 @@
         <div>
     <a href="{{ route('home') }}" class="inline-block mt-3 lg:mt-4">
         <img 
-            src="{{ asset('images/logo putih.png') }}" 
+            src="{{ asset('/public/images/panda_blue_with_hand.png') }}" 
             alt="Nemu Kerja!" 
             class="h-16 w-auto object-contain lg:h-20"
         >

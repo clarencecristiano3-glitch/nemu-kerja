@@ -9,19 +9,19 @@ class HomeController extends Controller
         $categories = [
             [
                 'name' => 'Web Developer',
-                'icon' => 'web developer.png'
+                'icon' => 'web_developer.png'
             ],
             [
                 'name' => 'Design UI/UX',
-                'icon' => 'Design.png'
+                'icon' => 'design.png'
             ],
             [
                 'name' => 'Data Analytic',
-                'icon' => 'majesticons_data.png'
+                'icon' => 'data_analytic.png'
             ],
             [
                 'name' => 'Digital Marketing',
-                'icon' => 'icon-park-solid_stock-market.png'
+                'icon' => 'stock.png'
             ],
         ];
 
