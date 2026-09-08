@@ -46,7 +46,7 @@
             <a href="/login" class="rounded-full border border-[#151442] px-6 py-1.5 text-sm font-semibold text-[#151442]">
                 Masuk
             </a>
-            <a href="#" class="rounded-full bg-[#151442] px-6 py-1.5 text-sm font-semibold text-white">
+            <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-6 py-1.5 text-sm font-semibold text-white">
                 Daftar
             </a>
             
