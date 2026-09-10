@@ -10,11 +10,14 @@
 
 <body class="bg-white font-sans antialiased">
 
-    <div class="min-h-screen">
-        @include('layouts.navbar')
+    <div class="flex min-h-screen flex-col justify-between p-6 sm:p-10">
+        
+        <!-- LOGO (logonya.png) -->
+        <a href="{{ route('login') }}" class="flex items-center">
+            <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
+        </a>
 
-        <div class="flex min-h-[calc(100vh-61px)] flex-col justify-between p-6 sm:p-10">
-
+        <!-- Container Utama (Dipersonalisasi ukurannya agar tidak terlalu renggang) -->
         <div class="mx-auto my-auto grid w-full max-w-5xl grid-cols-1 items-center gap-8 py-6 lg:grid-cols-12">
 
             <div class="w-full max-w-md lg:col-span-6">
@@ -25,14 +28,24 @@
                     Masuk sekarang, jemput karier impianmu hari ini!
                 </p>
 
-                <form action="{{ route('login') }}" method="POST" class="mt-8 space-y-5">
+                {{-- Notifikasi Error Jika Login Gagal --}}
+                @if ($errors->any())
+                    <div class="mt-4 rounded-lg bg-red-50 p-3 text-xs text-red-600 border border-red-200">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
+                <form action="{{ route('login') }}" method="POST" class="mt-6 space-y-5">
                     @csrf
 
                     <div>
                         <label for="username" class="mb-1.5 ml-1 block text-xs font-medium text-gray-600">
                             Username
                         </label>
-                        <input type="text" name="username" id="username"
+                        <input 
+                            type="text" 
+                            name="username" 
+                            id="username" 
                             class="w-full rounded-full border border-gray-200 bg-white px-5 py-3 text-sm text-gray-800 shadow-sm transition focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
                             required>
                     </div>
@@ -55,17 +68,35 @@
                 </form>
             </div>
 
-            <div class="relative hidden justify-end lg:col-span-6 lg:flex">
-                <div class="relative h-[480px] w-[320px] translate-x-20 -translate-y-6">
-                    <div class="relative hidden justify-end lg:col-span-6 lg:flex">
-                        <div class="relative h-[480px] w-[320px]">
-                            <div class="absolute inset-0 overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl">
-                                <div class="absolute -bottom-10 -left-16 h-80 w-80 rounded-full bg-[#ffb800]"></div>
-                            </div>
-                            <img src="{{ asset('images/robot.png') }}" alt="Rocket Mascot"
-                                class="pointer-events-none absolute -left-[360px] top-1/2 z-20 w-[640px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl">
-                        </div>
-                    </div>
+          <!-- KOLOM KANAN: Kartu & Maskot 3D -->
+<div class="relative hidden justify-end lg:col-span-6 lg:flex">
+    <!-- -translate-y-6 menaikkan kartu ke atas, translate-x-20 menggeser ke kanan -->
+    <div class="relative h-[480px] w-[320px] translate-x-20 -translate-y-6">
+        
+        <!-- KOLOM KANAN: Kartu & Maskot 3D -->
+<div class="relative hidden justify-end lg:col-span-6 lg:flex">
+    <!-- Kotak biru (backdrop) diatur ukurannya -->
+    <div class="relative h-[480px] w-[320px]">
+        
+        <!-- 1. Kartu Biru Gelap + Lingkaran Kuning -->
+        <div class="absolute inset-0 overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl">
+            <!-- Lingkaran Kuning Latar Maskot -->
+            <div class="absolute -bottom-10 -left-16 h-80 w-80 rounded-full bg-[#ffb800]"></div>
+        </div>
+        
+        <!-- 2. Gambar Maskot Roket (Lebih Besar dan Lebih Offset) -->
+        <!-- Penjelasan Perubahan:
+             - `-left-[360px]` menonjolkan robot lebih jauh ke kiri.
+             - `w-[640px]` memperbesar ukuran total robot dan roket secara signifikan.
+             - `max-w-none` memastikan ukuran tidak dibatasi oleh grid container.
+        -->
+        <img 
+            src="{{ asset('images/robot.png') }}" 
+            alt="Rocket Mascot" 
+            class="pointer-events-none absolute -left-[360px] top-1/2 z-20 w-[640px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl"
+        >
+    </div>
+</div>
 
                     <!-- Spacer Bawah -->
                     <div class="hidden lg:block"></div>
