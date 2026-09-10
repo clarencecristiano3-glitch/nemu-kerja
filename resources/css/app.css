@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+    --color-nemu: #151442;
+    --color-orange: #ef9d00;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+a {
+    transition: all .2s ease;
+}
