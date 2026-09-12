@@ -10,11 +10,10 @@
 
 <body class="bg-white font-sans antialiased">
 
-    <div class="flex min-h-screen flex-col justify-between p-6 sm:p-10">
+    <div class="min-h-screen">
+        @include('layouts.navbar')
 
-        <a href="{{ route('login') }}" class="flex items-center">
-            <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
-        </a>
+        <div class="flex min-h-[calc(100vh-61px)] flex-col justify-between p-6 sm:p-10">
 
         <div class="mx-auto my-auto grid w-full max-w-5xl grid-cols-1 items-center gap-8 py-6 lg:grid-cols-12">
 
@@ -71,6 +70,8 @@
                     <!-- Spacer Bawah -->
                     <div class="hidden lg:block"></div>
                 </div>
+        </div>
+    </div>
 
 </body>
 

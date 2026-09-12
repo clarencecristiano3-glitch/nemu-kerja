@@ -9,24 +9,7 @@
 </head>
 
 <body class="bg-white text-[#151442] antialiased">
-    <header class="border-b border-gray-200 bg-white">
-        <div class="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-3 lg:px-10">
-            <a href="{{ route('home') }}" class="flex items-center">
-                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-9 w-auto">
-            </a>
-            <nav class="hidden items-center gap-10 text-xs font-medium lg:flex">
-                <a href="{{ route('home') }}" class="hover:text-[#ef9d00]">Beranda</a>
-                <a href="{{ route('home') }}#lowongan" class="hover:text-[#ef9d00]">Lowongan</a>
-                <a href="{{ route('companies.index') }}" class="hover:text-[#ef9d00]">Perusahaan</a>
-                <a href="#" class="hover:text-[#ef9d00]">Tips Karir</a>
-            </nav>
-            <div class="flex items-center gap-2">
-                <a href="{{ route('login') }}" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Masuk</a>
-                <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Daftar</a>
-                <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" class="ml-1 h-8 w-auto">
-            </div>
-        </div>
-    </header>
+    @include('layouts.navbar')
 
     <main class="mx-auto max-w-[1360px] px-5 py-10 lg:px-14 lg:py-12">
         <section class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">

@@ -9,10 +9,10 @@
 </head>
 
 <body class="bg-white font-sans antialiased">
-	<div class="flex min-h-screen flex-col justify-between p-6 sm:p-10">
-		<a href="{{ route('home') }}" class="flex items-center">
-			<img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
-		</a>
+	<div class="min-h-screen">
+		@include('layouts.navbar')
+
+		<div class="flex min-h-[calc(100vh-61px)] flex-col justify-between p-6 sm:p-10">
 
 		<main class="mx-auto my-auto grid w-full max-w-5xl grid-cols-1 items-center gap-8 py-6 lg:grid-cols-12">
 			<div class="w-full max-w-md lg:col-span-6">
@@ -88,6 +88,7 @@
 				</div>
 			</div>
 		</main>
+		</div>
 	</div>
 </body>
 

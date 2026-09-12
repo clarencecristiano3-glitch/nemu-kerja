@@ -9,26 +9,77 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/company.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .company-card {
+            min-height: 225px;
+            padding: 28px 30px 26px;
+        }
+
+        .company-info {
+            gap: 24px;
+        }
+
+        .logo-box {
+            width: 104px;
+            height: 104px;
+        }
+
+        .logo-box img {
+            max-width: 84px;
+            max-height: 84px;
+        }
+
+        .company-copy .region {
+            font-size: 13px;
+        }
+
+        .company-copy h2 {
+            font-size: 26px;
+        }
+
+        .company-copy dl {
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .check-company {
+            padding: 11px 24px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 680px) {
+            .company-card {
+                min-height: 210px;
+                padding: 22px;
+            }
+
+            .company-info {
+                gap: 18px;
+            }
+
+            .logo-box {
+                width: 88px;
+                height: 88px;
+            }
+
+            .logo-box img {
+                max-width: 70px;
+                max-height: 70px;
+            }
+
+            .company-copy h2 {
+                font-size: 22px;
+            }
+
+            .company-copy dl {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="nav-wrap">
-            <a class="brand" href="{{ route('home') }}" aria-label="Nemu Kerja">
-                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" height="30">
-            </a>
-            <nav class="nav-links" aria-label="Navigasi utama">
-                <a href="{{ route('home') }}">Beranda</a>
-                <a href="{{ route('home') }}#lowongan">Lowongan</a>
-                <a class="active" href="{{ route('companies.index') }}">Perusahaan</a>
-                <a href="#">Tips Karir</a>
-            </nav>
-            <div class="nav-actions">
-                <a class="btn btn-login" href="{{ route('login') }}">Masuk</a>
-                <a class="btn btn-register" href="{{ route('register') }}">Daftar</a>
-                <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" width="26" height="26">
-            </div>
-        </div>
-    </header>
+    @include('layouts.navbar')
 
     <main class="companies-page">
         <div class="hero">

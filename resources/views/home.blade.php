@@ -22,38 +22,7 @@
 <body class="bg-white text-[#151442]">
 
 
-    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
-        <div class="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-4 lg:px-10">
-
-            <a href="{{ route('home') }}" class="flex items-center">
-                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
-            </a>
-
-            <nav class="hidden items-center gap-12 lg:flex">
-                <a href="#" class="font-bold text-[#151442]">Beranda</a>
-                <a href="#lowongan" class="text-gray-600 hover:text-[#151442]">Lowongan</a>
-                <a href="{{ route('companies.index') }}" class="text-gray-600 hover:text-[#151442]">Perusahaan</a>
-                <a href="#tips" class="text-gray-600 hover:text-[#151442]">Tips Karir</a>
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <a href="/login"
-                    class="rounded-full border border-[#151442] px-6 py-1.5 text-sm font-semibold text-[#151442]">
-                    Masuk
-                </a>
-                <a href="{{ route('register') }}"
-                    class="rounded-full bg-[#151442] px-6 py-1.5 text-sm font-semibold text-white">
-                    Daftar
-                </a>
-
-                <a href="#" class="ml-1 flex items-center">
-                    <img src="{{ asset('images/panda_blue.png') }}" alt="Panda Profile"
-                        class="h-9 w-auto object-contain">
-                </a>
-            </div>
-
-        </div>
-    </header>
+    @include('layouts.navbar')
 
     <section class="overflow-hidden border-b border-gray-200">
 
