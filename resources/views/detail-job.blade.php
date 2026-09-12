@@ -72,6 +72,7 @@
                     <li>Membantu proses penerimaan stok bahan baku dan pengecekan inventoris harian.</li>
                 </ul>
             </article>
+
             <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
                 <h2 class="text-base font-extrabold">Kualifikasi</h2>
                 <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
@@ -82,6 +83,7 @@
                     <li>Bersedia bekerja dengan sistem shift, termasuk pada akhir pekan (weekend) atau hari libur nasional.</li>
                 </ul>
             </article>
+
             <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
                 <h2 class="text-base font-extrabold">Jadwal Kerja</h2>
                 <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
@@ -95,6 +97,7 @@
                     <li>Frekuensi: 4-5 hari kerja per minggu (fleksibel disesuaikan dengan jadwal kuliah/sekolah).</li>
                 </ul>
             </article>
+            
             <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
                 <h2 class="text-base font-extrabold">Gaji &amp; Benefit</h2>
                 <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
