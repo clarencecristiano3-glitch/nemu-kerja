@@ -32,7 +32,7 @@
             <nav class="hidden items-center gap-12 lg:flex">
                 <a href="#" class="font-bold text-[#151442]">Beranda</a>
                 <a href="#lowongan" class="text-gray-600 hover:text-[#151442]">Lowongan</a>
-                <a href="#perusahaan" class="text-gray-600 hover:text-[#151442]">Perusahaan</a>
+                <a href="{{ route('companies.index') }}" class="text-gray-600 hover:text-[#151442]">Perusahaan</a>
                 <a href="#tips" class="text-gray-600 hover:text-[#151442]">Tips Karir</a>
             </nav>
 

@@ -19,6 +19,6 @@ class CompanyController extends Controller
             ['name' => 'Chikuro', 'region' => 'Indonesia', 'outlets' => 90, 'owner' => 'PT Chikuro Indoneisa Global', 'logo' => 'chikuro.png'],
         ];
 
-        return view('company.index', compact('companies'));
+        return view('company-list', compact('companies'));
     }
 }

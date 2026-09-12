@@ -17,7 +17,7 @@
             <nav class="hidden items-center gap-10 text-xs font-medium lg:flex">
                 <a href="{{ route('home') }}" class="hover:text-[#ef9d00]">Beranda</a>
                 <a href="{{ route('home') }}#lowongan" class="hover:text-[#ef9d00]">Lowongan</a>
-                <a href="{{ route('home') }}#perusahaan" class="hover:text-[#ef9d00]">Perusahaan</a>
+                <a href="{{ route('companies.index') }}" class="hover:text-[#ef9d00]">Perusahaan</a>
                 <a href="#" class="hover:text-[#ef9d00]">Tips Karir</a>
             </nav>
             <div class="flex items-center gap-2">
