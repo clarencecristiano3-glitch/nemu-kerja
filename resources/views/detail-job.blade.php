@@ -114,7 +114,7 @@
             </article>
         </section>
 
-        <a href="{{ route('login') }}" class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar Sekarang!</a>
+        <a href="{{ route('job.apply') }}" class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar Sekarang!</a>
     </main>
 
     <footer class="relative mt-5 bg-[#151442] text-white">

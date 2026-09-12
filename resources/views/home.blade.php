@@ -274,6 +274,10 @@
 
             @foreach($jobs as $job)
 
+                @if($job['company'] === "Hotway's - Part time")
+                    <a href="{{ route('job.detail') }}" class="block">
+                @endif
+
                         <article class="
                             job-card
                             overflow-hidden
@@ -468,6 +472,10 @@
                             </div>
 
                         </article>
+
+                @if($job['company'] === "Hotway's - Part time")
+                    </a>
+                @endif
 
             @endforeach
         </div>

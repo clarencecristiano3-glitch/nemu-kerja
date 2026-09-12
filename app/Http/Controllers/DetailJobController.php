@@ -22,4 +22,9 @@ class DetailJobController extends Controller
 
         return view('detail-job', compact('job'));
     }
+
+    public function apply(): View
+    {
+        return view('apply-job');
+    }
 }
