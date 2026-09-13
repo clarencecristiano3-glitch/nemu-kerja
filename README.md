@@ -1,58 +1,277 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Nemu Kerja
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Nemu Kerja adalah aplikasi portal lowongan kerja berbasis Laravel. Aplikasi ini menyediakan beranda lowongan, pencarian dan filter pekerjaan, detail pekerjaan, halaman lamaran, daftar perusahaan, registrasi, dan login pengguna.
 
-## About Laravel
+## Status Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Project ini masih berada pada tahap prototype. Beberapa data pekerjaan dan perusahaan masih ditulis langsung di controller, bukan diambil dari database.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Fitur yang sudah tersedia:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Beranda dengan daftar kategori dan lowongan kerja.
+- Pencarian lowongan berdasarkan kata kunci dan lokasi.
+- Filter lowongan berdasarkan kategori.
+- Halaman detail lowongan.
+- Halaman form lamaran kerja.
+- Daftar perusahaan.
+- Registrasi pengguna.
+- Login menggunakan username dan password.
+- Session authentication Laravel.
 
-## Learning Laravel
+Fitur yang belum tersedia atau belum selesai:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Dashboard dan panel admin.
+- Role atau permission admin.
+- CRUD lowongan, perusahaan, kategori, dan pengguna.
+- Penyimpanan data lamaran dan upload CV.
+- Logout pada route web.
+- Data lowongan dan perusahaan dari database.
+- Link Tips Karir dan beberapa tombol perusahaan yang masih berupa `#`.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teknologi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP 8.3 atau lebih baru
+- Laravel 13
+- SQLite sebagai database default
+- Tailwind CSS 4
+- Vite
+- Pest untuk testing
 
-## Agentic Development
+## Persyaratan Instalasi
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Pastikan aplikasi berikut sudah terpasang:
+
+- PHP >= 8.3
+- Composer
+- Node.js dan npm
+- Git, jika project diambil dari repository
+
+## Instalasi
+
+Masuk ke folder project:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd d:/laragon/www/nemu-kerja
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Jalankan setup otomatis:
 
-## Contributing
+```bash
+composer run setup
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Perintah tersebut akan:
 
-## Code of Conduct
+1. Menginstal dependency PHP.
+2. Membuat file `.env` dari `.env.example` jika belum ada.
+3. Membuat application key.
+4. Menjalankan migration database.
+5. Menginstal dependency JavaScript.
+6. Membuild asset frontend.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Jika setup dijalankan secara manual:
 
-## Security Vulnerabilities
+```bash
+composer install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate
+npm install
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pada Linux atau macOS, gunakan perintah berikut untuk menyalin environment file:
 
-## License
+```bash
+cp .env.example .env
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Menjalankan Aplikasi
+
+Untuk menjalankan server Laravel, queue listener, dan Vite sekaligus:
+
+```bash
+composer run dev
+```
+
+Buka aplikasi melalui:
+
+```text
+http://localhost:8000
+```
+
+Alternatifnya, jalankan setiap proses secara terpisah:
+
+```bash
+php artisan serve
+npm run dev
+```
+
+## URL Halaman
+
+| Method | URL | Keterangan |
+| --- | --- | --- |
+| GET | `/` | Beranda |
+| GET | `/home` | Beranda alternatif |
+| GET | `/login` | Halaman login |
+| POST | `/login` | Proses login |
+| GET | `/register` | Halaman registrasi |
+| POST | `/register` | Proses registrasi |
+| GET | `/companies` | Daftar perusahaan |
+| GET | `/job/detail` | Detail lowongan Hotway |
+| GET | `/job/apply` | Form lamaran |
+
+Nama route yang digunakan di Blade antara lain `home`, `login`, `register`, `companies.index`, `job.detail`, dan `job.apply`.
+
+## Tutorial Registrasi dan Login User
+
+### Membuat akun baru
+
+1. Jalankan aplikasi dengan `composer run dev`.
+2. Buka `http://localhost:8000/register`.
+3. Isi username dengan minimal 3 karakter.
+4. Isi password minimal 8 karakter.
+5. Isi konfirmasi password dengan nilai yang sama.
+6. Pilih umur antara 13 sampai 100 tahun.
+7. Klik **Daftar**.
+
+Setelah berhasil, pengguna otomatis login dan diarahkan ke halaman beranda.
+
+### Login
+
+1. Buka `http://localhost:8000/login`.
+2. Masukkan username yang digunakan saat registrasi.
+3. Masukkan password.
+4. Klik **Masuk**.
+
+Login menggunakan **username**, bukan email. Jika username atau password salah, halaman login akan menampilkan pesan error.
+
+### Catatan akun database
+
+Seeder bawaan project masih menggunakan data `Test User` dan `test@example.com`, tetapi login aplikasi membutuhkan username. Karena itu, akun tersebut tidak boleh dianggap sebagai akun login yang siap digunakan. Cara paling aman untuk mencoba login adalah membuat akun melalui halaman `/register`.
+
+## Login Admin
+
+Saat ini project **belum memiliki fitur admin**. Tidak tersedia:
+
+- URL login admin khusus.
+- Akun admin.
+- Kolom atau role admin pada tabel users.
+- Middleware `admin`.
+- Controller admin.
+- Dashboard admin.
+- Halaman pengelolaan lowongan, perusahaan, atau pengguna.
+
+Dengan kondisi kode saat ini, tidak ada username dan password admin yang dapat digunakan. Login melalui `/login` hanya melakukan autentikasi user biasa dan setelah berhasil mengarahkan pengguna ke beranda.
+
+### Yang diperlukan untuk menambahkan admin
+
+Implementasi admin membutuhkan setidaknya:
+
+1. Menambahkan kolom `role` atau `is_admin` pada tabel `users`.
+2. Membuat migration dan memperbarui model `User`.
+3. Membuat middleware untuk membatasi akses admin.
+4. Membuat route admin, misalnya `/admin`.
+5. Membuat controller dan view dashboard admin.
+6. Menambahkan akun admin melalui seeder atau perintah khusus.
+7. Menambahkan test untuk login dan authorization admin.
+
+Jangan menggunakan kredensial admin palsu dari README ini sebelum fitur tersebut benar-benar dibuat di aplikasi.
+
+## Struktur Folder Penting
+
+```text
+app/Http/Controllers/       Controller halaman, login, dan registrasi
+app/Models/                  Model User, Job, dan Category
+database/migrations/         Struktur tabel database
+database/seeders/            Data awal database
+resources/views/             Template Blade aplikasi
+resources/css/               Style frontend
+resources/js/                JavaScript frontend
+routes/web.php               Route aplikasi web
+public/images/               Asset gambar aplikasi
+tests/                       Test Feature dan Unit
+```
+
+Controller utama:
+
+- `HomeController`: data kategori dan lowongan pada beranda.
+- `DetailJobController`: detail lowongan dan form lamaran.
+- `CompanyController`: daftar perusahaan.
+- `LoginController`: proses login dan fungsi logout controller.
+- `RegisterController`: validasi dan pembuatan akun baru.
+
+## Database
+
+Database default menggunakan SQLite. Konfigurasi berada di `.env`:
+
+```env
+DB_CONNECTION=sqlite
+```
+
+Menjalankan migration:
+
+```bash
+php artisan migrate
+```
+
+Mengulang database dari awal, termasuk menghapus data lama:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Perintah `migrate:fresh --seed` hanya gunakan pada development karena seluruh data database akan dihapus.
+
+## Testing
+
+Jalankan seluruh test dengan:
+
+```bash
+composer run test
+```
+
+Atau:
+
+```bash
+php artisan test --compact
+```
+
+Saat ini test yang tersedia masih berupa test contoh Laravel. Test untuk login, registrasi, lamaran, dan hak akses admin belum dibuat.
+
+## Troubleshooting
+
+### Route tidak ditemukan
+
+Bersihkan cache Laravel lalu periksa daftar route:
+
+```bash
+php artisan optimize:clear
+php artisan route:list
+```
+
+### Asset frontend tidak tampil
+
+Jalankan kembali Vite atau build asset:
+
+```bash
+npm run dev
+```
+
+atau:
+
+```bash
+npm run build
+```
+
+### Database error
+
+Pastikan file SQLite tersedia dan migration sudah dijalankan:
+
+```bash
+php artisan migrate
+```
+
+## Lisensi
+
+Project ini menggunakan Laravel dan mengikuti lisensi MIT Laravel. Lisensi aplikasi dapat disesuaikan dengan kebutuhan pemilik project.
