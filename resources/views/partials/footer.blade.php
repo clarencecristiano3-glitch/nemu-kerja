@@ -1,6 +1,6 @@
 <footer class="bg-slate-900 text-white relative mt-20 pt-12 pb-6">
     <div class="absolute -top-12 right-10">
-        <img src="{{ asset('images/koala.png') }}" alt="Maskot Nemu Kerja!" class="h-16 w-auto">
+        <img src="{{ asset('images/panda_blue_with_hand.png') }}" alt="Maskot Nemu Kerja!" class="h-16 w-auto">
     </div>
 
     <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 border-b border-slate-800 px-6 pb-8 md:grid-cols-4">
