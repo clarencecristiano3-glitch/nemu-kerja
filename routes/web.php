@@ -15,3 +15,6 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+Route::get('/job/detail', [DetailJobController::class, 'show'])->name('job.detail');
+Route::get('/job/apply', [DetailJobController::class, 'apply'])->name('job.apply');
