@@ -100,39 +100,7 @@
         <a href="{{ route('job.apply') }}" class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar Sekarang!</a>
     </main>
 
-    <footer class="relative mt-5 bg-[#151442] text-white">
-        <div class="absolute -top-12 right-5 lg:right-10">
-            <img src="{{ asset('images/koala.png') }}" alt="Maskot Nemu Kerja!" class="h-16 w-auto">
-        </div>
-        <div class="mx-auto grid max-w-[1360px] gap-8 px-6 py-9 sm:grid-cols-2 lg:grid-cols-4 lg:px-14">
-            <div>
-                <img src="{{ asset('images/logo putih.png') }}" alt="Nemu Kerja!" class="h-14 w-auto">
-                <p class="mt-3 text-[10px] text-gray-300">“Solusi cepat temukan pekerjaan paling tepat.”</p>
-            </div>
-            <div class="text-xs">
-                <h2 class="mb-3 font-bold">Navigasi Cepat</h2>
-                <a href="{{ route('home') }}" class="block text-gray-300">Home</a>
-                <a href="{{ route('home') }}#lowongan" class="block text-gray-300">Lowongan</a>
-                <a href="{{ route('home') }}#perusahaan" class="block text-gray-300">Perusahaan</a>
-                <a href="#" class="block text-gray-300">Tips Karir</a>
-            </div>
-            <div class="text-xs">
-                <h2 class="mb-3 font-bold">Perusahaan</h2>
-                <a href="#" class="block text-gray-300">NemuKerja</a>
-                <a href="#" class="block text-gray-300">NemuKerja Digital</a>
-            </div>
-            <div class="text-xs">
-                <h2 class="mb-3 font-bold">Sosial Media</h2>
-                <div class="flex gap-2">
-                    <a href="#" aria-label="Instagram" class="flex h-7 w-7 items-center justify-center rounded border border-white">◎</a>
-                    <a href="#" aria-label="Facebook" class="flex h-7 w-7 items-center justify-center rounded border border-white">f</a>
-                    <a href="#" aria-label="WhatsApp" class="flex h-7 w-7 items-center justify-center rounded border border-white">◔</a>
-                    <a href="#" aria-label="TikTok" class="flex h-7 w-7 items-center justify-center rounded border border-white">♪</a>
-                </div>
-            </div>
-        </div>
-        <div class="bg-[#ef9d00] py-1 text-center text-[9px]">© {{ date('Y') }} NemuKerja. All Rights Reserved.</div>
-    </footer>
+    @include('partials.footer')
 </body>
 
 </html>

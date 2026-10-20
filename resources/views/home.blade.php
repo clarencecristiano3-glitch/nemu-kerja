@@ -496,53 +496,7 @@
 
     </section>
 
-    <footer id="perusahaan" class="relative bg-[#151442] text-white">
-
-        <div class="absolute -top-13 right-4 lg:right-8 z-10">
-            <img src="{{ asset('images/Panda.png') }}" alt="Panda Mascot" class="h-14 w-auto object-contain lg:h-16">
-        </div>
-
-        <div class="mx-auto grid max-w-[1300px] grid-cols-1 gap-10 px-8 py-16 sm:grid-cols-2 lg:grid-cols-4">
-
-            <div>
-                <a href="{{ route('home') }}" class="inline-block mt-3 lg:mt-4">
-                    <img src="{{ asset('/public/images/panda_blue_with_hand.png') }}" alt="Nemu Kerja!"
-                        class="h-16 w-auto object-contain lg:h-20">
-                </a>
-                <p class="mt-4 text-xs text-gray-300">
-                    “Solusi cepat temukan pekerjaan paling tepat.”
-                </p>
-            </div>
-
-            <div>
-                <h3 class="mb-5 font-bold">Navigasi Cepat</h3>
-                <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">Home</a>
-                <a href="#lowongan" class="mb-2 block text-sm text-gray-300 hover:text-white">Lowongan</a>
-                <a href="#perusahaan" class="mb-2 block text-sm text-gray-300 hover:text-white">Perusahaan</a>
-                <a href="#tips" class="mb-2 block text-sm text-gray-300 hover:text-white">Tips Karir</a>
-            </div>
-
-            <div>
-                <h3 class="mb-5 font-bold">Perusahaan</h3>
-                <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">NemuKerja</a>
-                <a href="#" class="mb-2 block text-sm text-gray-300 hover:text-white">NemuKerja Digital</a>
-            </div>
-
-            <div>
-                <h3 class="mb-5 font-bold">Sosial Media</h3>
-                <div class="flex gap-3">
-                    <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">◎</a>
-                    <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">f</a>
-                    <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">◔</a>
-                    <a href="#" class="flex h-8 w-8 items-center justify-center rounded-lg border border-white">@</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex h-8 items-center justify-center bg-[#ef9d00] text-[10px] font-semibold text-[#ffffff]">
-            © {{ date('Y') }} NemuKerja. All Rights Reserved.
-        </div>
-    </footer>
+    @include('partials.footer')
 
 </body>
 

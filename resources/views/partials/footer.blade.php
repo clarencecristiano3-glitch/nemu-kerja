@@ -1,25 +1,38 @@
-<footer class="bg-slate-900 text-white relative mt-20 pt-12 pb-6">
-    <div class="absolute -top-12 right-10">
-        <img src="{{ asset('images/koala.png') }}" alt="Maskot Nemu Kerja!" class="h-16 w-auto">
+<footer id="perusahaan" class="bg-[#19194f] text-white">
+    <div class="mx-auto grid min-h-[186px] max-w-[950px] grid-cols-2 items-center gap-x-8 gap-y-7 px-6 py-8 sm:px-8 lg:grid-cols-[293px_207px_177px_1fr] lg:gap-0 lg:px-0 lg:py-0">
+        <div class="col-span-2 flex flex-col justify-center border-b border-white/30 pb-6 lg:col-span-1 lg:min-h-[120px] lg:border-b-0 lg:border-r lg:pb-0">
+            <a href="{{ route('home') }}" class="inline-block" aria-label="Nemu Kerja - Beranda">
+                <img src="{{ asset('images/logo putih.png') }}" alt="Nemu Kerja!" class="h-[68px] w-auto">
+            </a>
+            <p class="mt-2 text-[9px] text-gray-300">“Solusi cepat temukan pekerjaan paling tepat.”</p>
+        </div>
+
+        <nav class="text-[11px] lg:pl-[72px]" aria-label="Navigasi footer">
+            <h2 class="mb-2 text-[17px] font-semibold leading-5">Navigasi Cepat</h2>
+            <a href="{{ route('home') }}" class="block leading-[1.45] text-gray-200 hover:text-white">Home</a>
+            <a href="{{ route('home') }}#lowongan" class="block leading-[1.45] text-gray-200 hover:text-white">Lowongan</a>
+            <a href="{{ route('home') }}#perusahaan" class="block leading-[1.45] text-gray-200 hover:text-white">Perusahaan</a>
+            <a href="#" class="block leading-[1.45] text-gray-200 hover:text-white">Tips Karir</a>
+        </nav>
+
+        <div class="text-[11px]">
+            <h2 class="mb-2 text-[17px] font-semibold leading-5">Perusahaan</h2>
+            <a href="#" class="block leading-[1.45] text-gray-200 hover:text-white">NemuKerja</a>
+            <a href="#" class="block leading-[1.45] text-gray-200 hover:text-white">NemuKerja Digital</a>
+        </div>
+
+        <div class="text-[11px]">
+            <h2 class="mb-2 text-[17px] font-semibold leading-5">Sosial Media</h2>
+            <div class="flex gap-1.5">
+                <a href="#" aria-label="Instagram" class="flex h-[22px] w-[22px] items-center justify-center rounded-md bg-white text-sm font-bold leading-none text-[#19194f]">◎</a>
+                <a href="#" aria-label="Facebook" class="flex h-[22px] w-[22px] items-center justify-center rounded-md bg-white text-sm font-bold leading-none text-[#19194f]">f</a>
+                <a href="#" aria-label="WhatsApp" class="flex h-[22px] w-[22px] items-center justify-center rounded-md bg-white text-sm font-bold leading-none text-[#19194f]">◔</a>
+                <a href="#" aria-label="TikTok" class="flex h-[22px] w-[22px] items-center justify-center rounded-md bg-white text-sm font-bold leading-none text-[#19194f]">♪</a>
+            </div>
+        </div>
     </div>
 
-    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 border-b border-slate-800 px-6 pb-8 md:grid-cols-4">
-        <div>
-            <img src="{{ asset('images/logo putih.png') }}" alt="Nemu Kerja!" class="h-14 w-auto">
-            <p class="mt-2 text-xs text-gray-400">Solusi cepat temukan pekerjaan paling tepat.</p>
-        </div>
-        <div class="text-xs">
-            <h4 class="mb-2 font-semibold">Navigasi Cepat</h4>
-            <a href="{{ route('home') }}" class="block text-gray-400">Beranda</a>
-            <a href="{{ route('home') }}#lowongan" class="block text-gray-400">Lowongan</a>
-            <a href="{{ route('companies.index') }}" class="block text-gray-400">Perusahaan</a>
-        </div>
-        <div class="text-xs">
-            <h4 class="mb-2 font-semibold">Perusahaan</h4>
-            <a href="#" class="block text-gray-400">NemuKerja Digital</a>
-        </div>
-    </div>
-    <div class="pt-4 text-center text-[10px] text-gray-500">
-        &copy; {{ date('Y') }} NemuKerja. All rights reserved.
+    <div class="bg-[#ed9d00] py-[5px] text-center text-[8px] leading-[11px] text-white">
+        &copy; {{ date('Y') }} NemuKerja. All Rights Reserved.
     </div>
 </footer>
