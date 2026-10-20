@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
         'resources/js/app.js'
     ])
 </head>
+
 <body class="bg-white text-[#151442]">
 
     @include('layouts.navbar')
@@ -34,17 +36,20 @@
                 </p>
 
                 <!-- Search Form -->
-                <form id="searchForm" class="mt-7 flex max-w-xl items-center rounded-full border border-gray-200 bg-white p-1 shadow-lg">
+                <form id="searchForm"
+                    class="mt-7 flex max-w-xl items-center rounded-full border border-gray-200 bg-white p-1 shadow-lg">
                     <div class="flex flex-1 items-center gap-2 px-3">
                         <span class="text-gray-400">⌕</span>
-                        <input id="keyword" type="text" placeholder="Kata Kunci Pekerjaan" class="w-full bg-transparent text-sm outline-none">
+                        <input id="keyword" type="text" placeholder="Kata Kunci Pekerjaan"
+                            class="w-full bg-transparent text-sm outline-none">
                     </div>
 
                     <div class="h-7 border-l border-gray-300"></div>
 
                     <div class="flex flex-1 items-center gap-2 px-3">
                         <span class="text-gray-400">⌖</span>
-                        <input id="location" type="text" placeholder="Lokasi Pekerjaan" class="w-full bg-transparent text-sm outline-none">
+                        <input id="location" type="text" placeholder="Lokasi Pekerjaan"
+                            class="w-full bg-transparent text-sm outline-none">
                     </div>
 
                     <button type="submit" class="rounded-full bg-[#151442] px-7 py-3 text-sm font-semibold text-white">
@@ -60,7 +65,8 @@
                             <button type="button"
                                 class="category-btn flex h-28 flex-col items-center justify-center gap-3 rounded-xl bg-white shadow-lg transition hover:-translate-y-1"
                                 data-category="{{ $category['name'] }}">
-                                <img src="{{ asset('images/' . $category['icon']) }}" alt="{{ $category['name'] }}" class="h-10 w-10 object-contain">
+                                <img src="{{ asset('images/' . $category['icon']) }}" alt="{{ $category['name'] }}"
+                                    class="h-10 w-10 object-contain">
                                 <span class="text-xs">{{ $category['name'] }}</span>
                             </button>
                         @endforeach
@@ -69,7 +75,8 @@
             </div>
 
             <div class="relative hidden h-full w-full items-center justify-center lg:flex">
-                <img src="{{ asset('images/orang.png') }}" alt="Hero Image" class="h-auto max-h-[1000px] w-full max-w-[1000px] object-contain">
+                <img src="{{ asset('images/orang.png') }}" alt="Hero Image"
+                    class="h-auto max-h-[1000px] w-full max-w-[1000px] object-contain">
             </div>
         </div>
     </section>
@@ -90,7 +97,8 @@
             </button>
 
             @foreach(['Pelayanan', 'Design UI/UX', 'Data Analytic', 'Teknik', 'Operasional'] as $filter)
-                <button class="filter-btn rounded-full border border-gray-300 px-5 py-2 text-sm" data-filter="{{ $filter }}">
+                <button class="filter-btn rounded-full border border-gray-300 px-5 py-2 text-sm"
+                    data-filter="{{ $filter }}">
                     {{ $filter }}
                 </button>
             @endforeach
@@ -103,55 +111,56 @@
                     <a href="{{ route('job.detail') }}" class="block">
                 @endif
 
-                <article class="job-card overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
-                    data-category="{{ $job['category'] }}"
-                    data-search="{{ strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
+                    <article
+                        class="job-card overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+                        data-category="{{ $job['category'] }}"
+                        data-search="{{ strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
 
-                    <div class="flex h-48 items-center justify-center bg-white text-center">
-                        @if($job['company'] === "Hotway's - Part time")
-                            <div class="flex h-full w-full items-center justify-center bg-red-600">
-                                <span class="text-3xl font-black text-white">HOTWAY'S</span>
-                            </div>
-                        @elseif($job['company'] === 'Ayam Budi')
-                            <div class="flex h-full w-full items-center justify-center bg-red-500">
-                                <span class="text-2xl font-black text-white">AYAM BUDI</span>
-                            </div>
-                        @elseif($job['company'] === "McDonald's Pontianak")
-                            <div class="flex flex-col items-center">
-                                <div class="flex h-24 w-24 items-center justify-center rounded-full bg-red-600">
-                                    <span class="text-6xl font-black text-yellow-400">M</span>
+                        <div class="flex h-48 items-center justify-center bg-white text-center">
+                            @if($job['company'] === "Hotway's - Part time")
+                                <div class="flex h-full w-full items-center justify-center bg-red-600">
+                                    <span class="text-3xl font-black text-white">HOTWAY'S</span>
                                 </div>
-                                <span class="mt-3 text-xl font-bold text-black">McDonald's</span>
-                            </div>
-                        @elseif($job['company'] === 'BCA Jakarta Pusat')
-                            <span class="text-6xl font-black text-blue-700">BCA</span>
-                        @elseif($job['company'] === 'Pertamina Sur Jaw')
-                            <span class="text-3xl font-black">PERTAMINA</span>
-                        @elseif($job['company'] === 'Teazzi Ptk - Part time')
-                            <span class="font-serif text-5xl text-gray-900">teazzi</span>
-                        @else
-                            <span class="text-4xl font-black {{ $job['logoClass'] }}">
-                                {{ $job['logo'] }}
-                            </span>
-                        @endif
-                    </div>
+                            @elseif($job['company'] === 'Ayam Budi')
+                                <div class="flex h-full w-full items-center justify-center bg-red-500">
+                                    <span class="text-2xl font-black text-white">AYAM BUDI</span>
+                                </div>
+                            @elseif($job['company'] === "McDonald's Pontianak")
+                                <div class="flex flex-col items-center">
+                                    <div class="flex h-24 w-24 items-center justify-center rounded-full bg-red-600">
+                                        <span class="text-6xl font-black text-yellow-400">M</span>
+                                    </div>
+                                    <span class="mt-3 text-xl font-bold text-black">McDonald's</span>
+                                </div>
+                            @elseif($job['company'] === 'BCA Jakarta Pusat')
+                                <span class="text-6xl font-black text-blue-700">BCA</span>
+                            @elseif($job['company'] === 'Pertamina Sur Jaw')
+                                <span class="text-3xl font-black">PERTAMINA</span>
+                            @elseif($job['company'] === 'Teazzi Ptk - Part time')
+                                <span class="font-serif text-5xl text-gray-900">teazzi</span>
+                            @else
+                                <span class="text-4xl font-black {{ $job['logoClass'] }}">
+                                    {{ $job['logo'] }}
+                                </span>
+                            @endif
+                        </div>
 
-                    <div class="p-4">
-                        <h3 class="mb-3 text-sm font-extrabold">{{ $job['company'] }}</h3>
+                        <div class="p-4">
+                            <h3 class="mb-3 text-sm font-extrabold">{{ $job['company'] }}</h3>
 
-                        <p class="text-xs leading-5">Mencari : {{ $job['position'] }}</p>
-                        <p class="text-xs leading-5">Minimal Lulusan : {{ $job['education'] }}</p>
-                        <p class="text-xs leading-5">Maksimal Umur : {{ $job['age'] }}</p>
+                            <p class="text-xs leading-5">Mencari : {{ $job['position'] }}</p>
+                            <p class="text-xs leading-5">Minimal Lulusan : {{ $job['education'] }}</p>
+                            <p class="text-xs leading-5">Maksimal Umur : {{ $job['age'] }}</p>
 
-                        <p class="mt-3 text-right text-[10px] text-gray-500">
-                            {{ $job['needed'] }} orang di butuhkan
-                        </p>
-                    </div>
-                </article>
+                            <p class="mt-3 text-right text-[10px] text-gray-500">
+                                {{ $job['needed'] }} orang di butuhkan
+                            </p>
+                        </div>
+                    </article>
 
-                @if($job['company'] === "Hotway's - Part time")
-                    </a>
-                @endif
+                    @if($job['company'] === "Hotway's - Part time")
+                        </a>
+                    @endif
             @endforeach
         </div>
 
@@ -169,9 +178,7 @@
         </div>
     </section>
 
-    <!-- Footer External -->
     @include('partials.footer')
-
-
 </body>
+
 </html>
