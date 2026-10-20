@@ -10,7 +10,6 @@
 
 <body class="bg-white font-sans antialiased">
 	<div class="min-h-screen">
-		@include('layouts.navbar')
 
 		<div class="flex min-h-[calc(100vh-61px)] flex-col justify-between p-6 sm:p-10">
 
