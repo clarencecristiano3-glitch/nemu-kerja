@@ -10,7 +10,7 @@
                     'font-bold text-[#151442]' => request()->routeIs('home'),
                     'hover:text-[#ef9d00]' => !request()->routeIs('home'),
                 ])>Beranda</a>
-            <a href="{{ route('jobs.index') }}" data-nav="jobs"
+            <a href="{{ route('lowongan.index') }}" data-nav="lowongan"
                 @class([
                     'font-bold text-[#151442]' => request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
                     'hover:text-[#ef9d00]' => !request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
