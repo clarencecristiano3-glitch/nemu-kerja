@@ -21,7 +21,10 @@ Route::get('/job', [DetailJobController::class, 'show'])->name('job.detail');
 Route::get('/job/apply', [DetailJobController::class, 'apply'])->name('job.apply');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
 
+// Rute publik (bisa diakses tanpa harus login)
+Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
+
+// Rute yang tetap butuh autentikasi (misalnya aksi hapus)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
     Route::delete('/lowongan/{id}', [LowonganController::class, 'destroy'])->name('lowongan.destroy');
 });
