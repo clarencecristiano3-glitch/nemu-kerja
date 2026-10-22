@@ -10,7 +10,7 @@
         <nav class="text-[11px] lg:pl-[72px]" aria-label="Navigasi footer">
             <h2 class="mb-2 text-[17px] font-semibold leading-5">Navigasi Cepat</h2>
             <a href="{{ route('home') }}" class="block leading-[1.45] text-gray-200 hover:text-white">Home</a>
-            <a href="{{ route('home') }}#lowongan" class="block leading-[1.45] text-gray-200 hover:text-white">Lowongan</a>
+            <a href="{{ route('jobs.index') }}" class="block leading-[1.45] text-gray-200 hover:text-white">Lowongan</a>
             <a href="{{ route('home') }}#perusahaan" class="block leading-[1.45] text-gray-200 hover:text-white">Perusahaan</a>
             <a href="#" class="block leading-[1.45] text-gray-200 hover:text-white">Tips Karir</a>
         </nav>

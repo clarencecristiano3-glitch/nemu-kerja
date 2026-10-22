@@ -480,12 +480,12 @@
                 bg-gray-300
             "></div>
 
-            <button class="
+            <a href="{{ route('jobs.index') }}" class="
                 text-sm
                 text-[#151442]
             ">
                 see more
-            </button>
+            </a>
 
             <div class="
                 h-px flex-1

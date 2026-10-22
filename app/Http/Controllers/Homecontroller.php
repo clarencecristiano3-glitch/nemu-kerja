@@ -2,30 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $categories = [
             [
                 'name' => 'Web Developer',
-                'icon' => 'web_developer.png'
+                'icon' => 'web_developer.png',
             ],
             [
                 'name' => 'Design UI/UX',
-                'icon' => 'design.png'
+                'icon' => 'design.png',
             ],
             [
                 'name' => 'Data Analytic',
-                'icon' => 'data_analytic.png'
+                'icon' => 'data_analytic.png',
             ],
             [
                 'name' => 'Digital Marketing',
-                'icon' => 'stock.png'
+                'icon' => 'stock.png',
             ],
         ];
 
-        $jobs = [
+        return view('home', [
+            'categories' => $categories,
+            'jobs' => $this->jobListings(),
+        ]);
+    }
+
+    public function jobs(Request $request): View
+    {
+        $keyword = mb_strtolower(trim((string) $request->query('keyword', '')));
+        $location = mb_strtolower(trim((string) $request->query('location', '')));
+
+        $jobs = array_values(array_filter(
+            $this->jobListings(),
+            static function (array $job) use ($keyword, $location): bool {
+                $searchable = mb_strtolower(implode(' ', [
+                    $job['company'],
+                    $job['position'],
+                    $job['education'],
+                    $job['location'],
+                    $job['category'],
+                ]));
+
+                return ($keyword === '' || str_contains($searchable, $keyword))
+                    && ($location === '' || str_contains(mb_strtolower($job['location']), $location));
+            }
+        ));
+
+        return view('job-list', compact('jobs', 'keyword', 'location'));
+    }
+
+    private function jobListings(): array
+    {
+        return [
             [
                 'company' => 'Sigma Course',
                 'position' => 'Designer Graphic',
@@ -35,7 +70,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Design UI/UX',
                 'logo' => 'ΣSIGMA',
-                'logoClass' => 'text-blue-900'
+                'logoClass' => 'text-blue-900',
+                'image' => null,
             ],
             [
                 'company' => "McDonald's Pontianak",
@@ -46,7 +82,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Pelayanan',
                 'logo' => 'M',
-                'logoClass' => 'text-red-600'
+                'logoClass' => 'text-red-600',
+                'image' => 'mcd.jpg',
             ],
             [
                 'company' => "Hotway's - Part time",
@@ -57,7 +94,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Pelayanan',
                 'logo' => "HOTWAY'S",
-                'logoClass' => 'text-white'
+                'logoClass' => 'text-white',
+                'image' => null,
             ],
             [
                 'company' => 'Ayam Budi',
@@ -68,7 +106,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Pelayanan',
                 'logo' => 'AYAM BUDI',
-                'logoClass' => 'text-white'
+                'logoClass' => 'text-white',
+                'image' => 'ayam budi.jpg',
             ],
             [
                 'company' => 'PT Papasari',
@@ -79,7 +118,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Teknik',
                 'logo' => 'PT PAPASARI',
-                'logoClass' => 'text-blue-800'
+                'logoClass' => 'text-blue-800',
+                'image' => 'papasari.png',
             ],
             [
                 'company' => 'Teazzi Ptk - Part time',
@@ -90,7 +130,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Pelayanan',
                 'logo' => 'teazzi',
-                'logoClass' => 'text-gray-900'
+                'logoClass' => 'text-gray-900',
+                'image' => 'teazzi.png',
             ],
             [
                 'company' => 'Pertamina Sur Jaw',
@@ -101,7 +142,8 @@ class HomeController extends Controller
                 'location' => 'Pontianak',
                 'category' => 'Operasional',
                 'logo' => 'PERTAMINA',
-                'logoClass' => 'text-black'
+                'logoClass' => 'text-black',
+                'image' => null,
             ],
             [
                 'company' => 'BCA Jakarta Pusat',
@@ -112,10 +154,9 @@ class HomeController extends Controller
                 'location' => 'Jakarta Pusat',
                 'category' => 'Data Analytic',
                 'logo' => 'BCA',
-                'logoClass' => 'text-blue-700'
+                'logoClass' => 'text-blue-700',
+                'image' => null,
             ],
         ];
-
-        return view('home', compact('categories', 'jobs'));
     }
 }

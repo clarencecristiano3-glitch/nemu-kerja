@@ -10,10 +10,10 @@
                     'font-bold text-[#151442]' => request()->routeIs('home'),
                     'hover:text-[#ef9d00]' => !request()->routeIs('home'),
                 ])>Beranda</a>
-            <a href="{{ route('home') }}#lowongan" data-nav="jobs"
+            <a href="{{ route('jobs.index') }}" data-nav="jobs"
                 @class([
-                    'font-bold text-[#151442]' => request()->routeIs('job.detail', 'job.apply'),
-                    'hover:text-[#ef9d00]' => !request()->routeIs('job.detail', 'job.apply'),
+                    'font-bold text-[#151442]' => request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
+                    'hover:text-[#ef9d00]' => !request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
                 ])>Lowongan</a>
             <a href="{{ route('companies.index') }}" data-nav="companies"
                 @class([
