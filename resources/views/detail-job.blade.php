@@ -12,7 +12,8 @@
     @include('layouts.navbar')
 
     <main class="mx-auto max-w-[1360px] px-5 py-10 lg:px-14 lg:py-12">
-        <section class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
+        <section
+            class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
             <div class="flex h-44 items-center justify-center bg-[#ed0015] lg:h-44">
                 <div class="text-center font-black leading-none text-white">
                     <span class="block text-[2.5rem] tracking-[-3px]">HOTWAY'S</span>
@@ -39,7 +40,8 @@
             </div>
             <div class="border-t border-gray-100 px-6 py-5 text-center lg:border-l lg:border-t-0">
                 <p class="text-xs font-bold">Waktu Tersisa</p>
-                <p class="mt-1 text-6xl font-black leading-none tracking-tight">{{ str_pad($job['remaining_days'], 2, '0', STR_PAD_LEFT) }}</p>
+                <p class="mt-1 text-6xl font-black leading-none tracking-tight">
+                    {{ str_pad($job['remaining_days'], 2, '0', STR_PAD_LEFT) }}</p>
                 <p class="mt-1 text-[10px] tracking-[7px]">Hari</p>
             </div>
         </section>
@@ -63,7 +65,8 @@
                     <li>Pendidikan minimal SMA / SMK sederajat (terbuka untuk siswa aktif / mahasiswa).</li>
                     <li>Berpenampilan menarik, rapi, ramah, dan memiliki komunikasi yang baik.</li>
                     <li>Mampu bekerja secara efisien, jujur, serta tanggap dalam tim.</li>
-                    <li>Bersedia bekerja dengan sistem shift, termasuk pada akhir pekan (weekend) atau hari libur nasional.</li>
+                    <li>Bersedia bekerja dengan sistem shift, termasuk pada akhir pekan (weekend) atau hari libur
+                        nasional.</li>
                 </ul>
             </article>
 
@@ -80,11 +83,12 @@
                     <li>Frekuensi: 4-5 hari kerja per minggu (fleksibel disesuaikan dengan jadwal kuliah/sekolah).</li>
                 </ul>
             </article>
-            
+
             <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
                 <h2 class="text-base font-extrabold">Gaji &amp; Benefit</h2>
                 <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
-                    <li>Gaji Pokok / Kompensasi: Rp800.000 - Rp1.500.000 / bulan (dihitung berdasarkan jam kerja / hourly rate).</li>
+                    <li>Gaji Pokok / Kompensasi: Rp800.000 - Rp1.500.000 / bulan (dihitung berdasarkan jam kerja /
+                        hourly rate).</li>
                     <li>Makan Siang / Catering: Disediakan meal allowance atau makan gratis 1x per shift.</li>
                     <li>Tunjangan &amp; Bonus:
                         <ul class="list-[circle] pl-3">
@@ -97,7 +101,9 @@
             </article>
         </section>
 
-        <a href="{{ route('job.apply') }}" class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar Sekarang!</a>
+        <a href="{{ route('job.apply') }}"
+            class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar
+            Sekarang!</a>
     </main>
 
     @include('partials.footer')
