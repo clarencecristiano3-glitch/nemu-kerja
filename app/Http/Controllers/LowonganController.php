@@ -3,70 +3,147 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LowonganController extends Controller
 {
-    public function index()
+    public function index(Request $request): View
     {
-        $jobs = [
+        $keyword = mb_strtolower(trim((string) $request->query('keyword', '')));
+        $location = mb_strtolower(trim((string) $request->query('location', '')));
+
+        $jobs = array_values(array_filter(
+            $this->jobListings(),
+            static function (array $job) use ($keyword, $location): bool {
+                $searchable = mb_strtolower(implode(' ', [
+                    $job['company'],
+                    $job['position'],
+                    $job['education'],
+                    $job['location'],
+                    $job['category'],
+                ]));
+
+                return ($keyword === '' || str_contains($searchable, $keyword))
+                    && ($location === '' || str_contains(mb_strtolower($job['location']), $location));
+            }
+        ));
+
+        return view('lowongan', compact('jobs', 'keyword', 'location'));
+    }
+
+    /**
+     * @return list<array{
+     *     company: string,
+     *     position: string,
+     *     education: string,
+     *     age: int,
+     *     needed: int,
+     *     location: string,
+     *     category: string,
+     *     logo: string,
+     *     logoClass: string,
+     *     image: string|null
+     * }>
+     */
+    private function jobListings(): array
+    {
+        return [
             [
-                'id'             => 1,
-                'company'        => "Hotway's Chicken",
-                'type'           => "Part time",
-                'image'          => "hotway_chicken.png",
-                'location'       => "Pontianak, Jalan Merdeka No 23",
-                'company_pt'     => "PT Lingga Jaya Utama",
-                'position'       => "Pelayan",
-                'education'      => "SMA/SMK",
-                'age'            => 24,
-                'applicants'     => 7,
-                'max_applicants' => 10,
-                'category'       => "Pelayanan",
+                'company' => 'Sigma Course',
+                'position' => 'Designer Graphic',
+                'education' => 'SMA/SMK',
+                'age' => 25,
+                'needed' => 3,
+                'location' => 'Pontianak',
+                'category' => 'Design UI/UX',
+                'logo' => 'ΣSIGMA',
+                'logoClass' => 'text-blue-900',
+                'image' => null,
             ],
             [
-                'id'             => 2,
-                'company'        => "Ayam Budi",
-                'type'           => "Part time",
-                'image'          => "ayam budi.jpg",
-                'location'       => "Pontianak, Jalan Merdeka No 23",
-                'company_pt'     => "PT Lingga Jaya Utama",
-                'position'       => "Pelayan",
-                'education'      => "SMA/SMK",
-                'age'            => 24,
-                'applicants'     => 8,
-                'max_applicants' => 10,
-                'category'       => "Pelayanan",
+                'company' => "McDonald's Pontianak",
+                'position' => 'Kasir',
+                'education' => 'SMA/SMK',
+                'age' => 35,
+                'needed' => 2,
+                'location' => 'Pontianak',
+                'category' => 'Pelayanan',
+                'logo' => 'M',
+                'logoClass' => 'text-red-600',
+                'image' => 'mcd.jpg',
             ],
             [
-                'id'             => 3,
-                'company'        => "Jojo Juice",
-                'type'           => "Part time",
-                'image'          => "jojo_juice.png",
-                'location'       => "Pontianak, Jalan Merdeka No 23",
-                'company_pt'     => "PT Lingga Jaya Utama",
-                'position'       => "Pelayan",
-                'education'      => "SMA/SMK",
-                'age'            => 24,
-                'applicants'     => 4,
-                'max_applicants' => 10,
-                'category'       => "Pelayanan",
+                'company' => "Hotway's - Part time",
+                'position' => 'Pelayan',
+                'education' => 'SMA/SMK',
+                'age' => 24,
+                'needed' => 4,
+                'location' => 'Pontianak',
+                'category' => 'Pelayanan',
+                'logo' => "HOTWAY'S",
+                'logoClass' => 'text-white',
+                'image' => null,
             ],
             [
-                'id'             => 4,
-                'company'        => "YSL",
-                'type'           => "Full Time",
-                'image'          => "ysl.png",
-                'location'       => "Pontianak, Jalan Merdeka No 23",
-                'company_pt'     => "PT Lingga Jaya Utama",
-                'position'       => "Pelayan",
-                'education'      => "SMA/SMK",
-                'age'            => 24,
-                'applicants'     => 7,
-                'max_applicants' => 10,
-                'category'       => "Pelayanan",
+                'company' => 'Ayam Budi',
+                'position' => 'Koki',
+                'education' => 'D1 Tata Boga',
+                'age' => 45,
+                'needed' => 1,
+                'location' => 'Pontianak',
+                'category' => 'Pelayanan',
+                'logo' => 'AYAM BUDI',
+                'logoClass' => 'text-white',
+                'image' => 'ayam budi.jpg',
+            ],
+            [
+                'company' => 'PT Papasari',
+                'position' => 'Staff Listrik',
+                'education' => 'S1 Elektro',
+                'age' => 50,
+                'needed' => 2,
+                'location' => 'Pontianak',
+                'category' => 'Teknik',
+                'logo' => 'PT PAPASARI',
+                'logoClass' => 'text-blue-800',
+                'image' => 'papasari.png',
+            ],
+            [
+                'company' => 'Teazzi Ptk - Part time',
+                'position' => 'Barista',
+                'education' => 'SMA/SMK',
+                'age' => 27,
+                'needed' => 2,
+                'location' => 'Pontianak',
+                'category' => 'Pelayanan',
+                'logo' => 'teazzi',
+                'logoClass' => 'text-gray-900',
+                'image' => 'teazzi.png',
+            ],
+            [
+                'company' => 'Pertamina Sur Jaw',
+                'position' => 'Operator SPBU',
+                'education' => 'SMA/SMK',
+                'age' => 26,
+                'needed' => 2,
+                'location' => 'Pontianak',
+                'category' => 'Operasional',
+                'logo' => 'PERTAMINA',
+                'logoClass' => 'text-black',
+                'image' => null,
+            ],
+            [
+                'company' => 'BCA Jakarta Pusat',
+                'position' => 'Data Analisis',
+                'education' => 'S3 Informatika',
+                'age' => 45,
+                'needed' => 1,
+                'location' => 'Jakarta Pusat',
+                'category' => 'Data Analytic',
+                'logo' => 'BCA',
+                'logoClass' => 'text-blue-700',
+                'image' => null,
             ],
         ];
-
-        return view('lowongan', compact('jobs'));
     }
 }
