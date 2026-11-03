@@ -30,7 +30,7 @@ class JobListings
         return null;
     }
 
-    private static function all(): array
+    public static function all(): array
     {
         return [
             [
