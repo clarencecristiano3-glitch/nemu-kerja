@@ -8,29 +8,41 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-white font-sans antialiased">
+<body class="flex min-h-screen flex-col justify-between bg-white font-sans text-[#151442] antialiased">
 
-    <div class="flex min-h-screen flex-col justify-between p-6 sm:p-10">
-        
-        <!-- LOGO (logonya.png) -->
-        <a href="{{ route('login') }}" class="flex items-center">
-            <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
-        </a>
+    <!-- HEADER / LOGO + TOMBOL KEMBALI -->
+    <header class="w-full">
+        <div class="mx-auto flex max-w-[1500px] flex-col items-start px-6 pt-3 pb-2 lg:px-10">
+            <a href="{{ route('home') }}" class="inline-flex items-center">
+                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-9 w-auto">
+            </a>
+            
+            <!-- Tombol Back ke Home di bawah Logo -->
+            <a href="{{ route('home') }}" class="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 transition hover:text-[#151442]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                Kembali ke Beranda
+            </a>
+        </div>
+    </header>
 
-        <!-- Container Utama (Dipersonalisasi ukurannya agar tidak terlalu renggang) -->
-        <div class="mx-auto my-auto grid w-full max-w-5xl grid-cols-1 items-center gap-8 py-6 lg:grid-cols-12">
+    <!-- CONTAINER UTAMA -->
+    <main class="mx-auto my-auto w-full max-w-[1500px] px-6 py-8 lg:px-10">
+        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
 
-            <div class="w-full max-w-md lg:col-span-6">
-                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+            <!-- KOLOM KIRI: Form Login -->
+            <div class="w-full max-w-md">
+                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-[38px] sm:leading-tight">
                     Masuk <span class="text-[#f59e0b]">Nemu Kerja!</span>
                 </h1>
-                <p class="mt-2 text-sm text-gray-500">
+                <p class="mt-2.5 text-sm text-gray-500">
                     Masuk sekarang, jemput karier impianmu hari ini!
                 </p>
 
                 {{-- Notifikasi Error Jika Login Gagal --}}
                 @if ($errors->any())
-                    <div class="mt-4 rounded-lg bg-red-50 p-3 text-xs text-red-600 border border-red-200">
+                    <div class="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-600">
                         {{ $errors->first() }}
                     </div>
                 @endif
@@ -39,7 +51,7 @@
                     @csrf
 
                     <div>
-                        <label for="username" class="mb-1.5 ml-1 block text-xs font-medium text-gray-600">
+                        <label for="username" class="mb-1.5 ml-1 block text-xs font-semibold text-gray-600">
                             Username
                         </label>
                         <input 
@@ -51,58 +63,54 @@
                     </div>
 
                     <div>
-                        <label for="password" class="mb-1.5 ml-1 block text-xs font-medium text-gray-600">
+                        <label for="password" class="mb-1.5 ml-1 block text-xs font-semibold text-gray-600">
                             Password
                         </label>
                         <input type="password" name="password" id="password"
                             class="w-full rounded-full border border-gray-200 bg-white px-5 py-3 text-sm text-gray-800 shadow-sm transition focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
                             required>
+                        
+                        <!-- Tulisan Belum Punya Akun di bawah Kotak Password -->
+                        <p class="mt-2 ml-1 text-xs text-gray-500">
+                            Belum punya akun? 
+                            <a href="{{ route('register') }}" class="font-semibold text-[#f59e0b] hover:underline">
+                                Daftar sekarang
+                            </a>
+                        </p>
                     </div>
 
-                    <div class="pt-3">
+                    <div class="pt-2">
                         <button type="submit"
-                            class="w-44 rounded-full bg-[#181838] py-3 text-sm font-semibold text-white shadow-md transition hover:bg-[#101028] active:scale-95">
+                            class="w-44 rounded-full bg-[#151442] py-3 text-sm font-semibold text-white shadow-md transition hover:bg-[#101028] active:scale-95">
                             Masuk
                         </button>
                     </div>
                 </form>
             </div>
 
-          <!-- KOLOM KANAN: Kartu & Maskot 3D -->
-<div class="relative hidden justify-end lg:col-span-6 lg:flex">
-    <!-- -translate-y-6 menaikkan kartu ke atas, translate-x-20 menggeser ke kanan -->
-    <div class="relative h-[480px] w-[320px] translate-x-20 -translate-y-6">
-        
-        <!-- KOLOM KANAN: Kartu & Maskot 3D -->
-<div class="relative hidden justify-end lg:col-span-6 lg:flex">
-    <!-- Kotak biru (backdrop) diatur ukurannya -->
-    <div class="relative h-[480px] w-[320px]">
-        
-        <!-- 1. Kartu Biru Gelap + Lingkaran Kuning -->
-        <div class="absolute inset-0 overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl">
-            <!-- Lingkaran Kuning Latar Maskot -->
-            <div class="absolute -bottom-10 -left-16 h-80 w-80 rounded-full bg-[#ffb800]"></div>
-        </div>
-        
-        <!-- 2. Gambar Maskot Roket (Lebih Besar dan Lebih Offset) -->
-        <!-- Penjelasan Perubahan:
-             - `-left-[360px]` menonjolkan robot lebih jauh ke kiri.
-             - `w-[640px]` memperbesar ukuran total robot dan roket secara signifikan.
-             - `max-w-none` memastikan ukuran tidak dibatasi oleh grid container.
-        -->
-        <img 
-            src="{{ asset('images/robot.png') }}" 
-            alt="Rocket Mascot" 
-            class="pointer-events-none absolute -left-[360px] top-1/2 z-20 w-[640px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl"
-        >
-    </div>
-</div>
-
-                    <!-- Spacer Bawah -->
-                    <div class="hidden lg:block"></div>
+            <!-- KOLOM KANAN: Kartu & Maskot 3D -->
+            <div class="relative hidden justify-end lg:flex">
+                <div class="relative h-[460px] w-[310px]">
+                    <!-- 1. Kartu Biru Gelap + Lingkaran Kuning -->
+                    <div class="absolute inset-0 overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl">
+                        <!-- Lingkaran Kuning Latar Maskot -->
+                        <div class="absolute -bottom-10 -left-16 h-76 w-76 rounded-full bg-[#ffb800]"></div>
+                    </div>
+                    
+                    <!-- 2. Gambar Maskot Roket -->
+                    <img 
+                        src="{{ asset('images/robot.png') }}" 
+                        alt="Rocket Mascot" 
+                        class="pointer-events-none absolute -left-[340px] top-1/2 z-20 w-[610px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl"
+                    >
                 </div>
+            </div>
+
         </div>
-    </div>
+    </main>
+
+    <!-- Bottom Spacing -->
+    <div class="py-2"></div>
 
 </body>
 
