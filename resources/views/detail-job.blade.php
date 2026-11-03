@@ -28,15 +28,16 @@
             </div>
             <div class="px-6 py-6 lg:px-7">
                 <h1 class="text-2xl font-extrabold leading-tight tracking-tight lg:text-[25px]">{{ $job['title'] }}</h1>
-                <p class="mt-1 text-xs text-[#777595]">{{ $job['company'] }}</p>
+                <p class="mt-1 text-xs text-[#777595]">{{ $job['company_location'] }} | {{ $job['company_pt'] }}</p>
                 <div class="mt-3 grid gap-1 text-[11px] leading-snug text-[#151442] sm:grid-cols-2">
-                    <p>Mencari: {{ $job['category'] }}</p>
+                    <p>Mencari: {{ $job['position'] }}</p>
                     <p>Minimal Lulusan: {{ $job['education'] }}</p>
                     <p>Maksimal Umur: {{ $job['age'] }}</p>
                 </div>
                 <div class="mt-4 max-w-[420px]">
                     <div class="h-3 overflow-hidden rounded-full bg-[#f8e8bf]">
-                        <div class="h-full w-[70%] rounded-full bg-[#ed9d00]"></div>
+                        <div class="h-full rounded-full bg-[#ed9d00]"
+                            style="width: {{ min(100, (int) round($job['applicants'] / $job['quota'] * 100)) }}%"></div>
                     </div>
                     <div class="mt-1 flex justify-between text-[9px] text-[#777595]">
                         <span class="font-semibold text-[#151442]">Pelamar saat ini: {{ $job['applicants'] }}</span>
@@ -53,61 +54,24 @@
         </section>
 
         <section class="mt-6 grid gap-4 md:grid-cols-2">
-            <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
-                <h2 class="text-base font-extrabold">Tanggung Jawab</h2>
-                <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
-                    <li>Melayani pelanggan dengan ramah dan profesional di area frontline / kasir.</li>
-                    <li>Memproses pesanan pelanggan serta mengelola transaksi pembayaran.</li>
-                    <li>Menyiapkan dan menyajikan produk makanan atau minuman sesuai standar SOP.</li>
-                    <li>Menjaga kebersihan, kerapian, dan kenyamanan area restoran.</li>
-                    <li>Membantu proses penerimaan stok bahan baku dan pengecekan inventoris harian.</li>
-                </ul>
-            </article>
-
-            <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
-                <h2 class="text-base font-extrabold">Kualifikasi</h2>
-                <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
-                    <li>Pria / Wanita, usia maksimal 23 tahun.</li>
-                    <li>Pendidikan minimal SMA / SMK sederajat (terbuka untuk siswa aktif / mahasiswa).</li>
-                    <li>Berpenampilan menarik, rapi, ramah, dan memiliki komunikasi yang baik.</li>
-                    <li>Mampu bekerja secara efisien, jujur, serta tanggap dalam tim.</li>
-                    <li>Bersedia bekerja dengan sistem shift, termasuk pada akhir pekan (weekend) atau hari libur
-                        nasional.</li>
-                </ul>
-            </article>
-
-            <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
-                <h2 class="text-base font-extrabold">Jadwal Kerja</h2>
-                <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
-                    <li>Sistem kerja: Part-time / Shift (4-6 jam per hari).</li>
-                    <li>Pilihan shift:
-                        <ul class="list-[circle] pl-3">
-                            <li>Shift 1: 10:00 WIB - 16:00 WIB</li>
-                            <li>Shift 2: 16:00 WIB - 21:00 WIB</li>
-                        </ul>
-                    </li>
-                    <li>Frekuensi: 4-5 hari kerja per minggu (fleksibel disesuaikan dengan jadwal kuliah/sekolah).</li>
-                </ul>
-            </article>
-
-            <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
-                <h2 class="text-base font-extrabold">Gaji &amp; Benefit</h2>
-                <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
-                    <li>Gaji Pokok / Kompensasi: Rp800.000 - Rp1.500.000 / bulan (dihitung berdasarkan jam kerja /
-                        hourly rate).</li>
-                    <li>Makan Siang / Catering: Disediakan meal allowance atau makan gratis 1x per shift.</li>
-                    <li>Tunjangan &amp; Bonus:
-                        <ul class="list-[circle] pl-3">
-                            <li>Tunjangan kehadiran / shift allowance.</li>
-                            <li>Insentif pencapaian target penjualan bulanan.</li>
-                        </ul>
-                    </li>
-                    <li>Pengembangan Diri: Pelatihan standar hospitality &amp; pelayanan F&amp;B modern.</li>
-                </ul>
-            </article>
+            @foreach ([
+                'Tanggung Jawab' => $job['responsibilities'],
+                'Kualifikasi' => $job['qualifications'],
+                'Jadwal Kerja' => $job['schedule'],
+                'Gaji & Benefit' => $job['benefits'],
+            ] as $heading => $items)
+                <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm">
+                    <h2 class="text-base font-extrabold">{{ $heading }}</h2>
+                    <ul class="mt-3 list-disc space-y-1 pl-3 text-[10px] leading-snug text-[#35335c] marker:text-[#151442]">
+                        @foreach ($items as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                </article>
+            @endforeach
         </section>
 
-        <a href="{{ route('job.apply.id', ['jobId' => $job['id']]) }}"
+        <a href="{{ route('job.apply', ['jobId' => $job['id']]) }}"
             class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar
             Sekarang!</a>
     </main>

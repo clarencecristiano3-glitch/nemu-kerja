@@ -20,10 +20,10 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+Route::get('/job/apply', [DetailJobController::class, 'apply'])->name('job.apply.default');
 Route::get('/job/{jobId}/apply', [DetailJobController::class, 'apply'])
     ->whereNumber('jobId')
-    ->name('job.apply.id');
-Route::get('/job/apply', [DetailJobController::class, 'apply'])->name('job.apply');
+    ->name('job.apply');
 Route::get('/job/{jobId?}', [DetailJobController::class, 'show'])
     ->whereNumber('jobId')
     ->name('job.detail');

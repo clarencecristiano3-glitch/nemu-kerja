@@ -34,7 +34,7 @@ test('a job card opens details for the selected job', function () {
     $this->get(route('job.detail', ['jobId' => 999]))
         ->assertNotFound();
 
-    $this->get(route('job.apply.id', ['jobId' => 2]))
+    $this->get(route('job.apply', ['jobId' => 2]))
         ->assertSuccessful()
         ->assertSee("McDonald's - Kasir")
         ->assertSee(asset('images/mcd.jpg'), false);

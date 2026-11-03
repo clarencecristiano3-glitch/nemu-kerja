@@ -25,7 +25,7 @@
             </div>
             <div class="px-6 py-6 lg:px-7">
                 <h1 class="text-2xl font-extrabold leading-tight tracking-tight lg:text-[25px]">{{ $job['title'] }}</h1>
-                <p class="mt-1 text-xs text-[#777595]">{{ $job['location'] }}</p>
+                <p class="mt-1 text-xs text-[#777595]">{{ $job['company_location'] }} | {{ $job['company_pt'] }}</p>
                 <div class="mt-3 grid gap-1 text-[11px] leading-snug">
                     <p>Mencari: {{ $job['position'] }}</p>
                     <p>Minimal Lulusan: {{ $job['education'] }}</p>

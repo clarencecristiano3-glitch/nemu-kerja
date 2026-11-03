@@ -9,10 +9,7 @@ class DetailJobController extends Controller
 {
     public function show(?string $jobId = null): View
     {
-        $job = $this->findJob($jobId);
-        $job['company'] = $job['location'];
-
-        return view('detail-job', compact('job'));
+        return view('detail-job', ['job' => $this->findJob($jobId)]);
     }
 
     public function apply(?string $jobId = null): View

@@ -12,8 +12,8 @@
                 ])>Beranda</a>
             <a href="{{ route('lowongan.index') }}" data-nav="lowongan"
                 @class([
-                    'font-bold text-[#151442]' => request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
-                    'hover:text-[#ef9d00]' => !request()->routeIs('jobs.index', 'job.detail', 'job.apply'),
+                    'font-bold text-[#151442]' => request()->routeIs('jobs.index', 'job.*'),
+                    'hover:text-[#ef9d00]' => !request()->routeIs('jobs.index', 'job.*'),
                 ])>Lowongan</a>
             <a href="{{ route('companies.index') }}" data-nav="companies"
                 @class([
