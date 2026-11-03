@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\JobListings;
 use Illuminate\View\View;
 
 class DetailJobController extends Controller
 {
-    public function show(): View
+    public function show(?string $jobId = null): View
     {
-        $job = [
-            'title' => "Hotway's - Part time",
-            'company' => 'Hotway, Jl. Merdeka No 23, Pontianak',
-            'location' => 'Pontianak',
-            'category' => 'Pelayanan',
-            'age' => 24,
-            'education' => 'SMA/SMK',
-            'remaining_days' => 6,
-            'applicants' => 7,
-            'quota' => 10,
-        ];
-
-        return view('detail-job', compact('job'));
+        return view('detail-job', ['job' => $this->findJob($jobId)]);
     }
 
-    public function apply(): View
+    public function apply(?string $jobId = null): View
     {
-        return view('apply-job');
+        return view('apply-job', ['job' => $this->findJob($jobId)]);
+    }
+
+    private function findJob(?string $jobId): array
+    {
+        $job = JobListings::find((int) ($jobId ?? JobListings::DEFAULT_ID));
+
+        abort_if($job === null, 404);
+
+        return $job;
     }
 }
