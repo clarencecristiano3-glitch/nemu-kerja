@@ -1,183 +1,78 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative max-w-6xl mx-auto px-4 py-8 font-sans pb-24">
-
-        {{-- Region Filter --}}
-        <div class="flex justify-end items-center mb-6">
-            <div class="flex items-center gap-2 cursor-pointer font-bold text-slate-800 text-sm">
+    <div class="relative mx-auto max-w-6xl px-4 py-8 pb-24 font-sans">
+        <div class="mb-6 flex items-center justify-end">
+            <div class="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <span>Kalimantan Barat</span>
-                <svg class="w-5 h-5 text-slate-800" fill="none" stroke="currentColor" stroke-width="2.5"
-                    viewBox="0 0 24 24">
+                <svg class="h-5 w-5 text-slate-800" fill="none" stroke="currentColor" stroke-width="2.5"
+                    viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 10h12M9 16h6" />
                 </svg>
             </div>
         </div>
 
-        {{-- PART TIME SECTION --}}
-        <h2 class="text-2xl font-bold text-slate-900 mb-4">Part time</h2>
+        @foreach (['Part time', 'Full time'] as $type)
+            <h2 class="mb-4 text-2xl font-bold text-slate-900">{{ $type }}</h2>
+            <div class="mb-10 grid gap-4">
+                @foreach ($jobs as $job)
+                    @if (strtolower($job['type']) === strtolower($type))
+                        <article id="job-{{ $job['id'] }}" data-job-id="{{ $job['id'] }}"
+                            class="flex flex-col justify-between gap-5 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:flex-row md:items-center">
+                            <div class="flex min-w-0 items-center gap-5">
+                                <div @class([
+                                    'flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl p-2',
+                                    'bg-red-600' => $job['brand'] === "Hotway's",
+                                    'bg-white' => $job['brand'] !== "Hotway's",
+                                ])>
+                                    @if ($job['image'])
+                                        <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                                            class="h-full w-full object-contain">
+                                    @else
+                                        <span class="text-center text-xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900">{{ $job['title'] }}</h3>
+                                    <p class="mt-1 text-xs font-medium text-gray-400">
+                                        {{ $job['company_location'] }} | {{ $job['company_pt'] }}
+                                    </p>
+                                    <div class="mt-3 space-y-1 text-xs font-semibold text-slate-700">
+                                        <p>Mencari: <span class="font-normal text-gray-600">{{ $job['position'] }}</span></p>
+                                        <p>Minimal Lulusan: <span class="font-normal text-gray-600">{{ $job['education'] }}</span></p>
+                                        <p>Maksimal Umur: <span class="font-normal text-gray-600">{{ $job['age'] }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
 
-        <div class="space-y-4 mb-10">
-            {{-- Card 1: Hotway's Chicken --}}
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
-                <div class="flex items-center space-x-5">
-                    <div class="w-24 h-24 bg-red-600 rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
-                        <img src="{{ asset('images/hotway_chicken.png') }}" alt="Hotway's Chicken"
-                            class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-xl text-slate-900">Hotway's Chicken - Part time</h3>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">Pontianak, Jalan Merdeka No 23 | PT Lingga Jaya
-                            Utama</p>
-                        <div class="mt-3 text-xs text-slate-700 space-y-1 font-semibold">
-                            <p>Mencari : <span class="font-normal text-gray-600">Pelayan</span></p>
-                            <p>Minimal Lulusan : <span class="font-normal text-gray-600">SMA/SMK</span></p>
-                            <p>Maximal Umur : <span class="font-normal text-gray-600">24</span></p>
-                        </div>
-                    </div>
-                </div>
+                            <div class="flex flex-wrap items-center gap-4 md:gap-8">
+                                <div class="w-56">
+                                    <div class="mb-1.5 flex justify-between text-xs font-bold">
+                                        <span class="text-slate-800">Pelamar saat ini: {{ $job['applicants'] }}</span>
+                                        <span class="text-gray-400">{{ $job['applicants'] }}/{{ $job['quota'] }}</span>
+                                    </div>
+                                    <div class="h-3 w-full rounded-full bg-amber-100">
+                                        <div class="h-3 rounded-full bg-amber-500"
+                                            style="width: {{ min(100, (int) round($job['applicants'] / $job['quota'] * 100)) }}%">
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="flex items-center space-x-8">
-                    <div class="w-56">
-                        <div class="flex justify-between text-xs font-bold mb-1.5">
-                            <span class="text-slate-800">Pelamar saat ini : 7</span>
-                            <span class="text-gray-400">7/10</span>
-                        </div>
-                        <div class="w-full bg-amber-100 rounded-full h-3">
-                            <div class="bg-amber-500 h-3 rounded-full" style="width: 70%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-2">
-                        <a href="{{ route('job.detail') }}"
-                            class="bg-slate-950 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">View</a>
-                        <button type="button"
-                            class="bg-red-600 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-red-700 transition">Delete</button>
-                    </div>
-                </div>
+                                <div class="flex gap-2">
+                                    <a href="{{ route('job.detail', ['jobId' => $job['id']]) }}"
+                                        class="rounded-xl bg-slate-950 px-7 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
+                                        View
+                                    </a>
+                                    <button type="button"
+                                        class="rounded-xl bg-red-600 px-7 py-2 text-sm font-semibold text-white transition hover:bg-red-700">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    @endif
+                @endforeach
             </div>
-
-            {{-- Card 2: Ayam Budi --}}
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
-                <div class="flex items-center space-x-5">
-                    <div class="w-24 h-24 bg-red-600 rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
-                        <img src="{{ asset('images/ayam budi.jpg') }}" alt="Ayam Budi" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-xl text-slate-900">Ayam Budi - Part time</h3>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">Pontianak, Jalan Merdeka No 23 | PT Lingga Jaya
-                            Utama</p>
-                        <div class="mt-3 text-xs text-slate-700 space-y-1 font-semibold">
-                            <p>Mencari : <span class="font-normal text-gray-600">Pelayan</span></p>
-                            <p>Minimal Lulusan : <span class="font-normal text-gray-600">SMA/SMK</span></p>
-                            <p>Maximal Umur : <span class="font-normal text-gray-600">24</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-8">
-                    <div class="w-56">
-                        <div class="flex justify-between text-xs font-bold mb-1.5">
-                            <span class="text-slate-800">Pelamar saat ini : 8</span>
-                            <span class="text-gray-400">8/10</span>
-                        </div>
-                        <div class="w-full bg-amber-100 rounded-full h-3">
-                            <div class="bg-amber-500 h-3 rounded-full" style="width: 80%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-2">
-                        <a href="{{ route('job.detail') }}"
-                            class="bg-slate-950 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">View</a>
-                        <button type="button"
-                            class="bg-red-600 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-red-700 transition">Delete</button>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Card 3: Jojo Juice --}}
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
-                <div class="flex items-center space-x-5">
-                    <div class="w-24 h-24 bg-red-600 rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
-                        <img src="{{ asset('images/jojo_juice.png') }}" alt="Jojo Juice"
-                            class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-xl text-slate-900">Jojo Juice - Part time</h3>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">Pontianak, Jalan Merdeka No 23 | PT Lingga Jaya
-                            Utama</p>
-                        <div class="mt-3 text-xs text-slate-700 space-y-1 font-semibold">
-                            <p>Mencari : <span class="font-normal text-gray-600">Pelayan</span></p>
-                            <p>Minimal Lulusan : <span class="font-normal text-gray-600">SMA/SMK</span></p>
-                            <p>Maximal Umur : <span class="font-normal text-gray-600">24</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-8">
-                    <div class="w-56">
-                        <div class="flex justify-between text-xs font-bold mb-1.5">
-                            <span class="text-slate-800">Pelamar saat ini : 4</span>
-                            <span class="text-gray-400">4/10</span>
-                        </div>
-                        <div class="w-full bg-amber-100 rounded-full h-3">
-                            <div class="bg-amber-500 h-3 rounded-full" style="width: 40%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-2">
-                        <a href="{{ route('job.detail') }}"
-                            class="bg-slate-950 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">View</a>
-                        <button type="button"
-                            class="bg-red-600 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-red-700 transition">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- FULL TIME SECTION --}}
-        <h2 class="text-2xl font-bold text-slate-900 mb-4">Full Time</h2>
-
-        <div class="space-y-4">
-            {{-- Card 4: YSL --}}
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
-                <div class="flex items-center space-x-5">
-                    <div
-                        class="w-24 h-24 bg-white border border-gray-200 rounded-2xl flex items-center justify-center p-2 flex-shrink-0">
-                        <img src="{{ asset('images/ysl.png') }}" alt="YSL" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-xl text-slate-900">YSL</h3>
-                        <p class="text-xs text-gray-400 mt-1 font-medium">Pontianak, Jalan Merdeka No 23 | PT Lingga Jaya
-                            Utama</p>
-                        <div class="mt-3 text-xs text-slate-700 space-y-1 font-semibold">
-                            <p>Mencari : <span class="font-normal text-gray-600">Pelayan</span></p>
-                            <p>Minimal Lulusan : <span class="font-normal text-gray-600">SMA/SMK</span></p>
-                            <p>Maximal Umur : <span class="font-normal text-gray-600">24</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center space-x-8">
-                    <div class="w-56">
-                        <div class="flex justify-between text-xs font-bold mb-1.5">
-                            <span class="text-slate-800">Pelamar saat ini : 7</span>
-                            <span class="text-gray-400">7/10</span>
-                        </div>
-                        <div class="w-full bg-amber-100 rounded-full h-3">
-                            <div class="bg-amber-500 h-3 rounded-full" style="width: 70%"></div>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-2">
-                        <a href="{{ route('job.detail') }}"
-                            class="bg-slate-950 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">View</a>
-                        <button type="button"
-                            class="bg-red-600 text-white px-7 py-2 rounded-xl text-sm font-semibold hover:bg-red-700 transition">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 @endsection
