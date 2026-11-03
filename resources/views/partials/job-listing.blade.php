@@ -1,4 +1,4 @@
-<section class="mx-auto grid max-w-[1280px] items-center gap-8 px-6 pb-8 pt-8 md:grid-cols-2 md:px-10 md:pb-10 md:pt-10">
+<section class="mx-auto grid max-w-[1500px] items-center gap-8 px-6 pb-8 pt-8 md:grid-cols-2 md:pb-10 md:pt-10 lg:px-10">
     <div class="order-2 flex justify-center md:order-1">
         <img src="{{ asset('images/tom.png') }}" alt="Temukan pekerjaan impianmu"
             class="h-64 w-full max-w-[450px] object-contain md:h-[420px]">
@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<section class="mx-auto max-w-[1280px] px-6 pb-14 pt-2 md:px-10 md:pb-20">
+<section class="mx-auto max-w-[1500px] px-6 pb-14 pt-2 md:pb-20 lg:px-10">
     <div class="mb-6 flex items-center justify-between gap-4">
         <h2 class="text-xl font-bold sm:text-2xl">Daftar Lowongan</h2>
         <button id="filterButton" type="button" aria-expanded="false" aria-controls="filterPanel"
