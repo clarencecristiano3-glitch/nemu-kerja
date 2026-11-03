@@ -14,11 +14,17 @@
     <main class="mx-auto max-w-[1360px] px-5 py-10 lg:px-14 lg:py-12">
         <section
             class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
-            <div class="flex h-44 items-center justify-center bg-[#ed0015] lg:h-44">
-                <div class="text-center font-black leading-none text-white">
-                    <span class="block text-[2.5rem] tracking-[-3px]">HOTWAY'S</span>
-                    <span class="mt-2 block text-[0.65rem] font-bold tracking-[3px]">FRIED CHICKEN</span>
-                </div>
+            <div @class([
+                'flex h-44 items-center justify-center p-4 lg:h-44',
+                'bg-[#ed0015]' => $job['brand'] === "Hotway's",
+                'bg-white' => $job['brand'] !== "Hotway's",
+            ])>
+                @if ($job['image'])
+                    <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                        class="h-full w-full object-contain">
+                @else
+                    <span class="text-center text-3xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
+                @endif
             </div>
             <div class="px-6 py-6 lg:px-7">
                 <h1 class="text-2xl font-extrabold leading-tight tracking-tight lg:text-[25px]">{{ $job['title'] }}</h1>
@@ -101,7 +107,7 @@
             </article>
         </section>
 
-        <a href="{{ route('job.apply') }}"
+        <a href="{{ route('job.apply.id', ['jobId' => $job['id']]) }}"
             class="mt-9 block rounded-full bg-[#ed9d00] py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Lamar
             Sekarang!</a>
     </main>

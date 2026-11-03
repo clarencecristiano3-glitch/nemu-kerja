@@ -82,20 +82,15 @@
 
             <div id="jobGrid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ($jobs as $job)
-                    <article
-                        class="job-card overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.16)] transition hover:-translate-y-1 hover:shadow-lg"
+                    <a id="job-{{ $job['id'] }}" href="{{ route('job.detail', ['jobId' => $job['id']]) }}"
+                        class="job-card block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.16)] transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#151442]"
+                        data-job-id="{{ $job['id'] }}"
                         data-category="{{ $job['category'] }}"
                         data-search="{{ mb_strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
                         <div class="flex h-28 items-center justify-center overflow-hidden border-b border-gray-100 bg-white sm:h-32">
                             @if ($job['image'])
-                                <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['company'] }}"
+                                <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
                                     class="h-full w-full object-contain">
-                            @elseif ($job['company'] === "Hotway's - Part time")
-                                <div class="flex h-full w-full items-center justify-center bg-[#ed0015] px-2 text-center text-lg font-black text-white sm:text-2xl">
-                                    HOTWAY'S
-                                </div>
-                            @elseif ($job['company'] === 'Pertamina Sur Jaw')
-                                <span class="text-center text-lg font-black text-[#111] sm:text-2xl">PERTAMINA</span>
                             @else
                                 <span class="text-center text-2xl font-black {{ $job['logoClass'] }} sm:text-4xl">{{ $job['logo'] }}</span>
                             @endif
@@ -107,7 +102,7 @@
                             <p class="text-[10px] leading-relaxed sm:text-[11px]">Maksimal Umur: {{ $job['age'] }}</p>
                             <p class="mt-auto pt-2 text-right text-[8px] text-gray-400">{{ $job['needed'] }} orang dibutuhkan</p>
                         </div>
-                    </article>
+                    </a>
                 @endforeach
             </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative max-w-6xl mx-auto px-4 py-8 font-sans pb-24">
+    <div class="relative mx-auto max-w-[1500px] px-6 py-8 pb-24 font-sans lg:px-10">
 
         {{-- Region Filter --}}
         <div class="flex justify-end items-center mb-6">

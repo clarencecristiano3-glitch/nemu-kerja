@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lamar Pekerjaan - Nemu Kerja!</title>
+    <title>Lamar {{ $job['title'] }} - Nemu Kerja!</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white text-[#151442] antialiased">
@@ -11,28 +11,41 @@
 
     <main class="mx-auto max-w-[1360px] px-5 py-10 lg:px-14 lg:py-12">
         <section class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
-            <div class="flex h-44 items-center justify-center bg-[#ed0015] lg:h-44">
-                <div class="text-center font-black leading-none text-white">
-                    <span class="block text-[2.5rem] tracking-[-3px]">HOTWAY'S</span>
-                    <span class="mt-2 block text-[0.65rem] font-bold tracking-[3px]">FRIED CHICKEN</span>
-                </div>
+            <div @class([
+                'flex h-44 items-center justify-center p-4 lg:h-44',
+                'bg-[#ed0015]' => $job['brand'] === "Hotway's",
+                'bg-white' => $job['brand'] !== "Hotway's",
+            ])>
+                @if ($job['image'])
+                    <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                        class="h-full w-full object-contain">
+                @else
+                    <span class="text-center text-3xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
+                @endif
             </div>
             <div class="px-6 py-6 lg:px-7">
-                <h1 class="text-2xl font-extrabold leading-tight tracking-tight lg:text-[25px]">Hotway's - Part time</h1>
-                <p class="mt-1 text-xs text-[#777595]">Pontianak, Jl. Merdeka No 23 | PT Lingga Jaya Utama</p>
+                <h1 class="text-2xl font-extrabold leading-tight tracking-tight lg:text-[25px]">{{ $job['title'] }}</h1>
+                <p class="mt-1 text-xs text-[#777595]">{{ $job['location'] }}</p>
                 <div class="mt-3 grid gap-1 text-[11px] leading-snug">
-                    <p>Mencari: Pelayanan</p>
-                    <p>Minimal Lulusan: SMA/SMK</p>
-                    <p>Maksimal Umur: 24</p>
+                    <p>Mencari: {{ $job['position'] }}</p>
+                    <p>Minimal Lulusan: {{ $job['education'] }}</p>
+                    <p>Maksimal Umur: {{ $job['age'] }}</p>
                 </div>
                 <div class="mt-4 max-w-[420px]">
-                    <div class="h-3 overflow-hidden rounded-full bg-[#f8e8bf]"><div class="h-full w-[70%] rounded-full bg-[#ed9d00]"></div></div>
-                    <div class="mt-1 flex justify-between text-[9px] text-[#777595]"><span class="font-semibold text-[#151442]">Pelamar saat ini: 7</span><span>7/10</span></div>
+                    <div class="h-3 overflow-hidden rounded-full bg-[#f8e8bf]">
+                        <div class="h-full rounded-full bg-[#ed9d00]"
+                            style="width: {{ min(100, (int) round($job['applicants'] / $job['quota'] * 100)) }}%"></div>
+                    </div>
+                    <div class="mt-1 flex justify-between text-[9px] text-[#777595]">
+                        <span class="font-semibold text-[#151442]">Pelamar saat ini: {{ $job['applicants'] }}</span>
+                        <span>{{ $job['applicants'] }}/{{ $job['quota'] }}</span>
+                    </div>
                 </div>
             </div>
             <div class="border-t border-gray-100 px-6 py-5 text-center lg:border-l lg:border-t-0">
                 <p class="text-xs font-bold">Waktu Tersisa</p>
-                <p class="mt-1 text-6xl font-black leading-none tracking-tight">06</p>
+                <p class="mt-1 text-6xl font-black leading-none tracking-tight">
+                    {{ str_pad($job['remaining_days'], 2, '0', STR_PAD_LEFT) }}</p>
                 <p class="mt-1 text-[10px] tracking-[7px]">Hari</p>
             </div>
         </section>
