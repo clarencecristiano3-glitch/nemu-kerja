@@ -17,6 +17,6 @@ class EnsureUserHasRole
     {
         abort_unless($request->user()?->role === $role, 403);
 
-        return $next($request);
+        return $next($request)
     }
 }
