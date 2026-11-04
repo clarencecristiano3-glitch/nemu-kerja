@@ -11,23 +11,30 @@
 
     <div class="companies-grid">
         @foreach ($companies as $company)
-            <article class="company-card">
+            <article id="company-{{ $company->id }}" class="company-card">
                 <div class="company-info">
-                    <div class="logo-box"><img src="{{ asset('images/' . $company['logo']) }}" alt="Logo {{ $company['name'] }}"></div>
+                    <div class="logo-box">
+                        @if ($company->logo_url)
+                            <img src="{{ $company->logo_url }}" alt="Logo {{ $company->name }}">
+                        @else
+                            <span>{{ str($company->name)->substr(0, 1)->upper() }}</span>
+                        @endif
+                    </div>
                     <div class="company-copy">
-                        <div class="region">{{ $company['region'] }}</div>
-                        <h2>{{ $company['name'] }}</h2>
+                        <div class="region">{{ $company->region }}</div>
+                        <h2>{{ $company->name }}</h2>
                         <dl>
-                            <div><dt>Jumlah Outlet</dt><dd>: {{ $company['outlets'] }}</dd></div>
-                            <div><dt>Pemilik</dt><dd>: {{ $company['owner'] }}</dd></div>
+                            <div><dt>Jumlah Outlet</dt><dd>: {{ $company->outlets_count }}</dd></div>
+                            <div><dt>Pemilik</dt><dd>: {{ $company->owner_name ?: '—' }}</dd></div>
                         </dl>
                     </div>
                 </div>
-                <a href="#" class="check-company">Cek Perusahaan</a>
+                <a href="#company-{{ $company->id }}" class="check-company">Perusahaan Terverifikasi</a>
             </article>
         @endforeach
     </div>
 
     <div class="see-more"><span></span><a href="#">see more</a><span></span></div>
+    <div>{{ $companies->links() }}</div>
 </section>
 @endsection

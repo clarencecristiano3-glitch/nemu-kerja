@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CareerTip;
 use App\Support\JobListings;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -57,5 +58,16 @@ class HomeController extends Controller
         ));
 
         return view('job-list', compact('jobs', 'keyword', 'location'));
+    }
+
+    public function tips(): View
+    {
+        return view('career-tips', [
+            'careerTips' => CareerTip::query()
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->paginate(12),
+        ]);
     }
 }

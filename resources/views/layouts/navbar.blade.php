@@ -20,11 +20,22 @@
                     'font-bold text-[#151442]' => request()->routeIs('companies.index'),
                     'hover:text-[#ef9d00]' => !request()->routeIs('companies.index'),
                 ])>Perusahaan</a>
-            <a href="#" data-nav="tips" class="hover:text-[#ef9d00]">Tips Karir</a>
+            <a href="{{ route('tips.index') }}" data-nav="tips" class="hover:text-[#ef9d00]">Tips Karir</a>
         </nav>
         <div class="flex items-center gap-2">
-            <a href="{{ route('login') }}" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Masuk</a>
-            <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Daftar</a>
+            @auth
+                @if (auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Admin</a>
+                @endif
+                <span class="hidden text-xs font-medium sm:inline">{{ auth()->user()->username }}</span>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Keluar</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Masuk</a>
+                <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Daftar</a>
+            @endauth
             <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" class="ml-1 h-8 w-auto">
         </div>
     </div>

@@ -16,11 +16,11 @@
             class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
             <div @class([
                 'flex h-44 items-center justify-center p-4 lg:h-44',
-                'bg-[#ed0015]' => $job['brand'] === "Hotway's",
-                'bg-white' => $job['brand'] !== "Hotway's",
+                'bg-[#ed0015]' => $job['logoBackground'],
+                'bg-white' => ! $job['logoBackground'],
             ])>
                 @if ($job['image'])
-                    <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                    <img src="{{ $job['image'] }}" alt="Logo {{ $job['brand'] }}"
                         class="h-full w-full object-contain">
                 @else
                     <span class="text-center text-3xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
@@ -54,6 +54,10 @@
         </section>
 
         <section class="mt-6 grid gap-4 md:grid-cols-2">
+            <article class="min-h-[158px] rounded-xl border border-gray-200 bg-white px-7 py-5 shadow-sm md:col-span-2">
+                <h2 class="text-base font-extrabold">Tentang Pekerjaan</h2>
+                <p class="mt-3 whitespace-pre-line text-[10px] leading-relaxed text-[#35335c]">{{ $job['description'] }}</p>
+            </article>
             @foreach ([
                 'Tanggung Jawab' => $job['responsibilities'],
                 'Kualifikasi' => $job['qualifications'],
