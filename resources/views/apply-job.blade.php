@@ -13,11 +13,11 @@
         <section class="grid items-center overflow-hidden rounded-[22px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.16)] lg:grid-cols-[178px_1fr_170px]">
             <div @class([
                 'flex h-44 items-center justify-center p-4 lg:h-44',
-                'bg-[#ed0015]' => $job['brand'] === "Hotway's",
-                'bg-white' => $job['brand'] !== "Hotway's",
+                'bg-[#ed0015]' => $job['logoBackground'],
+                'bg-white' => ! $job['logoBackground'],
             ])>
                 @if ($job['image'])
-                    <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                    <img src="{{ $job['image'] }}" alt="Logo {{ $job['brand'] }}"
                         class="h-full w-full object-contain">
                 @else
                     <span class="text-center text-3xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
@@ -50,22 +50,39 @@
             </div>
         </section>
 
-        <form class="mt-5" onsubmit="event.preventDefault()">
+        @if (session('success'))
+            <p class="mt-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
+                {{ session('success') }}
+            </p>
+        @endif
+
+        @if ($errors->any())
+            <div class="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+                <ul class="list-disc space-y-1 pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form class="mt-5" action="{{ route('job.application.store', ['jobId' => $job['id']]) }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <section class="grid gap-8 lg:grid-cols-2 lg:gap-16">
                 <div class="space-y-4">
                     <label class="block text-[10px] font-medium" for="full_name">Nama Lengkap</label>
-                    <input id="full_name" name="full_name" type="text" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
+                    <input id="full_name" name="full_name" type="text" value="{{ old('full_name', auth()->user()->name) }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                     <label class="block text-[10px] font-medium" for="age">Umur</label>
-                    <input id="age" name="age" type="number" min="15" max="70" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
+                    <input id="age" name="age" type="number" min="15" max="70" value="{{ old('age', auth()->user()->age) }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                     <label class="block text-[10px] font-medium" for="education">Lulusan Terakhir</label>
                     <select id="education" name="education" class="-mt-3 h-10 w-full rounded-full border border-gray-200 bg-white px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                         <option value="">Pilih pendidikan terakhir</option>
-                        <option>SMA/SMK</option>
-                        <option>D1/D3</option>
-                        <option>S1</option>
+                        <option @selected(old('education') === 'SMA/SMK')>SMA/SMK</option>
+                        <option @selected(old('education') === 'D1/D3')>D1/D3</option>
+                        <option @selected(old('education') === 'S1')>S1</option>
                     </select>
                     <label class="block text-[10px] font-medium" for="email">Alamat Email</label>
-                    <input id="email" name="email" type="email" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
+                    <input id="email" name="email" type="email" value="{{ old('email') }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                 </div>
                 <div class="border-l border-gray-100 pl-8 lg:pl-16">
                     <h2 class="text-xl font-extrabold lg:text-2xl">Upload CV <span class="font-semibold">| Surat Lamaran</span></h2>
@@ -73,6 +90,12 @@
                         <span id="file_name" class="px-5 text-sm">Masukkan file!<small class="mt-1 block text-[9px] tracking-[4px] text-gray-300">(Max : 10mb)</small></span>
                         <input id="application_file" name="application_file" type="file" accept=".pdf,.doc,.docx" class="sr-only" required>
                     </label>
+                    <label for="supporting_documents" class="mt-4 block text-xs font-medium">
+                        Dokumen pendukung (opsional, maksimal 3 file)
+                    </label>
+                    <input id="supporting_documents" name="supporting_documents[]" type="file" accept=".pdf,.doc,.docx" multiple
+                        class="mt-2 block w-full text-xs text-gray-600 file:mr-3 file:rounded-full file:border-0 file:bg-[#151442] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white">
+                    <p class="mt-1 text-[10px] text-gray-500">PDF, DOC, atau DOCX; maksimal 10 MB per file.</p>
                 </div>
             </section>
             <button type="submit" class="mt-9 w-full rounded-full bg-[#ed9d00] py-3 text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Kirim Lamaran</button>

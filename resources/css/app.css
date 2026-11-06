@@ -17,3 +17,30 @@ button,
 a {
     transition: all .2s ease;
 }
+
+.toast {
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.toast-hidden,
+.toast-leaving {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.toast-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-leaving {
+    transition-duration: 400ms;
+    transition-timing-function: ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast {
+        transform: none;
+        transition-property: opacity;
+    }
+}

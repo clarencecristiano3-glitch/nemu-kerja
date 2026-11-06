@@ -113,11 +113,11 @@
                     data-search="{{ strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
                     <div @class([
                         'flex h-48 items-center justify-center p-3 text-center',
-                        'bg-red-600' => $job['brand'] === "Hotway's",
-                        'bg-white' => $job['brand'] !== "Hotway's",
+                        'bg-red-600' => $job['logoBackground'],
+                        'bg-white' => ! $job['logoBackground'],
                     ])>
-                        @if($job['image'])
-                            <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['brand'] }}"
+                        @if ($job['image'])
+                            <img src="{{ $job['image'] }}" alt="Logo {{ $job['brand'] }}"
                                 class="h-full w-full object-contain">
                         @else
                             <span class="text-4xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>

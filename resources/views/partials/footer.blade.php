@@ -13,6 +13,7 @@
             <a href="{{ route('home') }}" class="block text-gray-400">Beranda</a>
             <a href="{{ route('home') }}#lowongan" class="block text-gray-400">Lowongan</a>
             <a href="{{ route('companies.index') }}" class="block text-gray-400">Perusahaan</a>
+            <a href="{{ route('tips.index') }}" class="block text-gray-400">Tips Karier</a>
         </div>
         <div class="text-xs">
             <h4 class="mb-2 font-semibold">Perusahaan</h4>

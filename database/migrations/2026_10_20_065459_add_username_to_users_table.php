@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table): void {
-            $table->string('username')->nullable()->unique()->after('name');
-        });
+        if (! Schema::hasColumn('users', 'username')) {
+            Schema::table('users', function (Blueprint $table): void {
+                $table->string('username')->nullable()->unique()->after('name');
+            });
+        }
     }
 
     /**
@@ -21,9 +23,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table): void {
-            $table->dropUnique(['username']);
-            $table->dropColumn('username');
-        });
+        if (Schema::hasColumn('users', 'username')) {
+            Schema::table('users', function (Blueprint $table): void {
+                $table->dropUnique(['username']);
+                $table->dropColumn('username');
+            });
+        }
     }
 };

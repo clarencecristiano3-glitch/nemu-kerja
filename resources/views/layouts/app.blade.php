@@ -13,6 +13,12 @@
 </head>
 <body>
     @include('layouts.navbar')
+    @if (session('success'))
+        <p class="mx-auto mt-5 max-w-5xl rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">{{ session('success') }}</p>
+    @endif
+    @if (session()->has('company_approved'))
+        <x-toast message="Perusahaan Anda sudah disetujui" />
+    @endif
     <main>@yield('content')</main>
     @include('partials.footer')
 </body>
