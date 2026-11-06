@@ -14,8 +14,15 @@ class StoreVacancyRequest extends FormRequest
 
     public function rules(): array
     {
+        $companyRule = Rule::exists('companies', 'id');
+        if ($this->user()?->isCompanyAdmin()) {
+            $companyRule->where(fn ($query) => $query
+                ->where('owner_id', $this->user()->getKey())
+                ->where('status', 'verified'));
+        }
+
         return [
-            'company_id' => ['required', 'integer', Rule::exists('companies', 'id')],
+            'company_id' => ['required', 'integer', $companyRule],
             'title' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'employment_type' => ['required', Rule::in(['Part time', 'Full time'])],

@@ -17,11 +17,6 @@ use Illuminate\Support\Facades\Storage;
     'owner_name',
     'outlets_count',
     'logo_path',
-    'verification_status',
-    'submitted_by',
-    'reviewed_by',
-    'review_note',
-    'verified_at',
 ])]
 class Company extends Model
 {
@@ -31,7 +26,22 @@ class Company extends Model
     {
         return [
             'verified_at' => 'datetime',
+            'approval_notified_at' => 'datetime',
         ];
+    }
+
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function verifiedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'verified_by');
     }
 
     public function vacancies(): HasMany

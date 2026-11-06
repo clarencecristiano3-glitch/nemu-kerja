@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCareerTipRequest;
@@ -16,14 +16,14 @@ class CareerTipController extends Controller
 {
     public function index(): View
     {
-        return view('admin.career-tips.index', [
+        return view('superadmin.career-tips.index', [
             'careerTips' => CareerTip::query()->latest()->paginate(12),
         ]);
     }
 
     public function create(): View
     {
-        return view('admin.career-tips.form', ['careerTip' => new CareerTip]);
+        return view('superadmin.career-tips.form', ['careerTip' => new CareerTip]);
     }
 
     public function store(StoreCareerTipRequest $request): RedirectResponse
@@ -44,12 +44,12 @@ class CareerTipController extends Controller
 
         CareerTip::create($validated);
 
-        return redirect()->route('admin.career-tips.index')->with('success', 'Tips karier berhasil ditambahkan.');
+        return redirect()->route('superadmin.career-tips.index')->with('success', 'Tips karier berhasil ditambahkan.');
     }
 
     public function edit(CareerTip $careerTip): View
     {
-        return view('admin.career-tips.form', compact('careerTip'));
+        return view('superadmin.career-tips.form', compact('careerTip'));
     }
 
     public function update(UpdateCareerTipRequest $request, CareerTip $careerTip): RedirectResponse
@@ -80,7 +80,7 @@ class CareerTipController extends Controller
             Storage::disk('public')->delete($oldImagePath);
         }
 
-        return redirect()->route('admin.career-tips.index')->with('success', 'Tips karier berhasil diperbarui.');
+        return redirect()->route('superadmin.career-tips.index')->with('success', 'Tips karier berhasil diperbarui.');
     }
 
     public function destroy(CareerTip $careerTip): RedirectResponse
@@ -91,6 +91,6 @@ class CareerTipController extends Controller
             Storage::disk('public')->delete($careerTip->image_path);
         }
 
-        return redirect()->route('admin.career-tips.index')->with('success', 'Tips karier berhasil diarsipkan.');
+        return redirect()->route('superadmin.career-tips.index')->with('success', 'Tips karier berhasil diarsipkan.');
     }
 }

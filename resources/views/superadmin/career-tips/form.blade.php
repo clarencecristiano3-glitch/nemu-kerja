@@ -1,13 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin')
 
 @section('title', $careerTip->exists ? 'Edit Tips Karier' : 'Tambah Tips Karier')
 
 @section('content')
     <div class="mx-auto max-w-3xl">
-        <a href="{{ route('admin.career-tips.index') }}" class="text-xs font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke tips</a>
+        <a href="{{ route('superadmin.career-tips.index') }}" class="text-xs font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke tips</a>
         <h1 class="mt-3 text-3xl font-extrabold">{{ $careerTip->exists ? 'Edit Tips Karier' : 'Tambah Tips Karier' }}</h1>
 
-        <form action="{{ $careerTip->exists ? route('admin.career-tips.update', $careerTip) : route('admin.career-tips.store') }}"
+        <form action="{{ $careerTip->exists ? route('superadmin.career-tips.update', $careerTip) : route('superadmin.career-tips.store') }}"
             method="POST" enctype="multipart/form-data" class="mt-7 space-y-5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-8">
             @csrf
             @if ($careerTip->exists)

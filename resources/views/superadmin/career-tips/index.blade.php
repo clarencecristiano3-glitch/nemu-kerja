@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.superadmin')
 
 @section('title', 'Daftar Tips Karier')
 
@@ -8,7 +8,7 @@
             <h1 class="text-3xl font-extrabold tracking-tight">Daftar Tips Karier</h1>
             <p class="mt-2 text-sm text-gray-500">Tulis, edit, dan terbitkan tips untuk halaman publik.</p>
         </div>
-        <a href="{{ route('admin.career-tips.create') }}" class="rounded-full bg-[#151442] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#25236b]">+ Tambah Tips</a>
+        <a href="{{ route('superadmin.career-tips.create') }}" class="rounded-full bg-[#151442] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#25236b]">+ Tambah Tips</a>
     </div>
 
     <div class="mt-7 space-y-4">
@@ -32,8 +32,8 @@
                     <p class="mt-2 line-clamp-2 text-sm text-gray-600">{{ $careerTip->summary }}</p>
                 </div>
                 <div class="flex shrink-0 gap-2">
-                    <a href="{{ route('admin.career-tips.edit', $careerTip) }}" class="rounded-full border border-[#151442] px-4 py-2 text-xs font-semibold hover:bg-[#151442] hover:text-white">Edit</a>
-                    <form action="{{ route('admin.career-tips.destroy', $careerTip) }}" method="POST" onsubmit="return confirm('Arsipkan tips ini?')">
+                    <a href="{{ route('superadmin.career-tips.edit', $careerTip) }}" class="rounded-full border border-[#151442] px-4 py-2 text-xs font-semibold hover:bg-[#151442] hover:text-white">Edit</a>
+                    <form action="{{ route('superadmin.career-tips.destroy', $careerTip) }}" method="POST" onsubmit="return confirm('Arsipkan tips ini?')">
                         @csrf
                         @method('DELETE')
                         <button class="rounded-full bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700">Hapus</button>

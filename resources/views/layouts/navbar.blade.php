@@ -24,14 +24,30 @@
         </nav>
         <div class="flex items-center gap-2">
             @auth
-                @if (auth()->user()->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Admin</a>
-                @endif
-                <span class="hidden text-xs font-medium sm:inline">{{ auth()->user()->username }}</span>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Keluar</button>
-                </form>
+                <details class="group relative">
+                    <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-[#151442] hover:border-[#151442]">
+                        <span>{{ auth()->user()->username }}</span>
+                        <span aria-hidden="true" class="transition-transform group-open:rotate-180">⌄</span>
+                    </summary>
+                    <div class="absolute right-0 z-50 mt-2 w-52 rounded-xl border border-gray-100 bg-white p-2 text-xs shadow-lg">
+                        @if (! auth()->user()->isSuperadmin() || auth()->user()->companies()->exists())
+                            @if (auth()->user()->companies()->exists())
+                                <a href="{{ route('company.profile.index') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Perusahaan Saya</a>
+                            @else
+                                <a href="{{ route('company.profile.create') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Tambah Perusahaan</a>
+                            @endif
+                        @endif
+                        @if (auth()->user()->isCompanyAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Admin Page</a>
+                        @elseif (auth()->user()->isSuperadmin())
+                            <a href="{{ route('superadmin.dashboard') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Admin Page</a>
+                        @endif
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full rounded-lg px-3 py-2 text-left hover:bg-gray-50">Keluar</button>
+                        </form>
+                    </div>
+                </details>
             @else
                 <a href="{{ route('login') }}" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Masuk</a>
                 <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Daftar</a>

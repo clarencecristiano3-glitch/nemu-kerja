@@ -23,7 +23,11 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            return redirect()->intended($user?->isAdmin() ? route('admin.dashboard') : route('home'));
+            $destination = $user?->isSuperadmin()
+                ? route('superadmin.dashboard')
+                : ($user?->isCompanyAdmin() ? route('admin.dashboard') : route('home'));
+
+            return redirect()->intended($destination);
         }
 
         return back()->withErrors([

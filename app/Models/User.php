@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -17,7 +18,9 @@ class User extends Authenticatable
 {
     public const ROLE_USER = 'user';
 
-    public const ROLE_ADMIN = 'admin';
+    public const ROLE_COMPANY_ADMIN = 'company_admin';
+
+    public const ROLE_SUPERADMIN = 'superadmin';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -32,6 +35,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
     }
 
@@ -40,8 +44,23 @@ class User extends Authenticatable
         return $this->hasMany(JobApplication::class);
     }
 
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class, 'owner_id');
+    }
+
+    public function isCompanyAdmin(): bool
+    {
+        return $this->role === UserRole::CompanyAdmin;
+    }
+
+    public function isSuperadmin(): bool
+    {
+        return $this->role === UserRole::Superadmin;
+    }
+
     public function isAdmin(): bool
     {
-        return $this->role === self::ROLE_ADMIN;
+        return $this->isCompanyAdmin() || $this->isSuperadmin();
     }
 }

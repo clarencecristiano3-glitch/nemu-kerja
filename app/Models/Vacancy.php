@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
-    'company_id',
     'created_by',
     'title',
     'position',

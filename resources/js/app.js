@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const toast = document.querySelector('[data-toast]');
+
+    if (toast) {
+        let dismissTimeout;
+        let removalTimeout;
+
+        const dismissToast = () => {
+            if (toast.dataset.leaving === 'true') {
+                return;
+            }
+
+            window.clearTimeout(dismissTimeout);
+            toast.dataset.leaving = 'true';
+            toast.classList.remove('toast-visible');
+            toast.classList.add('toast-leaving');
+            removalTimeout = window.setTimeout(() => toast.remove(), 400);
+        };
+
+        toast.querySelector('[data-toast-close]')?.addEventListener('click', () => {
+            dismissToast();
+        });
+
+        window.requestAnimationFrame(() => {
+            toast.classList.remove('toast-hidden');
+            toast.classList.add('toast-visible');
+        });
+
+        dismissTimeout = window.setTimeout(dismissToast, 2600);
+    }
+
     const searchForm = document.getElementById('searchForm');
     const keyword = document.getElementById('keyword');
     const locationInput = document.getElementById('location');

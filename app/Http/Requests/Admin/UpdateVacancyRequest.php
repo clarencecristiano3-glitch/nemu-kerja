@@ -9,13 +9,21 @@ class UpdateVacancyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->isAdmin() ?? false;
+        return ($this->user()?->isAdmin() ?? false)
+            && $this->user()->can('update', $this->route('vacancy'));
     }
 
     public function rules(): array
     {
+        $companyRule = Rule::exists('companies', 'id');
+        if ($this->user()?->isCompanyAdmin()) {
+            $companyRule->where(fn ($query) => $query
+                ->where('owner_id', $this->user()->getKey())
+                ->where('status', 'verified'));
+        }
+
         return [
-            'company_id' => ['required', 'integer', Rule::exists('companies', 'id')],
+            'company_id' => ['required', 'integer', $companyRule],
             'title' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'employment_type' => ['required', Rule::in(['Part time', 'Full time'])],
