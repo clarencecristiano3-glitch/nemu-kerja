@@ -42,9 +42,15 @@
         <div class="mt-5 divide-y divide-gray-100">
             @forelse ($recentVacancies as $vacancy)
                 <div class="flex flex-wrap items-center justify-between gap-3 py-4">
-                    <div>
+                    <div class="flex min-w-0 items-center gap-3">
+                        @if ($vacancy->image_url ?: $vacancy->company->logo_url)
+                            <img src="{{ $vacancy->image_url ?: $vacancy->company->logo_url }}" alt=""
+                                class="h-12 w-12 shrink-0 rounded-lg bg-white object-contain p-1">
+                        @endif
+                        <div class="min-w-0">
                         <p class="font-semibold">{{ $vacancy->title }}</p>
                         <p class="mt-1 text-xs text-gray-500">{{ $vacancy->company->name }} · {{ $vacancy->employment_type }} · {{ $vacancy->applications_count }} pelamar</p>
+                        </div>
                     </div>
                     <span @class([
                         'rounded-full px-3 py-1 text-[10px] font-semibold',

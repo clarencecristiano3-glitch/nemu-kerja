@@ -26,6 +26,12 @@
                         @endforeach
                     </select>
                 </label>
+                <label class="block text-xs font-semibold sm:col-span-2">Gambar Lowongan (JPG, PNG, WEBP; maks. 4 MB){{ $vacancy->exists ? '' : ' — wajib' }}
+                    <input name="image" type="file" accept=".jpg,.jpeg,.png,.webp" @required(!$vacancy->exists) class="mt-2 block w-full text-sm text-gray-600 file:mr-3 file:rounded-full file:border-0 file:bg-[#151442] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white">
+                </label>
+                @if ($vacancy->image_path)
+                    <img src="{{ $vacancy->image_url }}" alt="Gambar lowongan saat ini" class="h-40 w-full rounded-xl object-contain sm:col-span-2">
+                @endif
                 <label class="block text-xs font-semibold sm:col-span-2">Judul Lowongan
                     <input name="title" value="{{ old('title', $vacancy->title) }}" required maxlength="255" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm font-normal">
                 </label>

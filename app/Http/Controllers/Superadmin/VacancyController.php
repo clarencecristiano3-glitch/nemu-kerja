@@ -10,7 +10,9 @@ use App\Models\Vacancy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use RuntimeException;
 
 class VacancyController extends Controller
 {
@@ -36,6 +38,14 @@ class VacancyController extends Controller
     public function store(StoreVacancyRequest $request): RedirectResponse
     {
         $validated = $this->normalizeListFields($request->validated());
+        $imagePath = $validated['image']->store('vacancies', 'public');
+
+        if (! is_string($imagePath)) {
+            throw new RuntimeException('Gambar lowongan gagal disimpan.');
+        }
+
+        unset($validated['image']);
+        $validated['image_path'] = $imagePath;
         $validated['created_by'] = Auth::id();
         $validated = $this->enforceCompanyVerification($validated);
 
@@ -58,9 +68,28 @@ class VacancyController extends Controller
     public function update(UpdateVacancyRequest $request, Vacancy $vacancy): RedirectResponse
     {
         $validated = $this->enforceCompanyVerification($this->normalizeListFields($request->validated()));
+        $image = $validated['image'] ?? null;
+        unset($validated['image']);
+        $oldImagePath = null;
+
+        if ($image !== null) {
+            $imagePath = $image->store('vacancies', 'public');
+
+            if (! is_string($imagePath)) {
+                throw new RuntimeException('Gambar lowongan gagal disimpan.');
+            }
+
+            $oldImagePath = $vacancy->image_path;
+            $validated['image_path'] = $imagePath;
+        }
+
         $vacancy->fill(Arr::except($validated, 'company_id'));
         $vacancy->company_id = $validated['company_id'];
         $vacancy->save();
+
+        if ($oldImagePath !== null) {
+            Storage::disk('public')->delete($oldImagePath);
+        }
 
         return redirect()->route('superadmin.vacancies.index')->with('success', 'Lowongan berhasil diperbarui.');
     }
@@ -102,6 +131,8 @@ class VacancyController extends Controller
         return Arr::only($data, [
             'company_id',
             'created_by',
+            'image',
+            'image_path',
             'title',
             'position',
             'employment_type',

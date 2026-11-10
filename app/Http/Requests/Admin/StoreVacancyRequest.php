@@ -23,6 +23,7 @@ class StoreVacancyRequest extends FormRequest
 
         return [
             'company_id' => ['required', 'integer', $companyRule],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'title' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'employment_type' => ['required', Rule::in(['Part time', 'Full time'])],

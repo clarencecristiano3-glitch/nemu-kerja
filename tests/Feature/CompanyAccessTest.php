@@ -280,3 +280,124 @@ it('keeps legacy public company listings available after backfilling existing co
     $this->get(route('companies.index'))->assertOk()->assertSee($company->name);
     $this->get(route('lowongan.index'))->assertOk()->assertSee($company->name);
 });
+
+it('publishes a company admin vacancy on the homepage and company profile immediately', function () {
+    Storage::fake('public');
+    $owner = companyAccessUser('company_admin');
+    $company = companyAccessCompany($owner, 'verified');
+
+    $this->actingAs($owner)
+        ->get(route('admin.vacancies.create'))
+        ->assertOk()
+        ->assertSee('value="published" selected', false);
+
+    $this->post(route('admin.vacancies.store'), [
+        'company_id' => $company->getKey(),
+        'title' => 'Lowongan Staff Baru',
+        'position' => 'Staff Baru',
+        'employment_type' => 'Full time',
+        'category' => 'Operasional',
+        'minimum_education' => 'SMA/SMK',
+        'maximum_age' => 35,
+        'needed' => 2,
+        'quota' => 10,
+        'location' => 'Pontianak',
+        'description' => 'Deskripsi lowongan staff baru.',
+        'image' => UploadedFile::fake()->image('lowongan.png'),
+        'status' => 'published',
+    ])->assertRedirect(route('admin.vacancies.index'));
+
+    $vacancy = $company->vacancies()->sole();
+    expect($vacancy->status)->toBe('published')
+        ->and($vacancy->image_path)->not->toBeNull();
+    Storage::disk('public')->assertExists($vacancy->image_path);
+
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSee('Staff Baru')
+        ->assertSee($vacancy->image_url);
+    $this->get(route('companies.show', $company->slug))
+        ->assertOk()
+        ->assertSee($company->name)
+        ->assertSee('Mencari : Staff Baru')
+        ->assertSee('Minimal Lulusan : SMA/SMK')
+        ->assertSee('2 orang di butuhkan')
+        ->assertSee($vacancy->image_url);
+});
+
+it('lets the superadmin create vacancies with images stored in the database and shows the saved data', function () {
+    Storage::fake('public');
+    $superadmin = companyAccessUser('superadmin');
+    $company = companyAccessCompany(companyAccessUser(), 'verified');
+
+    $this->actingAs($superadmin)
+        ->get(route('superadmin.vacancies.create'))
+        ->assertOk()
+        ->assertSee('name="image"', false)
+        ->assertSee('required', false);
+
+    $this->post(route('superadmin.vacancies.store'), [
+        'company_id' => $company->getKey(),
+        'title' => 'Superadmin Lowongan Gambar',
+        'position' => 'Operator',
+        'employment_type' => 'Full time',
+        'category' => 'Operasional',
+        'minimum_education' => 'SMA/SMK',
+        'maximum_age' => 35,
+        'needed' => 3,
+        'quota' => 15,
+        'location' => 'Pontianak',
+        'description' => 'Deskripsi lowongan dari superadmin.',
+        'image' => UploadedFile::fake()->image('superadmin-vacancy.webp'),
+        'status' => 'published',
+    ])->assertRedirect(route('superadmin.vacancies.index'));
+
+    $vacancy = Vacancy::query()->where('title', 'Superadmin Lowongan Gambar')->sole();
+    expect($vacancy->company_id)->toBe($company->getKey())
+        ->and($vacancy->status)->toBe('published')
+        ->and($vacancy->image_path)->not->toBeNull();
+    Storage::disk('public')->assertExists($vacancy->image_path);
+
+    $this->get(route('superadmin.vacancies.index'))
+        ->assertOk()
+        ->assertSee($vacancy->title)
+        ->assertSee(Storage::disk('public')->url($vacancy->image_path));
+    $this->get(route('superadmin.dashboard'))
+        ->assertOk()
+        ->assertSee($vacancy->title);
+
+    $previousImagePath = $vacancy->image_path;
+    $this->put(route('superadmin.vacancies.update', $vacancy), [
+        'company_id' => $company->getKey(),
+        'title' => $vacancy->title,
+        'position' => $vacancy->position,
+        'employment_type' => $vacancy->employment_type,
+        'category' => $vacancy->category,
+        'minimum_education' => $vacancy->minimum_education,
+        'maximum_age' => $vacancy->maximum_age,
+        'needed' => $vacancy->needed,
+        'quota' => $vacancy->quota,
+        'location' => $vacancy->location,
+        'description' => $vacancy->description,
+        'status' => $vacancy->status,
+        'image' => UploadedFile::fake()->image('replacement.webp'),
+    ])->assertRedirect(route('superadmin.vacancies.index'));
+
+    $vacancy->refresh();
+    expect($vacancy->image_path)->not->toBe($previousImagePath);
+    Storage::disk('public')->assertExists($vacancy->image_path);
+    Storage::disk('public')->assertMissing($previousImagePath);
+});
+
+it('does not expose unpublished vacancies or unapproved company profiles publicly', function () {
+    $owner = companyAccessUser('company_admin');
+    $company = companyAccessCompany($owner, 'verified');
+    $draft = companyAccessVacancy($company);
+    $unapprovedCompany = companyAccessCompany($owner);
+
+    $this->get(route('companies.show', $company->slug))
+        ->assertOk()
+        ->assertDontSee($draft->title)
+        ->assertSee('belum memiliki lowongan');
+    $this->get(route('companies.show', $unapprovedCompany->slug))->assertNotFound();
+});

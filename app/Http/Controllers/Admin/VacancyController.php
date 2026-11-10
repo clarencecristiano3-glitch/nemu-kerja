@@ -9,7 +9,9 @@ use App\Models\Vacancy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use RuntimeException;
 
 class VacancyController extends Controller
 {
@@ -36,10 +38,17 @@ class VacancyController extends Controller
     public function store(StoreVacancyRequest $request): RedirectResponse
     {
         $data = $this->normalizeListFields($request->validated());
+        $imagePath = $request->file('image')->store('vacancies', 'public');
+
+        if (! is_string($imagePath)) {
+            throw new RuntimeException('Gambar lowongan gagal disimpan.');
+        }
+
         $data['created_by'] = $request->user()->getKey();
         $vacancy = new Vacancy;
-        $vacancy->fill(Arr::except($data, 'company_id'));
+        $vacancy->fill(Arr::except($data, ['company_id', 'image']));
         $vacancy->company_id = $data['company_id'];
+        $vacancy->image_path = $imagePath;
         $vacancy->save();
 
         return redirect()->route('admin.vacancies.index')->with('success', 'Lowongan berhasil ditambahkan.');
@@ -58,9 +67,28 @@ class VacancyController extends Controller
     public function update(UpdateVacancyRequest $request, Vacancy $vacancy): RedirectResponse
     {
         $data = $this->normalizeListFields($request->validated());
+        $image = $data['image'] ?? null;
+        unset($data['image']);
+        $oldImagePath = null;
+
+        if ($image !== null) {
+            $imagePath = $image->store('vacancies', 'public');
+
+            if (! is_string($imagePath)) {
+                throw new RuntimeException('Gambar lowongan gagal disimpan.');
+            }
+
+            $oldImagePath = $vacancy->image_path;
+            $data['image_path'] = $imagePath;
+        }
+
         $vacancy->fill(Arr::except($data, 'company_id'));
         $vacancy->company_id = $data['company_id'];
         $vacancy->save();
+
+        if ($oldImagePath !== null) {
+            Storage::disk('public')->delete($oldImagePath);
+        }
 
         return redirect()->route('admin.vacancies.index')->with('success', 'Lowongan berhasil diperbarui.');
     }
@@ -88,6 +116,8 @@ class VacancyController extends Controller
         return Arr::only($data, [
             'company_id',
             'created_by',
+            'image',
+            'image_path',
             'title',
             'position',
             'employment_type',
