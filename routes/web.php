@@ -104,6 +104,7 @@ Route::get('/job/{jobId?}', [DetailJobController::class, 'show'])
     ->whereNumber('jobId')
     ->name('job.detail');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+Route::get('/companies/{slug}', [CompanyController::class, 'show'])->name('companies.show');
 Route::get('/tips', [HomeController::class, 'tips'])->name('tips.index');
 
 // Rute publik (bisa diakses tanpa harus login)

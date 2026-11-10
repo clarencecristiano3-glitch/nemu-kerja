@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 #[Fillable([
     'created_by',
+    'image_path',
     'title',
     'position',
     'employment_type',
@@ -58,6 +60,13 @@ class Vacancy extends Model
         return $this->hasMany(JobApplication::class, 'job_listing_id');
     }
 
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image_path === null
+            ? null
+            : Storage::disk('public')->url($this->image_path);
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -82,7 +91,7 @@ class Vacancy extends Model
             'category' => $this->category,
             'logo' => $company->name,
             'logoClass' => 'text-[#151442]',
-            'image' => $company->logo_url,
+            'image' => $this->image_url ?: $company->logo_url,
             'logoBackground' => $company->slug === 'hotways-chicken',
             'applicants' => (int) ($this->applications_count ?? 0),
             'quota' => $this->quota,

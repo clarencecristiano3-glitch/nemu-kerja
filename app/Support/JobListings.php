@@ -2,7 +2,9 @@
 
 namespace App\Support;
 
+use App\Models\Company;
 use App\Models\Vacancy;
+use Illuminate\Database\Eloquent\Builder;
 
 class JobListings
 {
@@ -23,21 +25,39 @@ class JobListings
 
     public static function find(int $id): ?array
     {
-        $vacancy = Vacancy::query()
-            ->whereKey($id)
-            ->where('status', 'published')
-            ->where(static function ($query): void {
-                $query->whereNull('expires_at')->orWhereDate('expires_at', '>=', today());
-            })
-            ->whereHas('company', static fn ($query) => $query->where('verification_status', 'approved'))
-            ->with('company')
-            ->withCount('applications')
-            ->first();
+        $vacancy = self::publicQuery()->whereKey($id)->first();
 
         return $vacancy?->toListingArray();
     }
 
     public static function all(): array
+    {
+        return self::publicQuery()
+            ->latest()
+            ->orderByDesc('id')
+            ->get()
+            ->map(static fn (Vacancy $vacancy): array => $vacancy->toListingArray())
+            ->all();
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public static function forCompany(Company $company): array
+    {
+        return self::publicQuery()
+            ->whereBelongsTo($company)
+            ->latest()
+            ->orderByDesc('id')
+            ->get()
+            ->map(static fn (Vacancy $vacancy): array => $vacancy->toListingArray())
+            ->all();
+    }
+
+    /**
+     * @return Builder<Vacancy>
+     */
+    private static function publicQuery(): Builder
     {
         return Vacancy::query()
             ->where('status', 'published')
@@ -46,11 +66,6 @@ class JobListings
             })
             ->whereHas('company', static fn ($query) => $query->where('verification_status', 'approved'))
             ->with('company')
-            ->withCount('applications')
-            ->latest()
-            ->orderByDesc('id')
-            ->get()
-            ->map(static fn (Vacancy $vacancy): array => $vacancy->toListingArray())
-            ->all();
+            ->withCount('applications');
     }
 }

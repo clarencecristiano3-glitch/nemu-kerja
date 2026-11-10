@@ -18,9 +18,9 @@
                 <div class="space-y-4">
         @foreach ($groupedVacancies as $vacancy)
             <article class="flex flex-col gap-5 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:p-5">
-                <div class="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl {{ $vacancy->company->slug === 'hotways-chicken' ? 'bg-red-600' : 'bg-gray-50' }}">
-                    @if ($vacancy->company->logo_url)
-                        <img src="{{ $vacancy->company->logo_url }}" alt="Logo {{ $vacancy->company->name }}" class="h-full w-full object-contain p-2">
+                <div class="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl {{ $vacancy->image_path ? 'bg-white' : ($vacancy->company->slug === 'hotways-chicken' ? 'bg-red-600' : 'bg-gray-50') }}">
+                    @if ($vacancy->image_url ?: $vacancy->company->logo_url)
+                        <img src="{{ $vacancy->image_url ?: $vacancy->company->logo_url }}" alt="Gambar {{ $vacancy->title }}" class="h-full w-full object-contain p-2">
                     @else
                         <span class="text-2xl font-extrabold">{{ str($vacancy->company->name)->substr(0, 1)->upper() }}</span>
                     @endif

@@ -116,7 +116,7 @@
                             </dl>
                         </div>
                     </div>
-                    <a href="#company-{{ $company->id }}" class="check-company">Perusahaan Terverifikasi</a>
+                    <a href="{{ route('companies.show', $company->slug) }}" class="check-company">Lihat profil &amp; lowongan</a>
                 </article>
             @endforeach
         </div>

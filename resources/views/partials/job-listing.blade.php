@@ -61,14 +61,14 @@
         @endforeach
     </div>
 
-    <div id="jobGrid" class="grid grid-cols-2 gap-5 sm:gap-7 md:grid-cols-4">
+    <div id="jobGrid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         @foreach ($jobs as $job)
             <a id="job-{{ $job['id'] }}" href="{{ route('job.detail', ['jobId' => $job['id']]) }}"
-                class="job-card block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.16)] transition hover:-translate-y-1 hover:shadow-lg"
+                class="job-card block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
                 data-job-id="{{ $job['id'] }}" data-category="{{ $job['category'] }}"
                 data-search="{{ mb_strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
                 <div @class([
-                    'flex h-28 items-center justify-center overflow-hidden border-b border-gray-100 sm:h-32',
+                    'flex h-48 items-center justify-center p-3 text-center',
                     'bg-red-600' => $job['logoBackground'],
                     'bg-white' => ! $job['logoBackground'],
                 ])>
@@ -76,15 +76,17 @@
                         <img src="{{ $job['image'] }}" alt="Logo {{ $job['brand'] }}"
                             class="h-full w-full object-contain">
                     @else
-                        <span class="text-center text-2xl font-black {{ $job['logoClass'] }} sm:text-4xl">{{ $job['logo'] }}</span>
+                        <span class="text-4xl font-black {{ $job['logoClass'] }}">{{ $job['logo'] }}</span>
                     @endif
                 </div>
-                <div class="flex min-h-[104px] flex-col p-3 sm:p-4">
-                    <h3 class="mb-2 text-xs font-extrabold leading-snug sm:text-sm">{{ $job['company'] }}</h3>
-                    <p class="text-[10px] leading-relaxed sm:text-[11px]">Mencari: {{ $job['position'] }}</p>
-                    <p class="text-[10px] leading-relaxed sm:text-[11px]">Minimal Lulusan: {{ $job['education'] }}</p>
-                    <p class="text-[10px] leading-relaxed sm:text-[11px]">Maksimal Umur: {{ $job['age'] }}</p>
-                    <p class="mt-auto pt-2 text-right text-[8px] text-gray-400">{{ $job['needed'] }} orang dibutuhkan</p>
+                <div class="p-4">
+                    <h3 class="mb-3 text-sm font-extrabold">{{ $job['company'] }}</h3>
+                    <p class="text-xs leading-5">Mencari : {{ $job['position'] }}</p>
+                    <p class="text-xs leading-5">Minimal Lulusan : {{ $job['education'] }}</p>
+                    <p class="text-xs leading-5">Maksimal Umur : {{ $job['age'] }}</p>
+                    <p class="mt-3 text-right text-[10px] text-gray-500">
+                        {{ $job['needed'] }} orang di butuhkan
+                    </p>
                 </div>
             </a>
         @endforeach
