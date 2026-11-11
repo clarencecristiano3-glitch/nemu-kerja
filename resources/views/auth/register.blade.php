@@ -12,14 +12,14 @@
 
     <!-- HEADER / LOGO + TOMBOL KEMBALI -->
     <header class="w-full">
-        <div class="mx-auto flex max-w-[1500px] flex-col items-start px-6 pt-3 pb-2 lg:px-10">
-            <a href="{{ route('home') }}" class="inline-flex items-center">
-                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-9 w-auto">
+        <div class="ml-10 mt-[30px] flex w-fit flex-col items-start">
+            <a href="{{ route('home') }}" class="inline-flex items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#151442]">
+                <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-10 w-auto">
             </a>
             
             <!-- Tombol Back ke Home -->
-            <a href="{{ route('home') }}" class="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 transition hover:text-[#151442]">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+            <a href="{{ route('home') }}" class="mt-1 inline-flex min-h-8 items-center gap-2 rounded-md pr-2 text-sm font-medium text-gray-500 transition hover:text-[#151442] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#151442]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
                 Kembali ke Beranda
@@ -28,8 +28,8 @@
     </header>
 
     <!-- CONTAINER UTAMA -->
-    <main class="mx-auto my-auto w-full max-w-[1500px] px-6 py-8 lg:px-10">
-        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+    <main class="mx-auto my-auto w-full -translate-y-5 px-6 py-8">
+        <div class="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center justify-items-center gap-10 lg:grid-cols-2 lg:px-10">
 
             <!-- KOLOM KIRI: Form Register -->
             <div class="w-full max-w-md">
@@ -109,11 +109,11 @@
             </div>
 
             <!-- KOLOM KANAN: Kartu & Maskot 3D -->
-            <div class="relative hidden justify-end lg:flex">
-                <div class="relative h-[460px] w-[310px]">
+            <div class="relative hidden w-full translate-x-20 justify-center lg:flex">
+                <div class="relative isolate h-[460px] w-[310px]">
                     
                     <!-- Kartu Biru & Overlay Oranye (Presisi GPU Clipping) -->
-                    <div class="absolute inset-0 isolate overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl transform-gpu">
+                    <div class="absolute inset-0 z-0 isolate overflow-hidden rounded-[32px] bg-[#0e1248] shadow-2xl transform-gpu">
                         <!-- Layer 1: Background Kartu Biru Pattern Panda -->
                         <img src="{{ asset('images/kotak_biru.jpg') }}" alt="Card Background" class="h-full w-full scale-110 object-cover rounded-[32px]">
 
@@ -125,7 +125,7 @@
                     <img 
                         src="{{ asset('images/robot.png') }}" 
                         alt="Rocket Mascot" 
-                        class="pointer-events-none absolute -left-[340px] top-1/2 z-20 w-[610px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl"
+                        class="pointer-events-none absolute -left-[140px] top-1/2 z-10 w-[610px] max-w-none -translate-y-1/2 object-contain drop-shadow-2xl"
                     >
                 </div>
             </div>

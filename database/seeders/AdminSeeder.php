@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $password = env('SUPERADMIN_PASSWORD');
-
+ 
         if (! is_string($password) || $password === '') {
             throw new RuntimeException('Set SUPERADMIN_PASSWORD in .env before seeding the superadmin account.');
         }
