@@ -54,7 +54,7 @@
             </div>
         </section>
 
-        <section class="mx-auto max-w-[1280px] px-6 pb-14 pt-2 md:px-10 md:pb-20">
+        <section class="mx-auto max-w-[1500px] px-6 pb-14 pt-2 lg:px-10 md:pb-20">
             <div class="mb-6 flex items-center justify-between gap-4">
                 <h2 class="text-xl font-bold sm:text-2xl">Daftar Lowongan</h2>
                 <button id="filterButton" type="button" aria-expanded="false" aria-controls="filterPanel"
@@ -78,13 +78,13 @@
                 @endforeach
             </div>
 
-            <div id="jobGrid" class="grid grid-cols-2 gap-5 sm:gap-7 md:grid-cols-4">
+            <div id="jobGrid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ($jobs as $job)
                     <article
-                        class="job-card overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.16)] transition hover:-translate-y-1 hover:shadow-lg"
+                        class="job-card overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
                         data-category="{{ $job['category'] }}"
                         data-search="{{ mb_strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
-                        <div class="flex h-28 items-center justify-center overflow-hidden border-b border-gray-100 bg-white sm:h-32">
+                        <div class="flex h-48 items-center justify-center overflow-hidden border-b border-gray-100 bg-white text-center">
                             @if ($job['image'])
                                 <img src="{{ asset('images/' . $job['image']) }}" alt="Logo {{ $job['company'] }}"
                                     class="h-full w-full object-contain">
@@ -98,12 +98,12 @@
                                 <span class="text-center text-2xl font-black {{ $job['logoClass'] }} sm:text-4xl">{{ $job['logo'] }}</span>
                             @endif
                         </div>
-                        <div class="flex min-h-[104px] flex-col p-3 sm:p-4">
-                            <h3 class="mb-2 text-xs font-extrabold leading-snug sm:text-sm">{{ $job['company'] }}</h3>
-                            <p class="text-[10px] leading-relaxed sm:text-[11px]">Mencari: {{ $job['position'] }}</p>
-                            <p class="text-[10px] leading-relaxed sm:text-[11px]">Minimal Lulusan: {{ $job['education'] }}</p>
-                            <p class="text-[10px] leading-relaxed sm:text-[11px]">Maksimal Umur: {{ $job['age'] }}</p>
-                            <p class="mt-auto pt-2 text-right text-[8px] text-gray-400">{{ $job['needed'] }} orang dibutuhkan</p>
+                        <div class="p-4">
+                            <h3 class="mb-3 text-sm font-extrabold">{{ $job['company'] }}</h3>
+                            <p class="text-xs leading-5">Mencari : {{ $job['position'] }}</p>
+                            <p class="text-xs leading-5">Minimal Lulusan : {{ $job['education'] }}</p>
+                            <p class="text-xs leading-5">Maksimal Umur : {{ $job['age'] }}</p>
+                            <p class="mt-3 text-right text-[10px] text-gray-500">{{ $job['needed'] }} orang di butuhkan</p>
                         </div>
                     </article>
                 @endforeach
