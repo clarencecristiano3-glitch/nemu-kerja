@@ -1,4 +1,4 @@
-<header class="border-b border-gray-200 bg-white">
+<header data-scroll-navbar class="sticky top-0 z-50 border-b border-gray-200 bg-white transition-transform duration-300 motion-reduce:transition-none">
     <div class="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-3 lg:px-10">
         <a href="{{ route('home') }}" class="flex items-center">
             <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-9 w-auto">
@@ -27,12 +27,21 @@
                 <details class="group relative">
                     <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border border-gray-200 px-3 py-2 text-xs font-semibold text-[#151442] hover:border-[#151442]">
                         <span>{{ auth()->user()->username }}</span>
-                        <span aria-hidden="true" class="transition-transform group-open:rotate-180">⌄</span>
+                        <span aria-hidden="true" class="flex h-4 w-4 shrink-0 items-center justify-center transition-transform group-open:rotate-180">
+                            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </span>
                     </summary>
                     <div class="absolute right-0 z-50 mt-2 w-52 rounded-xl border border-gray-100 bg-white p-2 text-xs shadow-lg">
                         @if (! auth()->user()->isSuperadmin() || auth()->user()->companies()->exists())
                             @if (auth()->user()->companies()->exists())
-                                <a href="{{ route('company.profile.index') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Perusahaan Saya</a>
+                                @if (request()->routeIs('company.profile.*'))
+                                    <a href="{{ route('home') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Halaman Beranda</a>
+                                @else
+                                    <a href="{{ route('company.profile.index') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Perusahaan Saya</a>
+                                @endif
                             @else
                                 <a href="{{ route('company.profile.create') }}" class="block rounded-lg px-3 py-2 hover:bg-gray-50">Tambah Perusahaan</a>
                             @endif

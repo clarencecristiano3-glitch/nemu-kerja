@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="mx-auto max-w-3xl px-5 py-10 lg:px-0">
-        <a href="{{ route('company.profile.index') }}" class="text-sm font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke Perusahaan Saya</a>
+        <a href="{{ route('home') }}" class="text-sm font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke Beranda</a>
         <h1 class="mt-4 text-3xl font-extrabold text-[#151442]">Ajukan Perusahaan</h1>
         <p class="mt-2 text-sm text-gray-500">Unggah dokumen legalitas. Perusahaan akan berstatus menunggu sampai diperiksa superadmin.</p>
 

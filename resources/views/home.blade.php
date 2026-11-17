@@ -146,7 +146,9 @@
         <!-- See More Button -->
         <div class="mt-12 flex items-center gap-5">
             <div class="h-px flex-1 bg-gray-300"></div>
-            <button class="text-sm text-[#151442]">see more</button>
+            <a href="{{ route('lowongan.index') }}" class="text-sm text-[#151442] hover:text-[#ef9d00]">
+                see more
+            </a>
             <div class="h-px flex-1 bg-gray-300"></div>
         </div>
     </section>

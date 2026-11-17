@@ -6,6 +6,7 @@
 
         <nav class="order-3 flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-medium lg:order-2 lg:w-auto lg:gap-9"
             aria-label="Navigasi admin">
+            <a href="{{ route('home') }}" class="hover:text-[#ef9d00]">Halaman Beranda</a>
             <a href="{{ route('admin.vacancies.index') }}"
                 @class(['font-bold text-[#151442]' => request()->routeIs('admin.vacancies.*'), 'hover:text-[#ef9d00]' => !request()->routeIs('admin.vacancies.*')])>
                 Lowongan Saya

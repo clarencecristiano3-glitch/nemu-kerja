@@ -1,4 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const scrollNavbar = document.querySelector('[data-scroll-navbar]');
+
+    if (scrollNavbar) {
+        let previousScrollY = window.scrollY;
+        let scrollFrame = null;
+
+        const updateNavbarVisibility = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY <= scrollNavbar.offsetHeight) {
+                scrollNavbar.classList.remove('-translate-y-full');
+                previousScrollY = currentScrollY;
+                scrollFrame = null;
+
+                return;
+            }
+
+            if (Math.abs(currentScrollY - previousScrollY) > 4) {
+                scrollNavbar.classList.toggle(
+                    '-translate-y-full',
+                    currentScrollY > previousScrollY
+                );
+                previousScrollY = currentScrollY;
+            }
+
+            scrollFrame = null;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (scrollFrame === null) {
+                scrollFrame = window.requestAnimationFrame(updateNavbarVisibility);
+            }
+        }, { passive: true });
+    }
+
     const toast = document.querySelector('[data-toast]');
 
     if (toast) {
@@ -20,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toast.querySelector('[data-toast-close]')?.addEventListener('click', () => {
             dismissToast();
         });
+
 
         window.requestAnimationFrame(() => {
             toast.classList.remove('toast-hidden');
@@ -150,8 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
     filterButton?.addEventListener('click', () => {
         if (!filterPanel) return;
 
-        filterPanel.classList.toggle('hidden');
-        filterPanel.classList.toggle('flex');
+        const isExpanded = filterPanel.classList.contains('hidden');
+        filterPanel.classList.toggle('hidden', !isExpanded);
+        filterPanel.classList.toggle('flex', isExpanded);
+
+        if (filterButton.hasAttribute('aria-expanded')) {
+            filterButton.setAttribute('aria-expanded', String(isExpanded));
+        }
     });
 
     filterButtons.forEach((button) => {
@@ -184,4 +225,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setActiveFilter(selectedCategory);
     filterJobs();
+
+    const loadMoreJobsButton = document.getElementById('loadMoreJobs');
+    const loadMoreJobsContainer = document.getElementById('loadMoreJobsContainer');
+    const lowonganEmpty = document.getElementById('emptyJobs');
+    const lowonganFilterButtons = Array.from(
+        document.querySelectorAll('.filter-button')
+    );
+
+    if (loadMoreJobsButton && lowonganEmpty && jobGrid) {
+        let visibleRows = 4;
+
+        const getVisibleCardLimit = () => {
+            const columnCount = window
+                .getComputedStyle(jobGrid)
+                .gridTemplateColumns.split(' ').length;
+
+            return columnCount * visibleRows;
+        };
+
+        const updateLowonganCards = () => {
+            const visibleCardLimit = getVisibleCardLimit();
+            let matchingJobs = 0;
+            let visibleJobs = 0;
+
+            cards.forEach((card) => {
+                const matchesCategory =
+                    selectedCategory === 'all' ||
+                    card.dataset.category === selectedCategory;
+                const shouldShow = matchesCategory && visibleJobs < visibleCardLimit;
+
+                card.classList.toggle('hidden', !shouldShow);
+
+                if (matchesCategory) {
+                    matchingJobs++;
+
+                    if (shouldShow) {
+                        visibleJobs++;
+                    }
+                }
+            });
+
+            lowonganEmpty.classList.toggle('hidden', matchingJobs > 0);
+            loadMoreJobsContainer?.classList.toggle(
+                'hidden',
+                matchingJobs <= visibleCardLimit
+            );
+        };
+
+        lowonganFilterButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                selectedCategory = button.dataset.filter || 'all';
+                visibleRows = 4;
+
+                lowonganFilterButtons.forEach((filterButton) => {
+                    const isActive = filterButton === button;
+                    filterButton.classList.toggle('bg-[#151442]', isActive);
+                    filterButton.classList.toggle('text-white', isActive);
+                    filterButton.classList.toggle('border', !isActive);
+                    filterButton.classList.toggle('border-gray-300', !isActive);
+                });
+
+                updateLowonganCards();
+            });
+        });
+
+        loadMoreJobsButton.addEventListener('click', () => {
+            visibleRows += 4;
+            updateLowonganCards();
+        });
+
+        window.addEventListener('resize', updateLowonganCards);
+        updateLowonganCards();
+    }
 });

@@ -4,6 +4,7 @@
             <img src="{{ asset('images/logonya.png') }}" alt="Nemu Kerja!" class="h-9 w-auto">
         </a>
         <nav class="order-3 flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs font-medium lg:order-2 lg:w-auto" aria-label="Navigasi superadmin">
+            <a href="{{ route('home') }}" class="hover:text-[#ef9d00]">Kembali ke Beranda</a>
             <a href="{{ route('superadmin.dashboard') }}">Ringkasan</a>
             <a href="{{ route('superadmin.verifications.index') }}">Verifikasi Perusahaan</a>
             <a href="{{ route('superadmin.companies.index') }}">Semua Perusahaan</a>

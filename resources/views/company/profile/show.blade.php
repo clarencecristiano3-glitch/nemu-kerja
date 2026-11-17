@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="mx-auto max-w-4xl px-5 py-10 lg:px-0">
-        <a href="{{ route('company.profile.index') }}" class="text-sm font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke Perusahaan Saya</a>
+        <a href="{{ route('home') }}" class="text-sm font-semibold text-gray-500 hover:text-[#151442]">← Kembali ke Beranda</a>
         <div class="mt-5 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>

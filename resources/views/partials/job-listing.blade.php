@@ -100,45 +100,11 @@
         <p class="mt-2 text-sm text-gray-500">Coba kata kunci, lokasi, atau kategori lain.</p>
     </div>
 
-    <div class="mt-10 flex items-center gap-5 text-sm text-[#151442]">
+    <div id="loadMoreJobsContainer" class="mt-10 hidden flex items-center gap-5 text-sm text-[#151442]">
         <span class="h-px flex-1 bg-gray-300"></span>
-        <span>see more</span>
+        <button id="loadMoreJobs" type="button" class="hover:text-[#ef9d00]">
+            see more
+        </button>
         <span class="h-px flex-1 bg-gray-300"></span>
     </div>
 </section>
-
-<script>
-    (() => {
-        const filterButton = document.getElementById('filterButton');
-        const filterPanel = document.getElementById('filterPanel');
-        const jobCards = Array.from(document.querySelectorAll('.job-card'));
-        const emptyJobs = document.getElementById('emptyJobs');
-        let activeCategory = 'all';
-
-        filterButton?.addEventListener('click', () => {
-            const isExpanded = filterButton.getAttribute('aria-expanded') === 'true';
-            filterButton.setAttribute('aria-expanded', String(!isExpanded));
-            filterPanel?.classList.toggle('hidden', isExpanded);
-        });
-
-        document.querySelectorAll('.filter-button').forEach((button) => {
-            button.addEventListener('click', () => {
-                activeCategory = button.dataset.filter ?? 'all';
-
-                document.querySelectorAll('.filter-button').forEach((filterButton) => {
-                    const isActive = filterButton === button;
-                    filterButton.classList.toggle('bg-[#151442]', isActive);
-                    filterButton.classList.toggle('text-white', isActive);
-                });
-
-                let visibleJobs = 0;
-                jobCards.forEach((card) => {
-                    const isVisible = activeCategory === 'all' || card.dataset.category === activeCategory;
-                    card.classList.toggle('hidden', !isVisible);
-                    visibleJobs += Number(isVisible);
-                });
-                emptyJobs?.classList.toggle('hidden', visibleJobs > 0);
-            });
-        });
-    })();
-</script>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/company.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="flex min-h-screen flex-col">
     @include('layouts.navbar')
     @if (session('success'))
         <p class="mx-auto mt-5 max-w-5xl rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">{{ session('success') }}</p>
@@ -19,7 +19,7 @@
     @if (session()->has('company_approved'))
         <x-toast message="Perusahaan Anda sudah disetujui" />
     @endif
-    <main>@yield('content')</main>
+    <main class="flex-1">@yield('content')</main>
     @include('partials.footer')
 </body>
 </html>
