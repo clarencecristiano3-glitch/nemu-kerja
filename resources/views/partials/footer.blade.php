@@ -1,5 +1,6 @@
 <footer class="bg-slate-900 text-white relative mt-20 pt-12 pb-6">
-    <div class="absolute -top-12 right-10">
+    <div class="absolute -top-13
+     right-10">
         <img src="{{ asset('images/panda_blue_with_hand.png') }}" alt="Maskot Nemu Kerja!" class="h-16 w-auto">
     </div>
 
