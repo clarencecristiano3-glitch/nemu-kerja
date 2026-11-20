@@ -26,12 +26,20 @@
                     class="w-full min-w-0 bg-transparent text-xs outline-none placeholder:text-gray-400">
             </label>
             <span class="h-6 border-l border-gray-200"></span>
-            <label class="flex min-w-0 flex-1 items-center gap-2 px-3">
-                <span aria-hidden="true" class="text-gray-400">⌖</span>
-                <span class="sr-only">Lokasi pekerjaan</span>
-                <input id="location" name="location" type="search" value="{{ $location }}" placeholder="Lokasi Pekerjaan"
-                    class="w-full min-w-0 bg-transparent text-xs outline-none placeholder:text-gray-400">
-            </label>
+            <div class="relative min-w-0 flex-1">
+                <label class="flex min-w-0 items-center gap-2 px-3">
+                    <span aria-hidden="true" class="text-gray-400">⌖</span>
+                    <span class="sr-only">Lokasi pekerjaan</span>
+                    <input id="location" name="location" type="search" value="{{ $location }}" placeholder="Lokasi Pekerjaan"
+                        data-search-location autocomplete="off" role="combobox" aria-autocomplete="list"
+                        aria-controls="jobLocationSuggestions" aria-expanded="false"
+                        class="w-full min-w-0 bg-transparent text-xs outline-none placeholder:text-gray-400">
+                </label>
+                <div id="jobLocationSuggestions" data-location-suggestions role="listbox"
+                    aria-label="Saran lokasi pekerjaan"
+                    class="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 hidden max-h-72 overflow-y-auto rounded-2xl border border-gray-100 bg-white p-2 text-left shadow-xl">
+                </div>
+            </div>
             <button type="submit"
                 class="rounded-full bg-[#151442] px-5 py-2 text-xs font-semibold text-white hover:bg-[#25236b]">
                 Cari
@@ -73,6 +81,7 @@
                 class="job-card block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
                 data-job-id="{{ $job['id'] }}" data-category="{{ $job['category'] }}"
                 data-search-suggestion="{{ $job['company'] }} - {{ $job['position'] }} ({{ $job['location'] }})"
+                data-location-suggestion="{{ $job['location'] }}"
                 data-search="{{ mb_strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
                 <div @class([
                     'flex h-48 items-center justify-center p-3 text-center',

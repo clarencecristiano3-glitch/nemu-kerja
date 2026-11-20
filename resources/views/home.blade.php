@@ -48,10 +48,16 @@
 
                     <div class="h-7 border-l border-gray-300"></div>
 
-                    <div class="flex flex-1 items-center gap-2 px-3">
+                    <div class="relative flex flex-1 items-center gap-2 px-3">
                         <span class="text-gray-400">⌖</span>
                         <input id="location" name="location" type="text" placeholder="Lokasi Pekerjaan"
+                            data-search-location autocomplete="off" role="combobox" aria-autocomplete="list"
+                            aria-controls="homeLocationSuggestions" aria-expanded="false"
                             class="w-full bg-transparent text-sm outline-none">
+                        <div id="homeLocationSuggestions" data-location-suggestions role="listbox"
+                            aria-label="Saran lokasi pekerjaan"
+                            class="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 hidden max-h-72 overflow-y-auto rounded-2xl border border-gray-100 bg-white p-2 text-left shadow-xl">
+                        </div>
                     </div>
 
                     <button type="submit" class="rounded-full bg-[#151442] px-7 py-3 text-sm font-semibold text-white">
@@ -64,7 +70,8 @@
                 <div class="hidden" aria-hidden="true">
                     @foreach ($searchSuggestions as $job)
                         <a href="{{ route('job.detail', ['jobId' => $job['id']]) }}"
-                            data-search-suggestion="{{ $job['company'] }} - {{ $job['position'] }} ({{ $job['location'] }})"></a>
+                            data-search-suggestion="{{ $job['company'] }} - {{ $job['position'] }} ({{ $job['location'] }})"
+                            data-location-suggestion="{{ $job['location'] }}"></a>
                     @endforeach
                 </div>
 
@@ -122,6 +129,7 @@
                     class="job-card block overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
                     data-job-id="{{ $job['id'] }}" data-category="{{ $job['category'] }}"
                     data-search-suggestion="{{ $job['company'] }} - {{ $job['position'] }} ({{ $job['location'] }})"
+                    data-location-suggestion="{{ $job['location'] }}"
                     data-search="{{ strtolower($job['company'] . ' ' . $job['position'] . ' ' . $job['location'] . ' ' . $job['education']) }}">
                     <div @class([
                         'flex h-48 items-center justify-center p-3 text-center',

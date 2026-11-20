@@ -102,6 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return suggestions;
     }, []);
 
+    const locationSuggestions = Array.from(
+        document.querySelectorAll('[data-location-suggestion]')
+    ).reduce((suggestions, element) => {
+        const location = element.dataset.locationSuggestion?.trim();
+
+        if (location && !suggestions.some((suggestion) => normalize(suggestion) === normalize(location))) {
+            suggestions.push(location);
+        }
+
+        return suggestions;
+    }, []);
+
     document.querySelectorAll('[data-job-search]').forEach((form) => {
         const input = form.querySelector('[data-search-keyword]');
         const listbox = form.querySelector('[data-search-suggestions]');
@@ -146,6 +158,104 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.className = 'block rounded-xl px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-[#151442] focus:bg-amber-50 focus:text-[#151442] focus:outline-none';
                 link.textContent = suggestion.label;
                 listbox.append(link);
+            });
+
+            listbox.classList.remove('hidden');
+            input.setAttribute('aria-expanded', 'true');
+        };
+
+        input.addEventListener('input', updateSuggestions);
+        input.addEventListener('focus', updateSuggestions);
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+
+            if (event.key === 'Enter' && !listbox.classList.contains('hidden')) {
+                event.preventDefault();
+                listbox.querySelector('[role="option"]')?.click();
+            }
+
+            if (event.key === 'ArrowDown' && !listbox.classList.contains('hidden')) {
+                event.preventDefault();
+                listbox.querySelector('[role="option"]')?.focus();
+            }
+        });
+
+        listbox.addEventListener('keydown', (event) => {
+            const options = Array.from(listbox.querySelectorAll('[role="option"]'));
+            const activeIndex = options.indexOf(document.activeElement);
+
+            if (event.key === 'ArrowDown' && activeIndex < options.length - 1) {
+                event.preventDefault();
+                options[activeIndex + 1]?.focus();
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+
+                if (activeIndex <= 0) {
+                    input.focus();
+                } else {
+                    options[activeIndex - 1]?.focus();
+                }
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!form.contains(event.target)) {
+                closeSuggestions();
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-job-search]').forEach((form) => {
+        const input = form.querySelector('[data-search-location]');
+        const listbox = form.querySelector('[data-location-suggestions]');
+
+        if (!input || !listbox) {
+            return;
+        }
+
+        const closeSuggestions = () => {
+            listbox.classList.add('hidden');
+            input.setAttribute('aria-expanded', 'false');
+        };
+
+        const updateSuggestions = () => {
+            const query = normalize(input.value);
+            listbox.replaceChildren();
+
+            if (query === '') {
+                closeSuggestions();
+                return;
+            }
+
+            const matches = locationSuggestions
+                .filter((location) => normalize(location).includes(query))
+                .sort((first, second) => {
+                    const firstStartsWithQuery = normalize(first).startsWith(query);
+                    const secondStartsWithQuery = normalize(second).startsWith(query);
+
+                    return Number(secondStartsWithQuery) - Number(firstStartsWithQuery);
+                })
+                .slice(0, 8);
+
+            if (matches.length === 0) {
+                closeSuggestions();
+                return;
+            }
+
+            matches.forEach((location) => {
+                const option = document.createElement('button');
+                option.type = 'button';
+                option.setAttribute('role', 'option');
+                option.className = 'block w-full rounded-xl px-4 py-3 text-left text-sm text-gray-700 hover:bg-amber-50 hover:text-[#151442] focus:bg-amber-50 focus:text-[#151442] focus:outline-none';
+                option.textContent = location;
+                option.addEventListener('click', () => {
+                    input.value = location;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    closeSuggestions();
+                });
+                listbox.append(option);
             });
 
             listbox.classList.remove('hidden');
