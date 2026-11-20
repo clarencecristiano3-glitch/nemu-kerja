@@ -40,7 +40,7 @@
                                     <p class="mt-1 text-xs text-gray-500">{{ $application->vacancy?->title ?? $application->job_title }}</p>
                                 </div>
                                 <div class="text-xs text-gray-500 sm:text-right">
-                                    <p>{{ $application->age }} tahun · {{ $application->education }}</p>
+                                    <p>{{ $application->birth_date?->format('d/m/Y') ?? '-' }} · {{ $application->education }}</p>
                                     <p class="mt-1">{{ $application->created_at->format('d M Y, H:i') }}</p>
                                 </div>
                             </div>

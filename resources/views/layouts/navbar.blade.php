@@ -61,7 +61,13 @@
                 <a href="{{ route('login') }}" class="rounded-full border border-[#151442] px-4 py-1 text-xs font-semibold">Masuk</a>
                 <a href="{{ route('register') }}" class="rounded-full bg-[#151442] px-4 py-1 text-xs font-semibold text-white">Daftar</a>
             @endauth
-            <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" class="ml-1 h-8 w-auto">
+            @auth
+                <a href="{{ route('profile.show') }}" aria-label="Buka profil" class="ml-1 inline-flex rounded-full focus:outline-none focus:ring-2 focus:ring-[#ef9d00]">
+                    <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" class="h-8 w-auto">
+                </a>
+            @else
+                <img src="{{ asset('images/panda_blue.png') }}" alt="Profil" class="ml-1 h-8 w-auto">
+            @endauth
         </div>
     </div>
 </header>

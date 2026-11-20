@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class StoreJobApplicationRequest extends FormRequest
 {
@@ -16,7 +17,12 @@ class StoreJobApplicationRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:255'],
-            'age' => ['required', 'integer', 'min:15', 'max:70'],
+            'birth_date' => [
+                'required',
+                'date',
+                'before_or_equal:'.Carbon::now()->subYears(15)->toDateString(),
+                'after_or_equal:'.Carbon::now()->subYears(70)->toDateString(),
+            ],
             'education' => ['required', 'in:SMA/SMK,D1/D3,S1'],
             'email' => ['required', 'email', 'max:255'],
             'application_file' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:10240'],

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Test User',
                 'username' => 'test-user',
                 'password' => 'password',
-                'age' => 25,
+                'birth_date' => now()->subYears(25)->toDateString(),
             ],
         );
     }

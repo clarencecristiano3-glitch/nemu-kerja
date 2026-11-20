@@ -89,6 +89,112 @@ document.addEventListener('DOMContentLoaded', () => {
     const normalize = (value) =>
         (value || '').toLowerCase().trim();
 
+    const searchSuggestions = Array.from(
+        document.querySelectorAll('[data-search-suggestion]')
+    ).reduce((suggestions, element) => {
+        const label = element.dataset.searchSuggestion?.trim();
+        const url = element.getAttribute('href');
+
+        if (label && url && !suggestions.some((suggestion) => suggestion.url === url)) {
+            suggestions.push({ label, url });
+        }
+
+        return suggestions;
+    }, []);
+
+    document.querySelectorAll('[data-job-search]').forEach((form) => {
+        const input = form.querySelector('[data-search-keyword]');
+        const listbox = form.querySelector('[data-search-suggestions]');
+
+        if (!input || !listbox) {
+            return;
+        }
+
+        const closeSuggestions = () => {
+            listbox.classList.add('hidden');
+            input.setAttribute('aria-expanded', 'false');
+        };
+
+        const updateSuggestions = () => {
+            const query = normalize(input.value);
+            listbox.replaceChildren();
+
+            if (query === '') {
+                closeSuggestions();
+                return;
+            }
+
+            const matches = searchSuggestions
+                .filter((suggestion) => normalize(suggestion.label).includes(query))
+                .sort((first, second) => {
+                    const firstStartsWithQuery = normalize(first.label).startsWith(query);
+                    const secondStartsWithQuery = normalize(second.label).startsWith(query);
+
+                    return Number(secondStartsWithQuery) - Number(firstStartsWithQuery);
+                })
+                .slice(0, 8);
+
+            if (matches.length === 0) {
+                closeSuggestions();
+                return;
+            }
+
+            matches.forEach((suggestion) => {
+                const link = document.createElement('a');
+                link.href = suggestion.url;
+                link.setAttribute('role', 'option');
+                link.className = 'block rounded-xl px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 hover:text-[#151442] focus:bg-amber-50 focus:text-[#151442] focus:outline-none';
+                link.textContent = suggestion.label;
+                listbox.append(link);
+            });
+
+            listbox.classList.remove('hidden');
+            input.setAttribute('aria-expanded', 'true');
+        };
+
+        input.addEventListener('input', updateSuggestions);
+        input.addEventListener('focus', updateSuggestions);
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeSuggestions();
+            }
+
+            if (event.key === 'Enter' && !listbox.classList.contains('hidden')) {
+                event.preventDefault();
+                listbox.querySelector('[role="option"]')?.click();
+            }
+
+            if (event.key === 'ArrowDown' && !listbox.classList.contains('hidden')) {
+                event.preventDefault();
+                listbox.querySelector('[role="option"]')?.focus();
+            }
+        });
+
+        listbox.addEventListener('keydown', (event) => {
+            const options = Array.from(listbox.querySelectorAll('[role="option"]'));
+            const activeIndex = options.indexOf(document.activeElement);
+
+            if (event.key === 'ArrowDown' && activeIndex < options.length - 1) {
+                event.preventDefault();
+                options[activeIndex + 1]?.focus();
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+
+                if (activeIndex <= 0) {
+                    input.focus();
+                } else {
+                    options[activeIndex - 1]?.focus();
+                }
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!form.contains(event.target)) {
+                closeSuggestions();
+            }
+        });
+    });
+
     function getGridItem(card) {
         return card.parentElement === jobGrid
             ? card
@@ -132,6 +238,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (show) visible++;
     });
+
+    if (
+        visible === 0 &&
+        search !== '' &&
+        searchSuggestions.some((suggestion) => normalize(suggestion.label).includes(search))
+    ) {
+        cards.forEach((card) => {
+            const text = normalize(card.dataset.search);
+            const matchesLocation = loc === '' || text.includes(loc);
+            const matchesCategory =
+                selectedCategory === 'all' ||
+                card.dataset.category === selectedCategory;
+            const show = matchesLocation && matchesCategory;
+            const gridItem = getGridItem(card);
+
+            card.classList.toggle('hidden', !show);
+
+            if (gridItem && gridItem !== card) {
+                gridItem.classList.toggle('hidden', !show);
+            }
+
+            if (show) visible++;
+        });
+    }
 
     empty.classList.toggle('hidden', visible !== 0);
 

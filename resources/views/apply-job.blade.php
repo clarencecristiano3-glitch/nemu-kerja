@@ -72,8 +72,8 @@
                 <div class="space-y-4">
                     <label class="block text-[10px] font-medium" for="full_name">Nama Lengkap</label>
                     <input id="full_name" name="full_name" type="text" value="{{ old('full_name', auth()->user()->name) }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
-                    <label class="block text-[10px] font-medium" for="age">Umur</label>
-                    <input id="age" name="age" type="number" min="15" max="70" value="{{ old('age', auth()->user()->age) }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
+                    <label class="block text-[10px] font-medium" for="birth_date">Tanggal Lahir</label>
+                    <input id="birth_date" name="birth_date" type="date" max="{{ now()->subYears(15)->toDateString() }}" min="{{ now()->subYears(70)->toDateString() }}" value="{{ old('birth_date', auth()->user()->birth_date?->toDateString()) }}" class="-mt-3 h-10 w-full rounded-full border border-gray-200 px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                     <label class="block text-[10px] font-medium" for="education">Lulusan Terakhir</label>
                     <select id="education" name="education" class="-mt-3 h-10 w-full rounded-full border border-gray-200 bg-white px-4 text-sm shadow-[0_2px_7px_rgba(0,0,0,0.14)] outline-none focus:border-[#151442]" required>
                         <option value="">Pilih pendidikan terakhir</option>

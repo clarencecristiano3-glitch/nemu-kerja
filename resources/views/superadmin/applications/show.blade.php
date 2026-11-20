@@ -22,7 +22,7 @@
             <h2 class="text-lg font-extrabold">Data Pelamar</h2>
             <dl class="mt-5 grid gap-4 sm:grid-cols-2">
                 <div><dt class="text-xs text-gray-500">Nama lengkap</dt><dd class="mt-1 text-sm font-semibold">{{ $application->full_name }}</dd></div>
-                <div><dt class="text-xs text-gray-500">Umur</dt><dd class="mt-1 text-sm font-semibold">{{ $application->age }} tahun</dd></div>
+                <div><dt class="text-xs text-gray-500">Tanggal lahir</dt><dd class="mt-1 text-sm font-semibold">{{ $application->birth_date?->format('d/m/Y') ?? '-' }}</dd></div>
                 <div><dt class="text-xs text-gray-500">Pendidikan terakhir</dt><dd class="mt-1 text-sm font-semibold">{{ $application->education }}</dd></div>
                 <div><dt class="text-xs text-gray-500">Email</dt><dd class="mt-1 break-all text-sm font-semibold">{{ $application->email }}</dd></div>
                 <div><dt class="text-xs text-gray-500">Username akun</dt><dd class="mt-1 text-sm font-semibold">{{ $application->user?->username ?? 'Akun sudah tidak tersedia' }}</dd></div>

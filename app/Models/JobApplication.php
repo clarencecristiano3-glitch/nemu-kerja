@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'job_title',
     'company_name',
     'full_name',
-    'age',
+    'birth_date',
     'education',
     'email',
     'status',
@@ -37,6 +37,7 @@ class JobApplication extends Model
     {
         return [
             'reviewed_at' => 'datetime',
+            'birth_date' => 'date',
         ];
     }
 

@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-extrabold">{{ $application->full_name }}</h1>
             <p class="mt-2 text-sm text-gray-500">{{ $application->vacancy?->company?->name }} · {{ $application->vacancy?->title }}</p>
             <dl class="mt-6 grid gap-4 sm:grid-cols-2">
-                <div><dt class="text-xs text-gray-500">Umur</dt><dd class="text-sm">{{ $application->age }}</dd></div>
+                <div><dt class="text-xs text-gray-500">Tanggal lahir</dt><dd class="text-sm">{{ $application->birth_date?->format('d/m/Y') ?? '-' }}</dd></div>
                 <div><dt class="text-xs text-gray-500">Pendidikan</dt><dd class="text-sm">{{ $application->education }}</dd></div>
                 <div><dt class="text-xs text-gray-500">Email</dt><dd class="text-sm">{{ $application->email }}</dd></div>
             </dl>

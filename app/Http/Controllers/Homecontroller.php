@@ -30,9 +30,12 @@ class HomeController extends Controller
             ],
         ];
 
+        $jobs = JobListings::all();
+
         return view('home', [
             'categories' => $categories,
-            'jobs' => JobListings::featured(),
+            'jobs' => array_slice($jobs, 0, 8),
+            'searchSuggestions' => $jobs,
         ]);
     }
 

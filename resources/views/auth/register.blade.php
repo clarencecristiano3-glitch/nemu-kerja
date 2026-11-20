@@ -79,16 +79,15 @@
                     </div>
 
                     <div>
-                        <label for="age" class="mb-1.5 ml-1 block text-xs font-semibold text-gray-600">
-                            Umur Pengguna
+                        <label for="birth_date" class="mb-1.5 ml-1 block text-xs font-semibold text-gray-600">
+                            Tanggal Lahir
                         </label>
-                        <select name="age" id="age" required
+                        <input type="date" name="birth_date" id="birth_date"
+                            value="{{ old('birth_date') }}"
+                            max="{{ now()->subYears(13)->toDateString() }}"
+                            min="{{ now()->subYears(100)->toDateString() }}"
+                            required
                             class="w-full rounded-full border border-gray-200 bg-white px-5 py-3 text-sm text-gray-800 shadow-sm transition focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20">
-                            <option value="" disabled {{ old('age') ? '' : 'selected' }}>Pilih umur</option>
-                            @for ($age = 13; $age <= 100; $age++)
-                                <option value="{{ $age }}" {{ old('age') == $age ? 'selected' : '' }}>{{ $age }} tahun</option>
-                            @endfor
-                        </select>
                     </div>
 
                     <!-- Tautan Masuk -->

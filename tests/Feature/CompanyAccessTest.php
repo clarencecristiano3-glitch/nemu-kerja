@@ -65,7 +65,7 @@ function companyAccessApplication(Vacancy $vacancy): JobApplication
         'job_title' => $vacancy->title,
         'company_name' => $vacancy->company->name,
         'full_name' => 'Pelamar',
-        'age' => 25,
+        'birth_date' => now()->subYears(25)->toDateString(),
         'education' => 'SMA/SMK',
         'email' => 'applicant@example.test',
     ]);

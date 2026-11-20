@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LowonganController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Superadmin\CareerTipController as SuperadminCareerTipController;
 use App\Http\Controllers\Superadmin\CompanyController as SuperadminCompanyController;
@@ -83,6 +84,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/companies', [CompanyProfileController::class, 'index'])->name('company.profile.index');
     Route::get('/profile/companies/create', [CompanyProfileController::class, 'create'])->name('company.profile.create');
     Route::post('/profile/companies', [CompanyProfileController::class, 'store'])->name('company.profile.store');
