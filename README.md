@@ -1,75 +1,54 @@
 # Nemu Kerja
 
-Nemu Kerja adalah aplikasi portal lowongan kerja berbasis Laravel. Aplikasi ini menyediakan beranda lowongan, pencarian dan filter pekerjaan, detail pekerjaan, halaman lamaran, daftar perusahaan, registrasi, dan login pengguna.
+Nemu Kerja adalah website pencarian lowongan kerja yang menghubungkan pencari kerja dengan perusahaan. Pengunjung dapat melihat lowongan dan perusahaan yang telah diverifikasi. Pengguna yang memiliki akun dapat mengirim lamaran, sementara pemilik perusahaan dapat mengajukan perusahaan untuk diverifikasi dan mengelola lowongannya setelah disetujui.
 
-## Status Project
+Website memiliki tiga jenis akun:
 
-Project ini masih berada pada tahap prototype. Beberapa data pekerjaan dan perusahaan masih ditulis langsung di controller, bukan diambil dari database.
+- **Pencari kerja (`user`)**: mencari lowongan dan mengirim lamaran.
+- **Admin perusahaan (`company_admin`)**: mengelola lowongan serta lamaran untuk perusahaan miliknya yang telah diverifikasi.
+- **Superadmin (`superadmin`)**: mengelola verifikasi perusahaan dan konten seluruh website.
 
-Fitur yang sudah tersedia:
+## Fitur Website
 
-- Beranda dengan daftar kategori dan lowongan kerja.
+### Untuk pengunjung
+
+- Beranda dan daftar lowongan.
 - Pencarian lowongan berdasarkan kata kunci dan lokasi.
-- Filter lowongan berdasarkan kategori.
-- Halaman detail lowongan.
-- Halaman form lamaran kerja.
-- Daftar perusahaan.
-- Registrasi pengguna.
-- Login menggunakan username dan password.
-- Session authentication Laravel.
+- Detail lowongan, termasuk posisi, pendidikan, lokasi, jumlah pelamar, kuota, dan masa berlaku.
+- Daftar perusahaan dan halaman profil perusahaan yang sudah terverifikasi.
+- Halaman tips karier yang dipublikasikan.
 
-Fitur yang belum tersedia atau belum selesai:
+Lowongan hanya ditampilkan kepada publik jika statusnya **published**, perusahaan terkait sudah disetujui, dan tanggal berlakunya belum lewat.
 
-- Dashboard dan panel admin.
-- Role atau permission admin.
-- CRUD lowongan, perusahaan, kategori, dan pengguna.
-- Penyimpanan data lamaran dan upload CV.
-- Logout pada route web.
-- Data lowongan dan perusahaan dari database.
-- Link Tips Karir dan beberapa tombol perusahaan yang masih berupa `#`.
+### Untuk pencari kerja
 
-## Teknologi
+- Membuat akun dan masuk menggunakan username.
+- Mengirim lamaran ke lowongan yang tersedia.
+- Mengunggah CV/surat lamaran dan hingga tiga dokumen pendukung.
+
+### Untuk perusahaan
+
+- Mengajukan data perusahaan beserta dokumen legalitas.
+- Memantau status pengajuan dan alasan penolakan.
+- Mengirim ulang dokumen legalitas apabila pengajuan ditolak.
+- Setelah disetujui, menggunakan panel admin perusahaan untuk mengelola lowongan dan memeriksa lamaran.
+
+## Persyaratan
 
 - PHP 8.3 atau lebih baru
-- Laravel 13
-- SQLite sebagai database default
-- Tailwind CSS 4
-- Vite
-- Pest untuk testing
-
-## Persyaratan Instalasi
-
-Pastikan aplikasi berikut sudah terpasang:
-
-- PHP >= 8.3
 - Composer
 - Node.js dan npm
-- Git, jika project diambil dari repository
+- Database yang dikonfigurasi untuk Laravel (SQLite digunakan pada konfigurasi lokal bawaan)
 
-## Instalasi
+## Instalasi dan Menjalankan Secara Lokal
 
-Masuk ke folder project:
-
-```bash
-cd d:/laragon/www/nemu-kerja
-```
-
-Jalankan setup otomatis:
+Jalankan perintah berikut dari folder repository:
 
 ```bash
 composer run setup
 ```
 
-Perintah tersebut akan:
-
-1. Menginstal dependency PHP.
-2. Membuat file `.env` dari `.env.example` jika belum ada.
-3. Membuat application key.
-4. Menjalankan migration database.
-5. Menginstal dependency JavaScript.
-6. Membuild asset frontend.
-
-Jika setup dijalankan secara manual:
+Perintah setup menginstal dependency PHP dan JavaScript, membuat `.env` jika belum ada, membuat application key, menjalankan migration, dan membangun asset frontend. Jika ingin menyiapkan project secara manual:
 
 ```bash
 composer install
@@ -80,134 +59,141 @@ npm install
 npm run build
 ```
 
-Pada Linux atau macOS, gunakan perintah berikut untuk menyalin environment file:
+Di Linux/macOS, gunakan `cp .env.example .env` sebagai pengganti perintah `copy`.
 
-```bash
-cp .env.example .env
-```
-
-## Menjalankan Aplikasi
-
-Untuk menjalankan server Laravel, queue listener, dan Vite sekaligus:
+Jalankan aplikasi:
 
 ```bash
 composer run dev
 ```
 
-Buka aplikasi melalui:
+Buka `http://localhost:8000`. Perintah tersebut menjalankan server Laravel, queue listener, dan Vite. Untuk menjalankan server saja, gunakan `php artisan serve`; asset frontend tetap perlu dijalankan melalui `npm run dev` atau dibuat dengan `npm run build`.
+
+## Membuat Akun Pencari Kerja
+
+1. Buka `/register`.
+2. Isi username yang unik. Username minimal 3 karakter dan hanya boleh berisi huruf, angka, tanda hubung, atau garis bawah.
+3. Buat password minimal 8 karakter, lalu isi konfirmasi password dengan nilai yang sama.
+4. Masukkan tanggal lahir. Usia yang diterima saat pendaftaran adalah 13 sampai 100 tahun.
+5. Klik **Daftar**. Akun akan dibuat dan Anda langsung masuk ke website.
+
+Untuk login berikutnya, buka `/login`, masukkan username dan password, lalu klik **Masuk**. Pendaftaran tidak meminta alamat email; sistem membuat alamat internal untuk akun. Saat melamar, pencari kerja tetap diminta mengisi email kontak yang dapat digunakan perusahaan.
+
+## Cara Melamar Pekerjaan
+
+1. Cari lowongan melalui beranda atau halaman `/jobs`, lalu buka detail lowongan.
+2. Masuk atau buat akun jika belum login.
+3. Buka formulir lamaran untuk lowongan tersebut.
+4. Isi nama lengkap, tanggal lahir, pendidikan terakhir (SMA/SMK, D1/D3, atau S1), serta email kontak.
+5. Unggah CV/surat lamaran berformat PDF, DOC, atau DOCX, maksimal 10 MB.
+6. Jika perlu, unggah maksimal tiga dokumen pendukung dengan format dan batas ukuran yang sama.
+7. Klik **Kirim Lamaran**. Jika berhasil, website menampilkan notifikasi bahwa lamaran telah dikirim.
+
+Status lamaran dimulai sebagai **pending**. Admin perusahaan dapat memperbaruinya menjadi **reviewed** (sudah ditinjau) atau **rejected** (ditolak), dan dapat menambahkan catatan peninjauan.
+
+## Mengajukan Perusahaan
+
+Pengajuan perusahaan dapat dilakukan oleh pengguna yang sudah memiliki akun:
+
+1. Login, lalu buka `/profile/companies`.
+2. Pilih opsi untuk menambahkan/mengajukan perusahaan.
+3. Isi nama perusahaan, slug unik, wilayah, nama pemilik, jumlah outlet, dan nama badan usaha jika ada.
+4. Unggah dokumen legalitas berformat PDF/JPG/PNG maksimal 10 MB. Logo bersifat opsional, berformat JPG/PNG/WEBP, maksimal 2 MB.
+5. Kirim pengajuan. Status awal perusahaan adalah **pending**.
+6. Pantau status dari `/profile/companies`. Jika ditolak, buka detail perusahaan untuk melihat alasan penolakan, kemudian unggah dokumen pengganti untuk mengajukan ulang.
+
+Perusahaan yang menunggu verifikasi atau ditolak belum dapat menampilkan lowongan ke publik. Pengguna menjadi admin perusahaan setelah superadmin menyetujui pengajuan perusahaan.
+
+## Panel Admin Perusahaan
+
+Panel admin perusahaan hanya dapat diakses akun dengan role `company_admin`. Setelah login, akun tersebut diarahkan ke `/admin`.
+
+Fitur yang tersedia:
+
+- **Dashboard**: ringkasan lowongan dan lamaran dari perusahaan terverifikasi milik akun.
+- **Lowongan** (`/admin/vacancies`): membuat, melihat daftar, mengubah, dan mengarsipkan lowongan. Lowongan dapat disimpan sebagai draft atau dipublikasikan.
+- **Lamaran** (`/admin/applications`): melihat lamaran yang masuk ke lowongan perusahaan sendiri, melihat detail dan dokumen pelamar, serta memperbarui status menjadi ditinjau atau ditolak dengan catatan opsional.
+
+Admin perusahaan hanya dapat mengelola data perusahaan miliknya. Admin perusahaan **tidak** menyetujui pengajuan perusahaan; keputusan verifikasi hanya tersedia untuk superadmin.
+
+## Panel Superadmin
+
+Superadmin memiliki akses ke seluruh data operasional dan diarahkan ke `/superadmin` setelah login.
+
+Fitur panel:
+
+- **Dashboard**: ringkasan jumlah lowongan, perusahaan, pengajuan yang menunggu, tips karier, lamaran, dan pengguna; juga menampilkan lowongan terbaru.
+- **Verifikasi perusahaan** (`/superadmin/verifications`): memfilter pengajuan berdasarkan status, memeriksa detail dan dokumen legalitas, lalu menyetujui atau menolak pengajuan. Alasan penolakan wajib diisi. Saat perusahaan disetujui, pemiliknya otomatis mendapat role admin perusahaan; saat pengajuan ditolak, role diperbarui berdasarkan apakah pemilik masih memiliki perusahaan lain yang terverifikasi.
+- **Perusahaan** (`/superadmin/companies`): melihat seluruh perusahaan dan statusnya.
+- **Pengguna** (`/superadmin/users`): melihat daftar pengguna, role, dan jumlah perusahaan yang dimiliki. Halaman yang tersedia saat ini adalah daftar baca-saja.
+- **Lowongan** (`/superadmin/vacancies`): membuat, mengubah, dan mengarsipkan lowongan untuk perusahaan. Lowongan hanya dapat tampil kepada publik jika perusahaan terverifikasi.
+- **Lamaran** (`/superadmin/applications`): melihat dan meninjau lamaran dari seluruh perusahaan, termasuk dokumen pelamar.
+- **Tips karier** (`/superadmin/career-tips`): membuat, mengubah, mengarsipkan, dan mengatur status publikasi tips karier.
+
+Role dibatasi oleh middleware: akun biasa tidak dapat membuka panel admin, admin perusahaan tidak dapat membuka panel superadmin, dan masing-masing admin perusahaan hanya melihat lamaran serta lowongan milik perusahaannya.
+
+## Menyiapkan Akun Superadmin
+
+Tidak ada password superadmin bawaan yang aman untuk dipakai bersama. Untuk membuat atau memperbarui akun superadmin lokal:
+
+1. Tambahkan password rahasia pilihan Anda ke file `.env`:
+
+   ```env
+   SUPERADMIN_PASSWORD=password-yang-kuat-dan-rahasia
+   ```
+
+2. Jalankan seeder superadmin:
+
+   ```bash
+   php artisan db:seed --class=AdminSeeder
+   ```
+
+3. Masuk melalui `/login` dengan username `superadmin` dan password yang Anda atur sendiri.
+
+Simpan `SUPERADMIN_PASSWORD` hanya di environment lokal/hosting yang aman. Jangan commit `.env` atau membagikan password ke repository. Seeder ini membuat akun superadmin; akun perusahaan sebaiknya memperoleh role admin melalui alur persetujuan perusahaan.
+
+## Halaman Utama
+
+| URL | Keterangan |
+| --- | --- |
+| `/` | Beranda |
+| `/jobs` | Daftar dan pencarian lowongan |
+| `/job/{id}` | Detail lowongan |
+| `/job/{id}/apply` | Form lamaran (wajib login) |
+| `/companies` | Daftar perusahaan terverifikasi |
+| `/companies/{slug}` | Detail perusahaan |
+| `/tips` | Tips karier yang dipublikasikan |
+| `/register` | Pendaftaran akun |
+| `/login` | Login |
+| `/profile` | Profil pengguna |
+| `/profile/companies` | Daftar dan status perusahaan milik pengguna |
+| `/admin` | Dashboard admin perusahaan |
+| `/superadmin` | Dashboard superadmin |
+
+## Teknologi dan Struktur Project
+
+- Laravel 13 dan PHP 8.3+
+- Blade, Tailwind CSS, dan Vite
+- SQLite pada konfigurasi lokal bawaan; database dapat disesuaikan melalui `.env`
+- Pest untuk pengujian
+
+Folder penting:
 
 ```text
-http://localhost:8000
+app/Http/Controllers/       Controller halaman, autentikasi, dan panel admin
+app/Http/Requests/          Validasi input
+app/Models/                 Model pengguna, perusahaan, lowongan, dan lamaran
+app/Policies/               Aturan akses data
+database/migrations/        Struktur database
+database/seeders/           Seeder data dan superadmin
+resources/views/            Template Blade
+resources/css/              Style frontend
+resources/js/               JavaScript frontend
+routes/web.php              Daftar route aplikasi
+tests/                      Test aplikasi
 ```
 
-Alternatifnya, jalankan setiap proses secara terpisah:
-
-```bash
-php artisan serve
-npm run dev
-```
-
-## URL Halaman
-
-| Method | URL | Keterangan |
-| --- | --- | --- |
-| GET | `/` | Beranda |
-| GET | `/home` | Beranda alternatif |
-| GET | `/login` | Halaman login |
-| POST | `/login` | Proses login |
-| GET | `/register` | Halaman registrasi |
-| POST | `/register` | Proses registrasi |
-| GET | `/companies` | Daftar perusahaan |
-| GET | `/job/detail` | Detail lowongan Hotway |
-| GET | `/job/apply` | Form lamaran |
-
-Nama route yang digunakan di Blade antara lain `home`, `login`, `register`, `companies.index`, `job.detail`, dan `job.apply`.
-
-## Tutorial Registrasi dan Login User
-
-### Membuat akun baru
-
-1. Jalankan aplikasi dengan `composer run dev`.
-2. Buka `http://localhost:8000/register`.
-3. Isi username dengan minimal 3 karakter.
-4. Isi password minimal 8 karakter.
-5. Isi konfirmasi password dengan nilai yang sama.
-6. Pilih umur antara 13 sampai 100 tahun.
-7. Klik **Daftar**.
-
-Setelah berhasil, pengguna otomatis login dan diarahkan ke halaman beranda.
-
-### Login
-
-1. Buka `http://localhost:8000/login`.
-2. Masukkan username yang digunakan saat registrasi.
-3. Masukkan password.
-4. Klik **Masuk**.
-
-Login menggunakan **username**, bukan email. Jika username atau password salah, halaman login akan menampilkan pesan error.
-
-### Catatan akun database
-
-Seeder bawaan project masih menggunakan data `Test User` dan `test@example.com`, tetapi login aplikasi membutuhkan username. Karena itu, akun tersebut tidak boleh dianggap sebagai akun login yang siap digunakan. Cara paling aman untuk mencoba login adalah membuat akun melalui halaman `/register`.
-
-## Login Admin
-
-Saat ini project **belum memiliki fitur admin**. Tidak tersedia:
-
-- URL login admin khusus.
-- Akun admin.
-- Kolom atau role admin pada tabel users.
-- Middleware `admin`.
-- Controller admin.
-- Dashboard admin.
-- Halaman pengelolaan lowongan, perusahaan, atau pengguna.
-
-Dengan kondisi kode saat ini, tidak ada username dan password admin yang dapat digunakan. Login melalui `/login` hanya melakukan autentikasi user biasa dan setelah berhasil mengarahkan pengguna ke beranda.
-
-### Yang diperlukan untuk menambahkan admin
-
-Implementasi admin membutuhkan setidaknya:
-
-1. Menambahkan kolom `role` atau `is_admin` pada tabel `users`.
-2. Membuat migration dan memperbarui model `User`.
-3. Membuat middleware untuk membatasi akses admin.
-4. Membuat route admin, misalnya `/admin`.
-5. Membuat controller dan view dashboard admin.
-6. Menambahkan akun admin melalui seeder atau perintah khusus.
-7. Menambahkan test untuk login dan authorization admin.
-
-Jangan menggunakan kredensial admin palsu dari README ini sebelum fitur tersebut benar-benar dibuat di aplikasi.
-
-## Struktur Folder Penting
-
-```text
-app/Http/Controllers/       Controller halaman, login, dan registrasi
-app/Models/                  Model User, Job, dan Category
-database/migrations/         Struktur tabel database
-database/seeders/            Data awal database
-resources/views/             Template Blade aplikasi
-resources/css/               Style frontend
-resources/js/                JavaScript frontend
-routes/web.php               Route aplikasi web
-public/images/               Asset gambar aplikasi
-tests/                       Test Feature dan Unit
-```
-
-Controller utama:
-
-- `HomeController`: data kategori dan lowongan pada beranda.
-- `DetailJobController`: detail lowongan dan form lamaran.
-- `CompanyController`: daftar perusahaan.
-- `LoginController`: proses login dan fungsi logout controller.
-- `RegisterController`: validasi dan pembuatan akun baru.
-
-## Database
-
-Database default menggunakan SQLite. Konfigurasi berada di `.env`:
-
-```env
-DB_CONNECTION=sqlite
-```
+## Database dan Pengujian
 
 Menjalankan migration:
 
@@ -215,63 +201,17 @@ Menjalankan migration:
 php artisan migrate
 ```
 
-Mengulang database dari awal, termasuk menghapus data lama:
-
-```bash
-php artisan migrate:fresh --seed
-```
-
-Perintah `migrate:fresh --seed` hanya gunakan pada development karena seluruh data database akan dihapus.
-
-## Testing
-
-Jalankan seluruh test dengan:
+Menjalankan test:
 
 ```bash
 composer run test
 ```
 
-Atau:
-
-```bash
-php artisan test --compact
-```
-
-Saat ini test yang tersedia masih berupa test contoh Laravel. Test untuk login, registrasi, lamaran, dan hak akses admin belum dibuat.
+`php artisan migrate:fresh --seed` akan menghapus seluruh data database sebelum membuat ulang tabel. Gunakan hanya pada lingkungan pengembangan yang datanya boleh dihapus. Jika menjalankan `DatabaseSeeder`, pastikan `SUPERADMIN_PASSWORD` sudah diatur karena seeder tersebut juga membuat akun superadmin.
 
 ## Troubleshooting
 
-### Route tidak ditemukan
-
-Bersihkan cache Laravel lalu periksa daftar route:
-
-```bash
-php artisan optimize:clear
-php artisan route:list
-```
-
-### Asset frontend tidak tampil
-
-Jalankan kembali Vite atau build asset:
-
-```bash
-npm run dev
-```
-
-atau:
-
-```bash
-npm run build
-```
-
-### Database error
-
-Pastikan file SQLite tersedia dan migration sudah dijalankan:
-
-```bash
-php artisan migrate
-```
-
-## Lisensi
-
-Project ini menggunakan Laravel dan mengikuti lisensi MIT Laravel. Lisensi aplikasi dapat disesuaikan dengan kebutuhan pemilik project.
+- **Route belum terbaca**: jalankan `php artisan optimize:clear`, lalu periksa dengan `php artisan route:list`.
+- **Asset tidak tampil**: jalankan `npm run dev` selama pengembangan atau `npm run build` untuk membangun asset.
+- **Database bermasalah**: periksa konfigurasi database di `.env`, lalu jalankan `php artisan migrate`.
+- **Gagal membuat akun superadmin saat seeding**: pastikan `SUPERADMIN_PASSWORD` sudah diatur di `.env`.
