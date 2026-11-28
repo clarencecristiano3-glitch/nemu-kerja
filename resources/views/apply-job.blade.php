@@ -51,9 +51,7 @@
         </section>
 
         @if (session('success'))
-            <p class="mt-5 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
-                {{ session('success') }}
-            </p>
+            <x-toast :message="session('success')" />
         @endif
 
         @if ($errors->any())
@@ -66,7 +64,7 @@
             </div>
         @endif
 
-        <form class="mt-5" action="{{ route('job.application.store', ['jobId' => $job['id']]) }}" method="POST" enctype="multipart/form-data">
+        <form id="job_application_form" class="mt-5" action="{{ route('job.application.store', ['jobId' => $job['id']]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <section class="grid gap-8 lg:grid-cols-2 lg:gap-16">
                 <div class="space-y-4">
@@ -98,7 +96,7 @@
                     <p class="mt-1 text-[10px] text-gray-500">PDF, DOC, atau DOCX; maksimal 10 MB per file.</p>
                 </div>
             </section>
-            <button type="submit" class="mt-9 w-full rounded-full bg-[#ed9d00] py-3 text-sm font-bold text-white shadow-sm hover:bg-[#d88d00]">Kirim Lamaran</button>
+            <button id="submit_application" type="submit" class="mt-9 w-full rounded-full bg-[#ed9d00] py-3 text-sm font-bold text-white shadow-sm hover:bg-[#d88d00] disabled:cursor-not-allowed disabled:opacity-70">Kirim Lamaran</button>
         </form>
     </main>
 
@@ -108,6 +106,12 @@
         document.getElementById('application_file').addEventListener('change', function () {
             const fileName = document.getElementById('file_name');
             fileName.textContent = this.files.length ? this.files[0].name : 'Masukkan file!';
+        });
+
+        document.getElementById('job_application_form').addEventListener('submit', function () {
+            const submitButton = document.getElementById('submit_application');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Mengirim Lamaran...';
         });
     </script>
 </body>

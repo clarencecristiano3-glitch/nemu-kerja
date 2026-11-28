@@ -41,6 +41,6 @@ class JobApplicationController extends Controller
 
         return redirect()
             ->route('job.apply', ['jobId' => $jobId])
-            ->with('success', 'Lamaran berhasil dikirim.');
+            ->with('success', "Lamaran Anda untuk {$job['title']} berhasil dikirim.");
     }
 }
